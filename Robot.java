@@ -20,6 +20,7 @@ package ricochetRobot;
 public class Robot {
 	private int idRobot;
 	private boolean selection;
+	private int[] position = new int[2];
 
 	public Robot() {
 		// TODO

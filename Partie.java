@@ -26,5 +26,6 @@ public class Partie {
 	private Plateau plateau;
 	private Chrono chrono;
 	private int nbCoups;
+	private int nbVictoire = 0;
 
 }

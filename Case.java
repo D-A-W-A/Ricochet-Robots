@@ -27,4 +27,5 @@ public class Case {
 		this.idCase = nbCases;
 	}
 
+	
 }
