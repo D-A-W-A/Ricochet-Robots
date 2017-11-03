@@ -19,11 +19,31 @@ package ricochetRobot;
  */
 public class Robot {
 	private int idRobot;
-	private boolean selection;
+	private boolean selectione;
 	private int[] position = new int[2];
 
 	public Robot() {
 		// TODO
+	}
+
+	public boolean isSelectione() {
+		return selectione;
+	}
+
+	public void setSelectione(boolean selectione) {
+		this.selectione = selectione;
+	}
+
+	public int[] getPosition() {
+		return position;
+	}
+
+	public void setPosition(int[] position) {
+		this.position = position;
+	}
+
+	public int getIdRobot() {
+		return idRobot;
 	}
 
 }

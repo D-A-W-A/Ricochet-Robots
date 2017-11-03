@@ -17,7 +17,7 @@ package ricochetRobot;
 public class Case {
 	private static int nbCases = 0;
 	private int idCase;
-	
+
 	// 0 => Gauche --- 1 => Haut --- 2 => Droite --- 3 => Bas
 	private Case[] caseNext = new Case[4];
 	private boolean occupe;
@@ -27,5 +27,28 @@ public class Case {
 		this.idCase = nbCases;
 	}
 
-	
+	public Case[] getCaseNext() {
+		return caseNext;
+	}
+
+	public void setCaseNext(Case[] caseNext) {
+		this.caseNext = caseNext;
+	}
+
+	public boolean isOccupe() {
+		return occupe;
+	}
+
+	public void setOccupe(boolean occupe) {
+		this.occupe = occupe;
+	}
+
+	public static int getNbCases() {
+		return nbCases;
+	}
+
+	public int getIdCase() {
+		return idCase;
+	}
+
 }

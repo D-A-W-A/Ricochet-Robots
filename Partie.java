@@ -28,4 +28,40 @@ public class Partie {
 	private int nbCoups;
 	private int nbVictoire = 0;
 
+	public Plateau getPlateau() {
+		return plateau;
+	}
+
+	public void setPlateau(Plateau plateau) {
+		this.plateau = plateau;
+	}
+
+	public Chrono getChrono() {
+		return chrono;
+	}
+
+	public void setChrono(Chrono chrono) {
+		this.chrono = chrono;
+	}
+
+	public int getNbCoups() {
+		return nbCoups;
+	}
+
+	public void setNbCoups(int nbCoups) {
+		this.nbCoups = nbCoups;
+	}
+
+	public int getNbVictoire() {
+		return nbVictoire;
+	}
+
+	public void setNbVictoire(int nbVictoire) {
+		this.nbVictoire = nbVictoire;
+	}
+
+	public int getIdPartie() {
+		return idPartie;
+	}
+
 }
