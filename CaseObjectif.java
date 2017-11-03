@@ -1,5 +1,10 @@
 package ricochetRobot;
 
+/**
+ * Case que le RobotRequis doit atteindre
+ * @author Dorian
+ *
+ */
 public class CaseObjectif extends Case {
 	private int robotRequis;
 
