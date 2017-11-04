@@ -1,5 +1,7 @@
 package ricochetRobot;
 
+import java.awt.event.KeyEvent;
+
 /**
  * Une Partie de Ricochet-Robots.<br>
  * Le jeu se déroule sur un plateau d’un nombre n*n de cases et de murs. Sur les
@@ -21,12 +23,17 @@ package ricochetRobot;
  * @author Dorian
  *
  */
-public class Partie {
+public class Partie extends FlecheClavierListener {
 	private int idPartie;
 	private Plateau plateau;
 	private Chrono chrono;
 	private int nbCoups;
 	private int nbVictoire = 0;
+
+	public Partie() {
+		super();
+		idPartie = 1;
+	}
 
 	public Plateau getPlateau() {
 		return plateau;
@@ -62,6 +69,21 @@ public class Partie {
 
 	public int getIdPartie() {
 		return idPartie;
+	}
+
+	// MODIFICATION DU LISTENER DES FLECHES
+	@Override
+	public void keyPressed(KeyEvent e) {
+		int code = e.getKeyCode();
+		if (code == KeyEvent.VK_DOWN || code == KeyEvent.VK_UP || code == KeyEvent.VK_LEFT
+				|| code == KeyEvent.VK_RIGHT) {
+			setNbCoups(getNbCoups()+1);
+			System.out.println("Nombre de coups : "+ getNbCoups());
+		}
+	}
+
+	public static void main(String[] args) {
+		Partie p = new Partie();
 	}
 
 }
