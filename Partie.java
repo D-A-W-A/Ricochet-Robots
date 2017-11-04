@@ -72,7 +72,7 @@ public class Partie extends FlecheClavierListener {
 	}
 
 	// MODIFICATION DU LISTENER DES FLECHES
-	//TODO : Redéfinir la classe pour déplacer le robot dans la direction indiquée par le joueur
+	// TODO : Redéfinir la classe pour déplacer le robot dans la direction indiquée par le joueur
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int code = e.getKeyCode();

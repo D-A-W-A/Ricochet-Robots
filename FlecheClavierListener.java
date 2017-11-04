@@ -57,6 +57,4 @@ public class FlecheClavierListener extends JFrame implements KeyListener {
 
 	}
 
-
-
 }
