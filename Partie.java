@@ -22,6 +22,9 @@ import java.awt.event.KeyEvent;
  * 
  * @author Dorian
  *
+ *
+ *
+ *
  */
 public class Partie extends FlecheClavierListener {
 	private int idPartie;
