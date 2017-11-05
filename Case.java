@@ -15,16 +15,18 @@ package ricochetRobot;
  *
  */
 public class Case {
-	private static int nbCases = 0;
-	private int idCase;
 
 	// 0 => Gauche --- 1 => Haut --- 2 => Droite --- 3 => Bas
 	private Case[] caseNext = new Case[4];
 	private boolean occupe;
 
+	/**
+	 * Constructeur d'une Case Vide
+	 */
 	public Case() {
-		nbCases++;
-		this.idCase = nbCases;
+		for (int i = 0; i<4; i++)
+			this.caseNext[i] = null;
+		occupe = false;
 	}
 
 	public Case[] getCaseNext() {
@@ -43,12 +45,5 @@ public class Case {
 		this.occupe = occupe;
 	}
 
-	public static int getNbCases() {
-		return nbCases;
-	}
-
-	public int getIdCase() {
-		return idCase;
-	}
 
 }
