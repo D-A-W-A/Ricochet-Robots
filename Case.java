@@ -243,7 +243,7 @@ public class Case {
 	}
 
 	/**
-	 * Genere une Case entourée de Cases Vides
+	 * Genere une Case entourée de Cases Vides (donc une case non vide)
 	 * 
 	 * @return
 	 */

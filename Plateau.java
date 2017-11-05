@@ -132,8 +132,8 @@ public class Plateau {
 		Plateau p = new Plateau(n);
 
 		// Cree le tableau de case
-		Case[][] tCases = new Case [n][n];
-		
+		Case[][] tCases = new Case[n][n];
+
 		// Determine quelles cases ont un mur
 		boolean[][] murHaut = determinerMurRandom(n);
 		for (int i = 0; i < n; i++)
@@ -151,41 +151,84 @@ public class Plateau {
 		for (int i = 0; i < n; i++)
 			murDroite[i][n - 1] = true;
 
+		// Creation d'une case next temporaire pour toutes les autres cases
+		Case caseNonVide = Case.creerCase();
+
 		// Place les murs
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
 				Case c = new Case();
+
+				// Met soit un mur en HAUT de la case courante, soit une case non vide
 				if (murHaut[i][j])
 					c.setCaseNextHaut(new Case());
+				else
+					c.setCaseNextHaut(caseNonVide);
+
+				// Met soit un mur a GAUCHE de la case courante, soit une case non vide
 				if (murGauche[i][j])
 					c.setCaseNextGauche(new Case());
+				else
+					c.setCaseNextGauche(caseNonVide);
+
+				// Met soit un mur a DROITE de la case courante, soit une case non vide
 				if (murDroite[i][j])
 					c.setCaseNextDroite(new Case());
+				else
+					c.setCaseNextDroite(caseNonVide);
+
+				// Met soit un mur en BAS de la case courante, soit une case non vide
 				if (murBas[i][j])
 					c.setCaseNextBas(new Case());
-				
+				else
+					c.setCaseNextBas(caseNonVide);
+
 				tCases[i][j] = c;
 			}
 		}
 
 		// Attribue les CaseNext pour chaque case du plateau
-		
+		configureCaseNext(tCases);
+		p.setTabCases(tCases);
 	}
-	
+
 	/**
-	 * Configure les CaseNext en fontion d'un tableau où les murs sont déjà initialisés : Les caseNext actuels sont soit null, soit une case Vide)
+	 * Configure les CaseNext en fontion d'un tableau où les murs sont déjà
+	 * initialisés : Les caseNext actuels sont soit null, soit une case Vide)
+	 * 
 	 * @param tCases
-	 * @return
 	 */
-	private Case[][] configureCaseNext(Case[][] tCases) {
+	private static void configureCaseNext(Case[][] tCases) {
 		int k;
-		for (int i = 0; i < n; i++) {
-			for (int j=0; j<n; j++) {
+		for (int i = 0; i < tCases.length; i++) {
+			for (int j = 0; j < tCases.length; j++) {
+				// Ajout des CasesNext vers le haut
 				k = 0;
-				while (!tCases[i-k][j].getCaseNextHaut().estVide()) {
+				while (!tCases[i - k][j].getCaseNextHaut().estVide()) {
 					k++;
 				}
-				tCases[i][j].setCaseNextHaut(tCases[i-k][j]);
+				tCases[i][j].setCaseNextHaut(tCases[i - k][j]);
+
+				// Ajout des CasesNext vers le bas
+				k = 0;
+				while (!tCases[i + k][j].getCaseNextBas().estVide()) {
+					k++;
+				}
+				tCases[i][j].setCaseNextBas(tCases[i + k][j]);
+
+				// Ajout des CasesNext vers la gauche
+				k = 0;
+				while (!tCases[i][j - k].getCaseNextGauche().estVide()) {
+					k++;
+				}
+				tCases[i][j].setCaseNextGauche(tCases[i][j - k]);
+
+				// Ajout des CasesNext vers la Droite
+				k = 0;
+				while (!tCases[i][j + k].getCaseNextDroite().estVide()) {
+					k++;
+				}
+				tCases[i][j].setCaseNextDroite(tCases[i][j + k]);
 			}
 		}
 	}
