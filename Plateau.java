@@ -89,18 +89,18 @@ public class Plateau {
 	 * Genere un plateau classique : 16*16 cases, murs prédéfinis
 	 * @return le plateau genere
 	 */
-	public Plateau genererPlateauClassique() {
+	public static Plateau genererPlateauClassique() {
 		return null;
 	}
 	
 	/**
-	 * Genere un plateau de taille n de manière Aléatoire : 10% de chances qu'une case ait au moins un mur
+	 * Genere un plateau de taille n de manière Aléatoire : 12% de chances qu'une case ait au moins un mur
 	 * 
 	 * @param n
 	 * @return
 	 */
-	public Plateau genererPlateauRandom(int n) {
-		// TODO
+	public static Plateau genererPlateauRandom(int n) {
+		Plateau p = new Plateau();
 		return null;
 	}
 
