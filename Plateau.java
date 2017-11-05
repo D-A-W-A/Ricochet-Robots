@@ -318,13 +318,13 @@ public class Plateau {
 			s.append("\n|");
 			for (int j = 0; j < taille; j++) {
 				if (tabCases[i][j].getCaseNextDroite().estVide())
-					s.append(" . |");
+					s.append(" " + tabCases[i][j].toString() + " |");
 				else
-					s.append(" .  ");
-				
+					s.append(" " + tabCases[i][j].toString() + "  ");
+
 			}
 			s.append("\n ");
-			for (int j=0; j<taille; j++) {
+			for (int j = 0; j < taille; j++) {
 				if (tabCases[i][j].getCaseNextBas().estVide())
 					s.append(" _  ");
 				else

@@ -192,7 +192,7 @@ public class Case {
 
 	public String toString() {
 		if (!this.estVide()) {
-			return ("*");
+			return (".");
 		} else {
 			return "";
 		}
