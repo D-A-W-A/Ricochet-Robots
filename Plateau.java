@@ -169,9 +169,23 @@ public class Plateau {
 		}
 
 		// Attribue les CaseNext pour chaque case du plateau
+		
+	}
+	
+	/**
+	 * Configure les CaseNext en fontion d'un tableau où les murs sont déjà initialisés : Les caseNext actuels sont soit null, soit une case Vide)
+	 * @param tCases
+	 * @return
+	 */
+	private Case[][] configureCaseNext(Case[][] tCases) {
+		int k;
 		for (int i = 0; i < n; i++) {
 			for (int j=0; j<n; j++) {
-				
+				k = 0;
+				while (!tCases[i-k][j].getCaseNextHaut().estVide()) {
+					k++;
+				}
+				tCases[i][j].setCaseNextHaut(tCases[i-k][j]);
 			}
 		}
 	}
