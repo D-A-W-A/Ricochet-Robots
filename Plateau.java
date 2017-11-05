@@ -385,6 +385,7 @@ public class Plateau {
 
 	/**
 	 * Ajoute de façon aleatoire un objectif sur le plateau
+	 * Note : L'objectif doit se trouver à coté d'un mur sinon la partie est impossible
 	 */
 	public void ajouterObjectifRandom() {
 		Random r = new Random();
@@ -395,6 +396,30 @@ public class Plateau {
 		tabCases[i][j] = c;
 		redefinirLignes(i, j);
 
+	}
+	
+	/**
+	 * Place le robot n° num de façon random
+	 * @param num
+	 */
+	public void placerRobotRandom(int num) {
+		Random r = new Random();
+		int i = r.nextInt(taille);
+		int j = r.nextInt(taille);
+		int[] t = {i,j};
+		this.tabRobots[num].setPosition(t);
+		this.tabCases[i][j].setOccupe(true);
+	}
+	
+	/**
+	 * Insere les coordonees de chaque Case dans Case.posX et Case.posY
+	 */
+	public void insererCoordonees() {
+		for (int i=0; i <taille; i++) {
+			for (int j=0; j<taille; j++) {
+				this.tabCases[i][j].setPos(i, j);
+			}
+		}
 	}
 
 }

@@ -21,6 +21,8 @@ public class Case {
 	// 0 => Gauche --- 1 => Haut --- 2 => Droite --- 3 => Bas
 	private Case[] caseNext = new Case[4];
 	private boolean occupe;
+	private int posX;
+	private int posY;
 
 	//////// CONSTRUCTEURS ////////
 
@@ -47,6 +49,20 @@ public class Case {
 			caseNext[3] = new Case(c.getCaseNextBas());
 		}
 		occupe = false;
+	}
+	
+	/**
+	 * Constructeur à partir des positions
+	 * @param x
+	 * @param y
+	 */
+	public Case(int x, int y) {
+		Case caseVide = new Case();
+		for (int i = 0; i < 4; i++)
+			this.caseNext[i] = caseVide;
+		occupe = false;
+		posX = x;
+		posY = y;
 	}
 
 	//////// GETTERS AND SETTERS ////////
@@ -178,8 +194,31 @@ public class Case {
 	public void setOccupe(boolean occupe) {
 		this.occupe = occupe;
 	}
+	
+	public int getPosX() {
+		return posX;
+	}
+
+	public void setPosX(int posX) {
+		this.posX = posX;
+	}
+
+	public int getPosY() {
+		return posY;
+	}
+
+	public void setPosY(int posY) {
+		this.posY = posY;
+	}
+	
+	public void setPos(int x, int y) {
+		this.posX = x;
+		this.posY = y;
+	}
+	
 
 	/////// METHODES //////////
+
 
 	/**
 	 * Verifie si la case est Vide
@@ -192,7 +231,10 @@ public class Case {
 
 	public String toString() {
 		if (!this.estVide()) {
-			return (".");
+			if (occupe)
+				return "R";
+			else
+				return (".");
 		} else {
 			return "";
 		}
