@@ -37,7 +37,17 @@ public class Case {
 	 * Constructeur par recopie
 	 */
 	public Case(Case c) {
-
+		if (c.estVide()) {
+			for (int i =0; i<4; i++)
+				this.caseNext[i] = null;
+		}
+		else {
+			caseNext[0] = new Case (c.getCaseNextGauche());
+			caseNext[1] = new Case (c.getCaseNextHaut());
+			caseNext[2] = new Case (c.getCaseNextDroite());
+			caseNext[3] = new Case (c.getCaseNextBas());
+		}
+		occupe = false;
 	}
 
 	//////// GETTERS AND SETTERS ////////
@@ -56,7 +66,7 @@ public class Case {
 	 * 
 	 * @return la prochaine case à gauche
 	 */
-	public Case getCaseNextGauche() {
+	private Case getCaseNextGauche() {
 		return caseNext[0];
 	}
 
@@ -65,7 +75,7 @@ public class Case {
 	 * 
 	 * @return la prochaine case en haut
 	 */
-	public Case getCaseNextHaut() {
+	private Case getCaseNextHaut() {
 		return caseNext[1];
 	}
 
@@ -74,7 +84,7 @@ public class Case {
 	 * 
 	 * @return la prochaine case à droite
 	 */
-	public Case getCaseNextDroite() {
+	private Case getCaseNextDroite() {
 		return caseNext[2];
 	}
 
@@ -83,7 +93,7 @@ public class Case {
 	 * 
 	 * @return la prochaine case en bas
 	 */
-	public Case getCaseNextBas() {
+	private Case getCaseNextBas() {
 		return caseNext[3];
 	}
 
@@ -103,7 +113,7 @@ public class Case {
 	 * @param c
 	 *            une Case
 	 */
-	public void setCaseNextGauche(Case c) {
+	private void setCaseNextGauche(Case c) {
 		this.caseNext[0] = c;
 	}
 
@@ -113,7 +123,7 @@ public class Case {
 	 * @param c
 	 *            une Case
 	 */
-	public void setCaseNextHaut(Case c) {
+	private void setCaseNextHaut(Case c) {
 		this.caseNext[1] = c;
 	}
 
@@ -123,7 +133,7 @@ public class Case {
 	 * @param c
 	 *            une Case
 	 */
-	public void setCaseNextDroite(Case c) {
+	private void setCaseNextDroite(Case c) {
 		this.caseNext[2] = c;
 	}
 
@@ -133,7 +143,7 @@ public class Case {
 	 * @param c
 	 *            une Case
 	 */
-	public void setCaseNextBas(Case c) {
+	private void setCaseNextBas(Case c) {
 		this.caseNext[3] = c;
 	}
 

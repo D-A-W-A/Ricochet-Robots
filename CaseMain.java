@@ -8,9 +8,9 @@ public class CaseMain {
 		Case c = new Case();
 		System.out.println("c est vide ? " + c.estVide());
 		
-		Case c1 = new Case();
-		c.setCaseNextGauche(c1);
-		System.out.println("Ajout d'un CaseNextGauche, c est vide ? " + c.estVide());
+//		Case c1 = new Case();
+//		c.setCaseNextGauche(c1);
+//		System.out.println("Ajout d'un CaseNextGauche, c est vide ? " + c.estVide());
 
 		Case[] tabCase = new Case[4];
 		for (int i = 0; i < 4; i++) {
