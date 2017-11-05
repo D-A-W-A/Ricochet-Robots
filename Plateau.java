@@ -307,28 +307,28 @@ public class Plateau {
 	 * pour mur de gauche ou droite
 	 */
 	public String toString() {
-		StringBuilder s = new StringBuilder("  ");
+		StringBuilder s = new StringBuilder("");
 		for (int i = 0; i < taille; i++) {
 			if (tabCases[0][i].getCaseNextHaut().estVide())
-				s.append(" = ");
+				s.append("  _ ");
 			else
-				s.append("   ");
+				s.append("    ");
 		}
 		for (int i = 0; i < taille; i++) {
-			s.append("\n|  ");
+			s.append("\n|");
 			for (int j = 0; j < taille; j++) {
 				if (tabCases[i][j].getCaseNextDroite().estVide())
-					s.append("0 |");
+					s.append(" . |");
 				else
-					s.append("0  ");
+					s.append(" .  ");
 				
 			}
-			s.append("\n|  ");
+			s.append("\n ");
 			for (int j=0; j<taille; j++) {
 				if (tabCases[i][j].getCaseNextBas().estVide())
-					s.append("=  ");
+					s.append(" _  ");
 				else
-					s.append("   ");
+					s.append("    ");
 			}
 		}
 		return s.toString();
