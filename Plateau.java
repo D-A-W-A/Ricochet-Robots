@@ -153,8 +153,12 @@ public class Plateau {
 		for (int i = 0; i < n; i++)
 			murDroite[i][n - 1] = true;
 
-		// Creation d'une case next temporaire pour toutes les autres cases
+		// corrige les tableaux de booléens pour appliquer les murs des deux cotés
+		murDesDeuxCotes(murHaut, murBas, murGauche, murDroite);
+
+		// Creation de cases next temporaire pour toutes les autres cases
 		Case caseNonVide = Case.creerCase();
+		Case caseVide = new Case();
 
 		// Place les murs
 		for (int i = 0; i < n; i++) {
@@ -163,25 +167,25 @@ public class Plateau {
 
 				// Met soit un mur en HAUT de la case courante, soit une case non vide
 				if (murHaut[i][j])
-					c.setCaseNextHaut(new Case());
+					c.setCaseNextHaut(caseVide);
 				else
 					c.setCaseNextHaut(caseNonVide);
 
 				// Met soit un mur a GAUCHE de la case courante, soit une case non vide
 				if (murGauche[i][j])
-					c.setCaseNextGauche(new Case());
+					c.setCaseNextGauche(caseVide);
 				else
 					c.setCaseNextGauche(caseNonVide);
 
 				// Met soit un mur a DROITE de la case courante, soit une case non vide
 				if (murDroite[i][j])
-					c.setCaseNextDroite(new Case());
+					c.setCaseNextDroite(caseVide);
 				else
 					c.setCaseNextDroite(caseNonVide);
 
 				// Met soit un mur en BAS de la case courante, soit une case non vide
 				if (murBas[i][j])
-					c.setCaseNextBas(new Case());
+					c.setCaseNextBas(caseVide);
 				else
 					c.setCaseNextBas(caseNonVide);
 
@@ -199,8 +203,36 @@ public class Plateau {
 	}
 
 	/**
+	 * Réévalue les tableaux de murs pour qu'un mur soit présent sur les deux cotés
+	 * : <br>
+	 * ex : Un murDroite sur une Case est un murGauche sur la case de Droite
+	 * 
+	 * @param murHaut
+	 * @param murBas
+	 * @param murGauche
+	 * @param murDroite
+	 *            <br>
+	 *            préreq : tous les tableaux doivent être de même taille
+	 */
+	private static void murDesDeuxCotes(boolean[][] murHaut, boolean[][] murBas, boolean[][] murGauche,
+			boolean[][] murDroite) {
+		for (int i = 0; i < murHaut[0].length; i++) {
+			for (int j = 0; j < murHaut[0].length; j++) {
+				if (i > 0 && murHaut[i][j])
+					murBas[i - 1][j] = true;
+				if (i < murHaut[0].length - 1 && murBas[i][j])
+					murHaut[i + 1][j] = true;
+				if (j > 0 && murGauche[i][j])
+					murDroite[i][j - 1] = true;
+				if (j < murHaut[0].length - 1 && murDroite[i][j])
+					murGauche[i][j + 1] = true;
+			}
+		}
+	}
+
+	/**
 	 * Configure les CaseNext en fontion d'un tableau où les murs sont déjà
-	 * initialisés : Les caseNext actuels sont soit null, soit une case Vide)
+	 * initialisés : Les caseNext actuels sont soit null, soit une case Vide) <br>
 	 * 
 	 * @param tCases
 	 */
@@ -268,6 +300,14 @@ public class Plateau {
 			}
 		}
 		return t;
+	}
+
+	/**
+	 * Genere une String du Plateau, * Pour une case, _ Pour mur du haut ou bas, |
+	 * pour mur de gauche ou droite
+	 */
+	public String toString() {
+		return "";
 	}
 
 }
