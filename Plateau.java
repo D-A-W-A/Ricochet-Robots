@@ -38,6 +38,7 @@ public class Plateau {
 		taille = 16;
 		tabCases = new Case[16][16];
 		tabRobots = new Robot[1];
+		tabRobots[0] = new Robot();
 	}
 
 	/**
@@ -47,6 +48,7 @@ public class Plateau {
 		taille = n;
 		tabCases = new Case[n][n];
 		tabRobots = new Robot[1];
+		tabRobots[0] = new Robot();
 	}
 
 	/////// GETTERS AND SETTERS ////////
@@ -189,7 +191,11 @@ public class Plateau {
 
 		// Attribue les CaseNext pour chaque case du plateau
 		configureCaseNext(tCases);
+		
+		// Attribue le tableau de case dans le Plateau
 		p.setTabCases(tCases);
+		
+		return p;
 	}
 
 	/**
