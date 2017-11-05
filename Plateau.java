@@ -191,10 +191,10 @@ public class Plateau {
 
 		// Attribue les CaseNext pour chaque case du plateau
 		configureCaseNext(tCases);
-		
+
 		// Attribue le tableau de case dans le Plateau
 		p.setTabCases(tCases);
-		
+
 		return p;
 	}
 
@@ -208,33 +208,41 @@ public class Plateau {
 		int k;
 		for (int i = 0; i < tCases.length; i++) {
 			for (int j = 0; j < tCases.length; j++) {
-				// Ajout des CasesNext vers le haut
-				k = 0;
-				while (!tCases[i - k][j].getCaseNextHaut().estVide()) {
-					k++;
+				if (!tCases[i][j].getCaseNextHaut().estVide()) {
+					// Ajout des CasesNext vers le haut
+					k = 0;
+					while (!tCases[i - k][j].getCaseNextHaut().estVide()) {
+						k++;
+					}
+					tCases[i][j].setCaseNextHaut(tCases[i - k][j]);
 				}
-				tCases[i][j].setCaseNextHaut(tCases[i - k][j]);
 
-				// Ajout des CasesNext vers le bas
-				k = 0;
-				while (!tCases[i + k][j].getCaseNextBas().estVide()) {
-					k++;
+				if (!tCases[i][j].getCaseNextBas().estVide()) {
+					// Ajout des CasesNext vers le bas
+					k = 0;
+					while (!tCases[i + k][j].getCaseNextBas().estVide()) {
+						k++;
+					}
+					tCases[i][j].setCaseNextBas(tCases[i + k][j]);
 				}
-				tCases[i][j].setCaseNextBas(tCases[i + k][j]);
 
-				// Ajout des CasesNext vers la gauche
-				k = 0;
-				while (!tCases[i][j - k].getCaseNextGauche().estVide()) {
-					k++;
+				if (!tCases[i][j].getCaseNextGauche().estVide()) {
+					// Ajout des CasesNext vers la gauche
+					k = 0;
+					while (!tCases[i][j - k].getCaseNextGauche().estVide()) {
+						k++;
+					}
+					tCases[i][j].setCaseNextGauche(tCases[i][j - k]);
 				}
-				tCases[i][j].setCaseNextGauche(tCases[i][j - k]);
 
-				// Ajout des CasesNext vers la Droite
-				k = 0;
-				while (!tCases[i][j + k].getCaseNextDroite().estVide()) {
-					k++;
+				if (!tCases[i][j].getCaseNextDroite().estVide()) {
+					// Ajout des CasesNext vers la Droite
+					k = 0;
+					while (!tCases[i][j + k].getCaseNextDroite().estVide()) {
+						k++;
+					}
+					tCases[i][j].setCaseNextDroite(tCases[i][j + k]);
 				}
-				tCases[i][j].setCaseNextDroite(tCases[i][j + k]);
 			}
 		}
 	}
