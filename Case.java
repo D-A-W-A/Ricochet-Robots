@@ -38,14 +38,13 @@ public class Case {
 	 */
 	public Case(Case c) {
 		if (c.estVide()) {
-			for (int i =0; i<4; i++)
+			for (int i = 0; i < 4; i++)
 				this.caseNext[i] = null;
-		}
-		else {
-			caseNext[0] = new Case (c.getCaseNextGauche());
-			caseNext[1] = new Case (c.getCaseNextHaut());
-			caseNext[2] = new Case (c.getCaseNextDroite());
-			caseNext[3] = new Case (c.getCaseNextBas());
+		} else {
+			caseNext[0] = new Case(c.getCaseNextGauche());
+			caseNext[1] = new Case(c.getCaseNextHaut());
+			caseNext[2] = new Case(c.getCaseNextDroite());
+			caseNext[3] = new Case(c.getCaseNextBas());
 		}
 		occupe = false;
 	}
@@ -66,7 +65,7 @@ public class Case {
 	 * 
 	 * @return la prochaine case à gauche
 	 */
-	private Case getCaseNextGauche() {
+	public Case getCaseNextGauche() {
 		return caseNext[0];
 	}
 
@@ -75,7 +74,7 @@ public class Case {
 	 * 
 	 * @return la prochaine case en haut
 	 */
-	private Case getCaseNextHaut() {
+	public Case getCaseNextHaut() {
 		return caseNext[1];
 	}
 
@@ -84,7 +83,7 @@ public class Case {
 	 * 
 	 * @return la prochaine case à droite
 	 */
-	private Case getCaseNextDroite() {
+	public Case getCaseNextDroite() {
 		return caseNext[2];
 	}
 
@@ -93,7 +92,7 @@ public class Case {
 	 * 
 	 * @return la prochaine case en bas
 	 */
-	private Case getCaseNextBas() {
+	public Case getCaseNextBas() {
 		return caseNext[3];
 	}
 
@@ -105,6 +104,21 @@ public class Case {
 	 */
 	public void setCaseNext(Case[] caseNext) {
 		this.caseNext = caseNext;
+	}
+
+	/**
+	 * Setter de toutes les caseNext
+	 * 
+	 * @param gauche
+	 * @param haut
+	 * @param droite
+	 * @param bas
+	 */
+	public void setCaseNext(Case gauche, Case haut, Case droite, Case bas) {
+		caseNext[0] = gauche;
+		caseNext[1] = haut;
+		caseNext[2] = droite;
+		caseNext[3] = bas;
 	}
 
 	/**
@@ -167,9 +181,9 @@ public class Case {
 
 	/////// METHODES //////////
 
-	
 	/**
 	 * Verifie si la case est Vide
+	 * 
 	 * @return true si elle est vide, false sinon.
 	 */
 	public boolean estVide() {
