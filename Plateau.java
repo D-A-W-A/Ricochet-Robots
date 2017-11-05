@@ -334,4 +334,67 @@ public class Plateau {
 		return s.toString();
 	}
 
+	/**
+	 * Redefinis les lignes lors d'une modification de case
+	 * 
+	 * @param i
+	 * @param j
+	 */
+	public void redefinirLignes(int ligne, int colone) {
+		int k;
+		for (int m = 0; m < colone; m++) {
+			if (!tabCases[ligne][m].getCaseNextGauche().estVide()) {
+				// Ajout des CasesNext vers la gauche
+				k = 0;
+				while (!tabCases[ligne][m - k].getCaseNextGauche().estVide()) {
+					k++;
+				}
+				tabCases[ligne][m].setCaseNextGauche(tabCases[ligne][m - k]);
+			}
+
+			if (!tabCases[ligne][m].getCaseNextDroite().estVide()) {
+				// Ajout des CasesNext vers la Droite
+				k = 0;
+				while (!tabCases[ligne][m + k].getCaseNextDroite().estVide()) {
+					k++;
+				}
+				tabCases[ligne][m].setCaseNextDroite(tabCases[ligne][m + k]);
+			}
+		}
+
+		for (int m = 0; m < ligne; m++) {
+			if (!tabCases[m][colone].getCaseNextHaut().estVide()) {
+				// Ajout des CasesNext vers le haut
+				k = 0;
+				while (!tabCases[m - k][colone].getCaseNextHaut().estVide()) {
+					k++;
+				}
+				tabCases[m][colone].setCaseNextHaut(tabCases[m - k][colone]);
+			}
+
+			if (!tabCases[m][colone].getCaseNextBas().estVide()) {
+				// Ajout des CasesNext vers le bas
+				k = 0;
+				while (!tabCases[m + k][colone].getCaseNextBas().estVide()) {
+					k++;
+				}
+				tabCases[m][colone].setCaseNextBas(tabCases[m + k][colone]);
+			}
+		}
+	}
+
+	/**
+	 * Ajoute de façon aleatoire un objectif sur le plateau
+	 */
+	public void ajouterObjectifRandom() {
+		Random r = new Random();
+		int i = r.nextInt(taille);
+		int j = r.nextInt(taille);
+		CaseObjectif c = new CaseObjectif();
+		c.setCaseNext(tabCases[i][j].getCaseNext());
+		tabCases[i][j] = c;
+		redefinirLignes(i, j);
+
+	}
+
 }

@@ -21,5 +21,13 @@ public class CaseObjectif extends Case {
 	public void setRobotRequis(int robotRequis) {
 		this.robotRequis = robotRequis;
 	}
+	
+	public String toString() {
+		if (!this.estVide()) {
+			return ("O");
+		} else {
+			return "";
+		}
+	}
 
 }
