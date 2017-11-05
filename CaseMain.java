@@ -18,6 +18,11 @@ public class CaseMain {
 		}
 		c.setCaseNext(tabCase);
 		System.out.println("Ajout d'un tableau de CaseNext, c est vide ? " + c.estVide());
+		System.out.println("La case de gauche est vide ? " + c.getCaseNextGauche().estVide());
+		
+		
+		// TEST DE ToString()
+		System.out.println(c.toStringMur()+c.toStringMur());
 
 	}
 

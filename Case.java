@@ -2,13 +2,13 @@ package ricochetRobot;
 
 /**
  * Une Case simple du Plateau<br>
- * Elle possède une id unique, un attribut occupe et un tableau de 4 Case
+ * Elle possede une id unique, un attribut occupe et un tableau de 4 Case
  * next<br>
  * <br>
- * Stratégie : C'est une structure réccursive sous forme de graphe orienté.
- * Chaque Case possède 4 Cases next qui ne sont pas null. Si une Case possède au
+ * Strategie : C'est une structure reccursive sous forme de graphe oriente.
+ * Chaque Case possede 4 Cases next qui ne sont pas null. Si une Case possede au
  * moins une caseNext = Null, alors cette case est une Case vide.<br>
- * Une case vide n'est pas atteignable par un Robot : On peut donc considérer
+ * Une case vide n'est pas atteignable par un Robot : On peut donc considerer
  * une Case vide comme un Mur
  * 
  * @author Dorian
@@ -188,6 +188,58 @@ public class Case {
 	 */
 	public boolean estVide() {
 		return caseNext[0] == null || caseNext[1] == null || caseNext[2] == null || caseNext[3] == null;
+	}
+
+	public String toString() {
+		if (!this.estVide()) {
+			return ("*");
+		} else {
+			return "";
+		}
+
+	}
+
+	/**
+	 * Cree une String de la case sous la forme : <br>
+	 * <ul>
+	 * <li>* : S'il n'y a pas de mur à proximité</li>
+	 * <li>|* : si un mur est à gauche</li>
+	 * <li>*<br>
+	 * _ : Si le mur est en bas</li>
+	 * <li>_<br>
+	 * |*|<br>
+	 * _ : Si la case est entourée de murs</li>
+	 * <li>etc.</li>
+	 * 
+	 * @return
+	 */
+	public String toStringMur() {
+		if (!this.estVide()) {
+			StringBuilder s = new StringBuilder(" ");
+			if (this.getCaseNextHaut().estVide())
+				s.append("_ \n");
+			else
+				s.append("  \n");
+
+			if (this.getCaseNextGauche().estVide())
+				s.append("|*");
+			else
+				s.append(" *");
+
+			if (this.getCaseNextDroite().estVide())
+				s.append("|\n ");
+			else
+				s.append(" \n ");
+
+			if (this.getCaseNextBas().estVide())
+				s.append("_ ");
+			else
+				s.append("  ");
+
+			return s.toString();
+		} else {
+			return "";
+		}
 	}
 
 }
