@@ -57,6 +57,10 @@ public class Plateau {
 	public void setTabCases(Case[][] tabCases) {
 		this.tabCases = tabCases;
 	}
+	
+	public void setLigne (int i, Case[] t) {
+		tabCases[i] = t;
+	}
 
 	public Robot[] getTabRobots() {
 		return tabRobots;
@@ -69,5 +73,35 @@ public class Plateau {
 	
 	/////// METHODES /////////
 	
+	
+	/**
+	 * Initialise la ligne i du plateau avec des cases et des murs de tous les cotés
+	 */
+	public void initLigne(int i) {
+		Case[] tCases = new Case[this.getTaille()];
+		for (int i = 0; i<this.getTaille(); i++) {
+			tCases[i] = Case.creerCase();
+		}
+		this.setLigne(i, tCases);
+		
+	}
+	/**
+	 * Genere un plateau classique : 16*16 cases, murs prédéfinis
+	 * @return le plateau genere
+	 */
+	public Plateau genererPlateauClassique() {
+		return null;
+	}
+	
+	/**
+	 * Genere un plateau de taille n de manière Aléatoire : 10% de chances qu'une case ait au moins un mur
+	 * 
+	 * @param n
+	 * @return
+	 */
+	public Plateau genererPlateauRandom(int n) {
+		// TODO
+		return null;
+	}
 
 }
