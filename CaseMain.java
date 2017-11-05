@@ -21,8 +21,14 @@ public class CaseMain {
 		System.out.println("La case de gauche est vide ? " + c.getCaseNextGauche().estVide());
 		
 		
-		// TEST DE ToString()
-		System.out.println(c.toStringMur()+c.toStringMur());
+//		// TEST DE ToString()
+//		System.out.println(c.toString());
+//		System.out.println(c.toStringMur());
+//		c.setCaseNextGauche(c);
+//		System.out.println(c.toStringMur());
+
+		Case caseGen = Case.creerCase();
+		System.out.println("Case générée vide ? " + caseGen.estVide());
 
 	}
 

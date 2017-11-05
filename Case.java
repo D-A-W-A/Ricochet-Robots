@@ -127,7 +127,7 @@ public class Case {
 	 * @param c
 	 *            une Case
 	 */
-	private void setCaseNextGauche(Case c) {
+	public void setCaseNextGauche(Case c) {
 		this.caseNext[0] = c;
 	}
 
@@ -137,7 +137,7 @@ public class Case {
 	 * @param c
 	 *            une Case
 	 */
-	private void setCaseNextHaut(Case c) {
+	public void setCaseNextHaut(Case c) {
 		this.caseNext[1] = c;
 	}
 
@@ -147,7 +147,7 @@ public class Case {
 	 * @param c
 	 *            une Case
 	 */
-	private void setCaseNextDroite(Case c) {
+	public void setCaseNextDroite(Case c) {
 		this.caseNext[2] = c;
 	}
 
@@ -157,7 +157,7 @@ public class Case {
 	 * @param c
 	 *            une Case
 	 */
-	private void setCaseNextBas(Case c) {
+	public void setCaseNextBas(Case c) {
 		this.caseNext[3] = c;
 	}
 
@@ -240,6 +240,21 @@ public class Case {
 		} else {
 			return "";
 		}
+	}
+
+	/**
+	 * Genere une Case entourée de Cases Vides
+	 * 
+	 * @return
+	 */
+	public static Case creerCase() {
+		Case c = new Case();
+		Case[] tabCase = new Case[4];
+		for (int i = 0; i < 4; i++) {
+			tabCase[i] = new Case();
+		}
+		c.setCaseNext(tabCase);
+		return c;
 	}
 
 }
