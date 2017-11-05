@@ -11,6 +11,8 @@ public class PlateauMain {
 //		System.out.println(tab[12][12].getCaseNextGauche().estVide());
 //		System.out.println(tab[12][11].getCaseNextDroite().estVide());
 		System.out.println(p.toString());
+		p.ajouterObjectifRandom();
+		System.out.println("\n\n==================================\n \n"+p.toString());
 		
 	}
 }
