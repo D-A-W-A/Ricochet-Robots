@@ -280,7 +280,7 @@ public class Plateau {
 	}
 
 	/**
-	 * Determine de façon aleatoire quelle case aura un mur. Une case a 3 % de
+	 * Determine de façon aleatoire quelle case aura un mur. Une case a 5 % de
 	 * chance d'avoir un mur
 	 * 
 	 * @param n
@@ -293,7 +293,7 @@ public class Plateau {
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
 				tirage = r.nextInt(100);
-				if (tirage < 3)
+				if (tirage < 5)
 					t[i][j] = true;
 				else
 					t[i][j] = false;
@@ -307,10 +307,10 @@ public class Plateau {
 	 * pour mur de gauche ou droite
 	 */
 	public String toString() {
-		StringBuilder s = new StringBuilder(" ");
+		StringBuilder s = new StringBuilder("  ");
 		for (int i = 0; i < taille; i++) {
 			if (tabCases[0][i].getCaseNextHaut().estVide())
-				s.append("_ ");
+				s.append("- ");
 			else
 				s.append("  ");
 		}
@@ -318,15 +318,15 @@ public class Plateau {
 			s.append("\n| ");
 			for (int j = 0; j < taille; j++) {
 				if (tabCases[i][j].getCaseNextDroite().estVide())
-					s.append("*|");
+					s.append("0|");
 				else
-					s.append("* ");
+					s.append("0 ");
 				
 			}
 			s.append("\n| ");
 			for (int j=0; j<taille; j++) {
 				if (tabCases[i][j].getCaseNextBas().estVide())
-					s.append("_ ");
+					s.append("- ");
 				else
 					s.append("  ");
 			}
