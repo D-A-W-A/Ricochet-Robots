@@ -17,13 +17,15 @@ package ricochetRobot;
 public class Case {
 
 	///////// ATTRIBUTS///////////
+
 	// 0 => Gauche --- 1 => Haut --- 2 => Droite --- 3 => Bas
 	private Case[] caseNext = new Case[4];
 	private boolean occupe;
 
+	
 	//////// CONSTRUCTEURS ////////
+
 	/**
-	 * 
 	 * Constructeur d'une Case Vide
 	 */
 	public Case() {
@@ -31,11 +33,13 @@ public class Case {
 			this.caseNext[i] = null;
 		occupe = false;
 	}
+	
 
 	//////// GETTERS AND SETTERS ////////
 
 	/**
 	 * Getter de toutes les caseNext
+	 * 
 	 * @return un tableau de Case
 	 */
 	public Case[] getCaseNext() {
@@ -44,6 +48,7 @@ public class Case {
 
 	/**
 	 * Getter de la caseNext de gauche
+	 * 
 	 * @return la prochaine case à gauche
 	 */
 	public Case getCaseNextGauche() {
@@ -52,6 +57,7 @@ public class Case {
 
 	/**
 	 * Getter de la caseNext du haut
+	 * 
 	 * @return la prochaine case en haut
 	 */
 	public Case getCaseNextHaut() {
@@ -60,6 +66,7 @@ public class Case {
 
 	/**
 	 * Getter de la caseNext de droite
+	 * 
 	 * @return la prochaine case à droite
 	 */
 	public Case getCaseNextDroite() {
@@ -68,16 +75,18 @@ public class Case {
 
 	/**
 	 * Getter de la caseNext du bas
+	 * 
 	 * @return la prochaine case en bas
 	 */
 	public Case getCaseNextBas() {
 		return caseNext[3];
 	}
-	
 
 	/**
 	 * Setter de toutes les CaseNext
-	 * @param caseNext un tableau de Case
+	 * 
+	 * @param caseNext
+	 *            un tableau de Case
 	 */
 	public void setCaseNext(Case[] caseNext) {
 		this.caseNext = caseNext;
@@ -85,7 +94,9 @@ public class Case {
 
 	/**
 	 * Setter de la prochaine case à gauche
-	 * @param c une Case
+	 * 
+	 * @param c
+	 *            une Case
 	 */
 	public void setCaseNextGauche(Case c) {
 		this.caseNext[0] = c;
@@ -93,7 +104,9 @@ public class Case {
 
 	/**
 	 * Setter de la prochaine case en haut
-	 * @param c une Case
+	 * 
+	 * @param c
+	 *            une Case
 	 */
 	public void setCaseNextHaut(Case c) {
 		this.caseNext[1] = c;
@@ -101,7 +114,9 @@ public class Case {
 
 	/**
 	 * Setter de la prochaine case à droite
-	 * @param c une Case
+	 * 
+	 * @param c
+	 *            une Case
 	 */
 	public void setCaseNextDroite(Case c) {
 		this.caseNext[2] = c;
@@ -109,16 +124,17 @@ public class Case {
 
 	/**
 	 * Setter de la prochaine case en bas
-	 * @param c une Case
+	 * 
+	 * @param c
+	 *            une Case
 	 */
 	public void setCaseNextBas(Case c) {
 		this.caseNext[3] = c;
 	}
 
-	
-	
 	/**
 	 * Vérifie si un Robot se trouve sur cette Case
+	 * 
 	 * @return true si la case est occupee
 	 */
 	public boolean isOccupe() {
@@ -127,7 +143,8 @@ public class Case {
 
 	/**
 	 * Permet de changer l'état de la case (La rendre occupée ou non)
-	 * @param occupe 
+	 * 
+	 * @param occupe
 	 */
 	public void setOccupe(boolean occupe) {
 		this.occupe = occupe;
