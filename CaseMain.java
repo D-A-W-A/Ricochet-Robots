@@ -30,6 +30,7 @@ public class CaseMain {
 		Case caseGen = Case.creerCase();
 		System.out.println("Case générée vide ? " + caseGen.estVide());
 
+
 	}
 
 }

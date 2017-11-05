@@ -19,13 +19,28 @@ package ricochetRobot;
  *
  */
 public class Plateau {
+	
+	//////// ATTRIBUTS ///////////
+	
+	
 	private int taille;
 	private Case[][] tabCases;
 	private Robot[] tabRobots;
 
+	
+	/////// CONSTRUCTEURS /////////
+	
+	/**
+	 * Constructeur Vide : Cree un plateau de taille 16 et alloue la mémoire pour tabCases et tabRobots
+	 */
 	public Plateau() {
-		// TODO
+		taille = 16;
+		tabCases = new Case[16][16];
+		tabRobots = new Robot[1];
 	}
+		
+	
+	/////// GETTERS AND SETTERS ////////
 
 	public int getTaille() {
 		return taille;
@@ -50,5 +65,9 @@ public class Plateau {
 	public void setTabRobots(Robot[] tabRobots) {
 		this.tabRobots = tabRobots;
 	}
+	
+	
+	/////// METHODES /////////
+	
 
 }
