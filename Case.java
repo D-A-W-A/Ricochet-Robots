@@ -22,7 +22,6 @@ public class Case {
 	private Case[] caseNext = new Case[4];
 	private boolean occupe;
 
-	
 	//////// CONSTRUCTEURS ////////
 
 	/**
@@ -33,7 +32,13 @@ public class Case {
 			this.caseNext[i] = null;
 		occupe = false;
 	}
-	
+
+	/**
+	 * Constructeur par recopie
+	 */
+	public Case(Case c) {
+
+	}
 
 	//////// GETTERS AND SETTERS ////////
 
@@ -133,7 +138,7 @@ public class Case {
 	}
 
 	/**
-	 * Vérifie si un Robot se trouve sur cette Case
+	 * Verifie si un Robot se trouve sur cette Case
 	 * 
 	 * @return true si la case est occupee
 	 */
@@ -148,6 +153,17 @@ public class Case {
 	 */
 	public void setOccupe(boolean occupe) {
 		this.occupe = occupe;
+	}
+
+	/////// METHODES //////////
+
+	
+	/**
+	 * Verifie si la case est Vide
+	 * @return true si elle est vide, false sinon.
+	 */
+	public boolean estVide() {
+		return caseNext[0] == null || caseNext[1] == null || caseNext[2] == null || caseNext[3] == null;
 	}
 
 }
