@@ -67,6 +67,20 @@ public class Plateau {
 		this.tabCases = tabCases;
 	}
 
+	/**
+	 * Insert la case aux coordonnées i,j
+	 * 
+	 * @param c
+	 *            La case a inserer
+	 * @param i
+	 *            La ligne ou inserer la case
+	 * @param j
+	 *            La colone ou inserer la case
+	 */
+	public void setCaseCoord(Case c, int i, int j) {
+
+	}
+
 	public void setLigne(int i, Case[] t) {
 		tabCases[i] = t;
 	}
@@ -82,12 +96,12 @@ public class Plateau {
 	/////// METHODES /////////
 
 	/**
-	 * Initialise la ligne i du plateau avec des cases et des murs de tous les cotés
+	 * Initialise la ligne i du plateau avec des cases Vides
 	 */
 	public void initLigne(int i) {
 		Case[] tCases = new Case[this.getTaille()];
 		for (int j = 0; i < this.getTaille(); i++) {
-			tCases[j] = Case.creerCase();
+			tCases[j] = new Case();
 		}
 		this.setLigne(i, tCases);
 
@@ -105,7 +119,8 @@ public class Plateau {
 	/**
 	 * Genere un plateau de taille n de manière Aleatoire : 12% de chances qu'une
 	 * case ait au moins un mur (donc 3 % par coté)<br>
-	 * Utilise :<br> 
+	 * Utilise :<br>
+	 * 
 	 * @see initLigne(int i)<br>
 	 * @see determinerMurRandom(int n)
 	 * 
@@ -113,27 +128,71 @@ public class Plateau {
 	 * @return
 	 */
 	public static Plateau genererPlateauRandom(int n) {
+		// Generation d'un Plateau de taille n
 		Plateau p = new Plateau(n);
-		for (int i = 0; i < n; i++) {
-			p.initLigne(i);
-		}
+
+		// Cree le tableau de case
+		Case[][] tCases = new Case [n][n];
 		
+		// Determine quelles cases ont un mur
+		boolean[][] murHaut = determinerMurRandom(n);
+		for (int i = 0; i < n; i++)
+			murHaut[0][i] = true;
+
+		boolean[][] murGauche = determinerMurRandom(n);
+		for (int i = 0; i < n; i++)
+			murGauche[i][0] = true;
+
+		boolean[][] murBas = determinerMurRandom(n);
+		for (int i = 0; i < n; i++)
+			murBas[n - 1][i] = true;
+
+		boolean[][] murDroite = determinerMurRandom(n);
+		for (int i = 0; i < n; i++)
+			murDroite[i][n - 1] = true;
+
+		// Place les murs
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				Case c = new Case();
+				if (murHaut[i][j])
+					c.setCaseNextHaut(new Case());
+				if (murGauche[i][j])
+					c.setCaseNextGauche(new Case());
+				if (murDroite[i][j])
+					c.setCaseNextDroite(new Case());
+				if (murBas[i][j])
+					c.setCaseNextBas(new Case());
+				
+				tCases[i][j] = c;
+			}
+		}
+
+		// Attribue les CaseNext pour chaque case du plateau
+		for (int i = 0; i < n; i++) {
+			for (int j=0; j<n; j++) {
+				
+			}
+		}
 	}
-	
+
 	/**
-	 * Determine de façon aleatoire quelle case aura un mur. Une case a 3 % de chance d'avoir un mur
-	 * @param n la taille du plateau
+	 * Determine de façon aleatoire quelle case aura un mur. Une case a 3 % de
+	 * chance d'avoir un mur
+	 * 
+	 * @param n
+	 *            la taille du plateau
 	 */
 	private static boolean[][] determinerMurRandom(int n) {
 		Random r = new Random();
 		int tirage;
-		boolean[][] t = new boolean [n][n];
-		for (int i=0; i<n; i++) {
-			for (int j=0; j<n; j++) {
+		boolean[][] t = new boolean[n][n];
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
 				tirage = r.nextInt(100);
-				if (tirage <3)
+				if (tirage < 3)
 					t[i][j] = true;
-				else 
+				else
 					t[i][j] = false;
 			}
 		}
