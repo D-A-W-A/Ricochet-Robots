@@ -79,8 +79,8 @@ public class Plateau {
 	 */
 	public void initLigne(int i) {
 		Case[] tCases = new Case[this.getTaille()];
-		for (int i = 0; i<this.getTaille(); i++) {
-			tCases[i] = Case.creerCase();
+		for (int j = 0; i<this.getTaille(); i++) {
+			tCases[j] = Case.creerCase();
 		}
 		this.setLigne(i, tCases);
 		
