@@ -7,24 +7,27 @@ package ricochetRobot;
  *
  */
 public class CaseObjectif extends Case {
-	private int robotRequis;
+	private char robotRequis;
 
 	public CaseObjectif() {
 		super();
-		robotRequis = 1;
+		robotRequis = 'R';
 	}
 
 	public int getRobotRequis() {
 		return robotRequis;
 	}
 
-	public void setRobotRequis(int robotRequis) {
+	public void setRobotRequis(char robotRequis) {
 		this.robotRequis = robotRequis;
 	}
 	
 	public String toString() {
 		if (!this.estVide()) {
-			return ("O");
+			if (estOccupe())
+				return getRobot().toString();
+			else
+				return ("O");
 		} else {
 			return "";
 		}
