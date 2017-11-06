@@ -27,17 +27,25 @@ import java.awt.event.KeyEvent;
  *
  */
 public class Partie extends FlecheClavierListener {
+	
+	/////// ATTRIBUTS //////////
+	
 	private int idPartie;
 	private Plateau plateau;
 	private Chrono chrono;
 	private int nbCoups;
 	private int nbVictoire = 0;
+	private int lancerPartie = 0;
 
+	
+	//////// CONSTRUCTEURS ///////
 	public Partie() {
 		super();
 		idPartie = 1;
 	}
 
+	//////// GETTERS AND SETTERS ///////
+	
 	public Plateau getPlateau() {
 		return plateau;
 	}
@@ -73,6 +81,23 @@ public class Partie extends FlecheClavierListener {
 	public int getIdPartie() {
 		return idPartie;
 	}
+	
+	////////// METHODES /////////
+	
+	/**
+	 * Cree une partie random avec un plateau genere aleatoirement de taille 16
+	 */
+	public void creerPartieRandom () {
+		plateau = Plateau.genererPlateauRandom(16);
+		lancerPartie = 0;
+		nbCoups = 0;
+	}
+	
+	public void lancerPartie() {
+		lancerPartie = 1;
+		lancer();
+	}
+	
 
 	// MODIFICATION DU LISTENER DES FLECHES
 	// TODO : Redéfinir la classe pour déplacer le robot dans la direction indiquée par le joueur
