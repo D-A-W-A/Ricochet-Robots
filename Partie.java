@@ -121,21 +121,49 @@ public class Partie extends FlecheClavierListener {
 	public void reprendrePartie() {
 		lancerPartie = 1;
 	}
+	
+	/** 
+	 * Permet de lancer une partie avec toute les fonctionnalites necessaires.
+	 */
+	private void mainPartieTerminalRandomAux() {
+		System.out.println("RICOCHET - ROBOTS\nVersion sur Terminal - Plateau Random\n\n");
+		System.out.println("Le jeu se joue avec les feches directionnelles.\nPour mettre en pause, appuyez sur P.\nPour arreter la partie, appuyez sur ECHAP\n");
+		
+	}
+	
+	public static void mainPartieTerminalRandom() {
+		Partie p = new Partie();
+		p.mainPartieTerminalRandomAux();
+	}
 
 	// MODIFICATION DU LISTENER DES FLECHES
 	// TODO : Redéfinir la classe pour déplacer le robot dans la direction indiquée par le joueur
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int code = e.getKeyCode();
-		if (code == KeyEvent.VK_DOWN || code == KeyEvent.VK_UP || code == KeyEvent.VK_LEFT
-				|| code == KeyEvent.VK_RIGHT) {
-			setNbCoups(getNbCoups()+1);
-			System.out.println("Nombre de coups : "+ getNbCoups());
+		if (code == KeyEvent.VK_ESCAPE) {
+			System.exit(1);
 		}
+		if (lancerPartie == 1) {
+			int deplacement;
+			if (code == KeyEvent.VK_DOWN) {
+				deplacement = plateau.getTabRobots()[0].deplacerRobotBas();
+			}
+			else if (code == KeyEvent.VK_UP) {
+				deplacement = plateau.getTabRobots()[0].deplacerRobotHaut();
+			}
+			else if (code == KeyEvent.VK_LEFT) {
+				deplacement = plateau.getTabRobots()[0].deplacerRobotGauche();
+			}
+			else if (code == KeyEvent.VK_RIGHT) {
+				deplacement = plateau.getTabRobots()[0].deplacerRobotDroite();
+			}
+		}
+		
 	}
 
 	public static void main(String[] args) {
-		Partie p = new Partie();
+		Partie.mainPartieTerminalRandom();
 	}
 
 }

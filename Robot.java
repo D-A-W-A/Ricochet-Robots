@@ -73,31 +73,40 @@ public class Robot {
 	}
 
 	/**
+	 * 
 	 * Deplace le robot vers le haut<br> Ne fait rien si le robot se deplace vers un mur
 	 * 
 	 * @param direction
+	 * @return 1 si le robot s'est deplace
 	 */
-	public void deplacerRobotHaut() {
+	public int deplacerRobotHaut() {
 		if (!caseActuelle.getCaseNextHaut().estVide()) {
 			Case aux = caseActuelle.getCaseNextHaut();
 			caseActuelle.supprimerRobot();
 			aux.affecterRobot(this);
 			this.setCaseActuelle(aux);
+			return 1;
 		}
+		else
+			return 0;
 	}
 
 	/**
 	 * Deplace le robot vers le bas<br> Ne fait rien si le robot se deplace vers un mur
 	 * 
 	 * @param direction
+	 * @return 1 si le robot s'est deplace
 	 */
-	public void deplacerRobotBas() {
+	public int deplacerRobotBas() {
 		if (!caseActuelle.getCaseNextBas().estVide()) {
 			Case aux = caseActuelle.getCaseNextBas();
 			caseActuelle.supprimerRobot();
 			aux.affecterRobot(this);
 			this.setCaseActuelle(aux);
+			return 1;
 		}
+		else 
+			return 0;
 	}
 
 	/**
@@ -105,14 +114,18 @@ public class Robot {
 	 * mur
 	 * 
 	 * @param direction
+	 * @return 1 si le robot s'est deplace
 	 */
-	public void deplacerRobotGauche() {
+	public int deplacerRobotGauche() {
 		if (!caseActuelle.getCaseNextGauche().estVide()) {
 			Case aux = caseActuelle.getCaseNextGauche();
 			caseActuelle.supprimerRobot();
 			aux.affecterRobot(this);
 			this.setCaseActuelle(aux);
+			return 1;
 		}
+		else 
+			return 0;
 	}
 
 	/**
@@ -120,14 +133,18 @@ public class Robot {
 	 * mur
 	 * 
 	 * @param direction
+	 * @return 1 si le robot s'est deplace
 	 */
-	public void deplacerRobotDroite() {
+	public int deplacerRobotDroite() {
 		if (!caseActuelle.getCaseNextDroite().estVide()) {
 			Case aux = caseActuelle.getCaseNextDroite();
 			caseActuelle.supprimerRobot();
 			aux.affecterRobot(this);
 			this.setCaseActuelle(aux);
+			return 1;
 		}
+		else 
+			return 0;
 	}
 
 }
