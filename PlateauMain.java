@@ -24,10 +24,10 @@ public class PlateauMain {
 //		p.ajouterMurBas(1, 1);
 //		System.out.println("\n\n==================================\n \n"+p.toString());
 		
-//		p.ajouterMurGauche(1, 1);
-//		System.out.println("\n\n==================================\n \n"+p.toString());
-		
-		p.ajouterMurDroite(0,0);
+		p.ajouterMurGauche(2, 3);
 		System.out.println("\n\n==================================\n \n"+p.toString());
+		
+//		p.ajouterMurDroite(0,0);
+//		System.out.println("\n\n==================================\n \n"+p.toString());
 	}
 }
