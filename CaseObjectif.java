@@ -12,6 +12,7 @@ public class CaseObjectif extends Case {
 	public CaseObjectif() {
 		super();
 		robotRequis = 'R';
+
 	}
 
 	public int getRobotRequis() {
@@ -22,6 +23,10 @@ public class CaseObjectif extends Case {
 		this.robotRequis = robotRequis;
 	}
 	
+	public boolean reussite() {
+		return (getRobot() != null) && getRobot().getCouleur() == robotRequis;
+	}
+
 	public String toString() {
 		if (!this.estVide()) {
 			if (estOccupe())

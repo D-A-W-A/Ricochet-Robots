@@ -73,7 +73,7 @@ public class Robot {
 	}
 
 	/**
-	 * Deplace le robot vers le haut Ne fait rien si le robot se deplace vers un mur
+	 * Deplace le robot vers le haut<br> Ne fait rien si le robot se deplace vers un mur
 	 * 
 	 * @param direction
 	 */
@@ -87,7 +87,7 @@ public class Robot {
 	}
 
 	/**
-	 * Deplace le robot vers le bas Ne fait rien si le robot se deplace vers un mur
+	 * Deplace le robot vers le bas<br> Ne fait rien si le robot se deplace vers un mur
 	 * 
 	 * @param direction
 	 */
@@ -101,7 +101,7 @@ public class Robot {
 	}
 
 	/**
-	 * Deplace le robot vers la gauche Ne fait rien si le robot se deplace vers un
+	 * Deplace le robot vers la gauche <br>Ne fait rien si le robot se deplace vers un
 	 * mur
 	 * 
 	 * @param direction
@@ -116,7 +116,7 @@ public class Robot {
 	}
 
 	/**
-	 * Deplace le robot vers la droite Ne fait rien si le robot se deplace vers un
+	 * Deplace le robot vers la droite <br>Ne fait rien si le robot se deplace vers un
 	 * mur
 	 * 
 	 * @param direction
