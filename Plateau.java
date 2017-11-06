@@ -3,19 +3,19 @@ package ricochetRobot;
 import java.util.Random;
 
 /**
- * Plateau du jeu, composé de Cases et de Robots <br>
+ * Plateau du jeu, compose de Cases et de Robots <br>
  * <br>
- * Stratégie : La génération du Plateau crée des cases et attribue à chaque case
- * les case next. Il doit également créer au moins une case de type
+ * Strategie : La generation du Plateau cree des cases et attribue a chaque case
+ * les case next. Il doit egalement creer au moins une case de type
  * CaseObjectif. <br>
  * <br>
- * S'il y a plusieurs Robots : un Robot placé sur une Case du plateau redéfinira
+ * S'il y a plusieurs Robots : un Robot place sur une Case du plateau redefinira
  * les CaseNext de toutes les cases horizontales et verticales.<br>
  * <br>
- * Les murs sont représentés par des Cases vides mais ces cases vides
+ * Les murs sont representes par des Cases vides mais ces cases vides
  * n'apparaissent pas dans tabCases. <br>
- * Graphiquement : Les murs seront retrouvés en faisant un test à chaque case si
- * ses next sont vides, si oui, un mur apparaitra à coté de la case.
+ * Graphiquement : Les murs seront retrouves en faisant un test a chaque case si
+ * ses next sont vides, si oui, un mur apparaitra a cote de la case.
  * 
  * @author Dorian
  *
@@ -32,7 +32,7 @@ public class Plateau {
 	/////// CONSTRUCTEURS /////////
 
 	/**
-	 * Constructeur Vide : Cree un plateau de taille 16 et alloue la mémoire pour
+	 * Constructeur Vide : Cree un plateau de taille 16 et alloue la memoire pour
 	 * tabCases et tabRobots
 	 */
 	public Plateau() {
@@ -43,7 +43,7 @@ public class Plateau {
 	}
 
 	/**
-	 * Cree un plateau de taille n et alloue la mémoire pour tabCases et tabRobots
+	 * Cree un plateau de taille n et alloue la memoire pour tabCases et tabRobots
 	 */
 	public Plateau(int n) {
 		taille = n;
@@ -71,7 +71,7 @@ public class Plateau {
 	}
 
 	/**
-	 * Insert la case aux coordonnées i,j
+	 * Insert la case aux coordonnees i,j
 	 * 
 	 * @param c
 	 *            La case a inserer
@@ -119,7 +119,7 @@ public class Plateau {
 	}
 
 	/**
-	 * Genere un plateau classique : 16*16 cases, murs prédéfinis
+	 * Genere un plateau classique : 16*16 cases, murs predefinis
 	 * 
 	 * @return le plateau genere
 	 */
@@ -128,8 +128,8 @@ public class Plateau {
 	}
 
 	/**
-	 * Genere un plateau de taille n de manière Aleatoire : 12% de chances qu'une
-	 * case ait au moins un mur (donc 3 % par coté)<br>
+	 * Genere un plateau de taille n de maniere Aleatoire : 12% de chances qu'une
+	 * case ait au moins un mur (donc 3 % par cote)<br>
 	 * Utilise :<br>
 	 * 
 	 * @see initLigne
@@ -163,7 +163,7 @@ public class Plateau {
 		for (int i = 0; i < n; i++)
 			murDroite[i][n - 1] = true;
 
-		// corrige les tableaux de booléens pour appliquer les murs des deux cotés
+		// corrige les tableaux de booleens pour appliquer les murs des deux cotes
 		murDesDeuxCotes(murHaut, murBas, murGauche, murDroite);
 
 		// Creation de cases next temporaire pour toutes les autres cases
@@ -213,7 +213,7 @@ public class Plateau {
 	}
 
 	/**
-	 * Réévalue les tableaux de murs pour qu'un mur soit présent sur les deux cotés
+	 * Reevalue les tableaux de murs pour qu'un mur soit present sur les deux cotes
 	 * : <br>
 	 * ex : Un murDroite sur une Case est un murGauche sur la case de Droite
 	 * 
@@ -222,7 +222,7 @@ public class Plateau {
 	 * @param murGauche
 	 * @param murDroite
 	 *            <br>
-	 *            préreq : tous les tableaux doivent être de même taille
+	 *            prereq : tous les tableaux doivent être de même taille
 	 */
 	private static void murDesDeuxCotes(boolean[][] murHaut, boolean[][] murBas, boolean[][] murGauche,
 			boolean[][] murDroite) {
@@ -241,7 +241,7 @@ public class Plateau {
 	}
 
 	/**
-	 * Configure les CaseNext en fontion d'un tableau où les murs sont déjà
+	 * Configure les CaseNext en fontion d'un tableau où les murs sont deja
 	 * initialises : Les caseNext actuels sont soit null, soit une case Vide) <br>
 	 * 
 	 * @param tCases
@@ -290,7 +290,7 @@ public class Plateau {
 	}
 
 	/**
-	 * Determine de façon aleatoire quelle case aura un mur. Une case a 5 % de
+	 * Determine de facon aleatoire quelle case aura un mur. Une case a 5 % de
 	 * chance d'avoir un mur
 	 * 
 	 * @param n
@@ -401,8 +401,8 @@ public class Plateau {
 	}
 
 	/**
-	 * Ajoute de façon aleatoire un objectif sur le plateau Note : L'objectif doit
-	 * se trouver à coté d'un mur sinon la partie est impossible
+	 * Ajoute de facon aleatoire un objectif sur le plateau Note : L'objectif doit
+	 * se trouver a cote d'un mur sinon la partie est impossible
 	 */
 	public void ajouterObjectifRandom() {
 		Random r = new Random();
@@ -420,7 +420,7 @@ public class Plateau {
 	}
 
 	/**
-	 * Place le robot n° num de façon random
+	 * Place le robot n° num de facon random
 	 * 
 	 * @param num
 	 */
@@ -484,7 +484,7 @@ public class Plateau {
 	}
 
 	/**
-	 * Ajoute un mur sur le plateau aux coordonnées (i,j) et sur le bas de la case
+	 * Ajoute un mur sur le plateau aux coordonnees (i,j) et sur le bas de la case
 	 * et redefinie toutes les autres cases pour pouvoir interagir avec ce nouveau
 	 * mur <br>
 	 * NOTES DE TEST : Creations tres tres rare de mur invisible sur la case du

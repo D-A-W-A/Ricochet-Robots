@@ -28,7 +28,7 @@ public class CaseMain {
 //		System.out.println(c.toStringMur());
 
 		Case caseGen = Case.creerCase();
-		System.out.println("Case générée vide ? " + caseGen.estVide());
+		System.out.println("Case generee vide ? " + caseGen.estVide());
 
 
 	}

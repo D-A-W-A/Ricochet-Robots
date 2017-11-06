@@ -7,8 +7,8 @@ import javax.swing.JFrame;
 
 /**
  * Premier Listener pour la version du jeu sous terminal.<br>
- * Ce listener écoute les flèches du clavier et fait une action lorque l'une
- * d'elle est préssée
+ * Ce listener ecoute les fleches du clavier et fait une action lorque l'une
+ * d'elle est pressee
  * 
  * @author Dorian
  *

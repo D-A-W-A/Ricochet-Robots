@@ -4,21 +4,21 @@ import java.awt.event.KeyEvent;
 
 /**
  * Une Partie de Ricochet-Robots.<br>
- * Le jeu se déroule sur un plateau d’un nombre n*n de cases et de murs. Sur les
- * cases sont placés des pions appelés “robots” et des objectifs. <br>
- * Le jeu se déroule en tours. Au début du tour, on indique un objectif. Le but
- * est de déplacer le robot de la couleur de l’objectif sur celui-ci en un
- * minimum de mouvements (Déplacer les autres robots compte également pour 1
+ * Le jeu se deroule sur un plateau d’un nombre n*n de cases et de murs. Sur les
+ * cases sont places des pions appeles “robots” et des objectifs. <br>
+ * Le jeu se deroule en tours. Au debut du tour, on indique un objectif. Le but
+ * est de deplacer le robot de la couleur de l’objectif sur celui-ci en un
+ * minimum de mouvements (Deplacer les autres robots compte egalement pour 1
  * coup). <br>
- * Un robot ne peut se déplacer que tout droit jusqu’à atteindre un obstacle (un
+ * Un robot ne peut se deplacer que tout droit jusqu’a atteindre un obstacle (un
  * bord du plateau, un mur ou un autre robot). <br>
- * Le joueur ayant trouvé le plus rapidement la solution annonce son nombre de
+ * Le joueur ayant trouve le plus rapidement la solution annonce son nombre de
  * mouvements et retourne le sablier. Si les autres joueurs ne trouvent pas de
  * meilleures solutions avant la fin du temps imparti, il remporte la manche.
  * <br>
  * <br>
- * Stratégie : La partie génère un plateau et lance les différentes actions pour
- * permettre à 1 ou plusieurs joueurs de jouer au jeu.
+ * Strategie : La partie genere un plateau et lance les differentes actions pour
+ * permettre a 1 ou plusieurs joueurs de jouer au jeu.
  * 
  * @author Dorian
  *
@@ -37,7 +37,7 @@ public class Partie extends FlecheClavierListener {
 	private int nbVictoire = 0;
 
 	/**
-	 * 0 : Partie arrêtée 1 : Partie en cours 2 : Pause
+	 * 0 : Partie arrêtee 1 : Partie en cours 2 : Pause
 	 */
 	private int lancerPartie = 0;
 
@@ -154,7 +154,7 @@ public class Partie extends FlecheClavierListener {
 	}
 
 	/**
-	 * Met à jour le terminal pour montrer la nouvelle disposition du plateau
+	 * Met a jour le terminal pour montrer la nouvelle disposition du plateau
 	 */
 	public void update() {
 		System.out
@@ -163,7 +163,7 @@ public class Partie extends FlecheClavierListener {
 	}
 
 	/**
-	 * En cas de victoire, cette fonction est appelée
+	 * En cas de victoire, cette fonction est appelee
 	 */
 	public void victoire() {
 		nbVictoire++;
@@ -185,10 +185,10 @@ public class Partie extends FlecheClavierListener {
 	 * <br>
 	 * Lors d'une Pause : <br>
 	 * ==> Si le joueur appuie sur P, la partie reprend <br>
-	 * ==> Si le joueur appuie sur R, une nouvelle manche est lancée<br>
+	 * ==> Si le joueur appuie sur R, une nouvelle manche est lancee<br>
 	 * <br>
 	 * Lorsque la partie est arrettee :<br>
-	 * ==> Si le joueur appuie sur O, une nouvelle manche est lancée ==> Si le
+	 * ==> Si le joueur appuie sur O, une nouvelle manche est lancee ==> Si le
 	 * joueur appuie sur N, La partie se termine et se ferme.
 	 */
 	@Override

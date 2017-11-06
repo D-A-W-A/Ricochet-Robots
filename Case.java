@@ -50,7 +50,7 @@ public class Case {
 	}
 	
 	/**
-	 * Constructeur à partir des positions
+	 * Constructeur a partir des positions
 	 * @param x
 	 * @param y
 	 */
@@ -76,7 +76,7 @@ public class Case {
 	/**
 	 * Getter de la caseNext de gauche
 	 * 
-	 * @return la prochaine case à gauche
+	 * @return la prochaine case a gauche
 	 */
 	public Case getCaseNextGauche() {
 		return caseNext[0];
@@ -94,7 +94,7 @@ public class Case {
 	/**
 	 * Getter de la caseNext de droite
 	 * 
-	 * @return la prochaine case à droite
+	 * @return la prochaine case a droite
 	 */
 	public Case getCaseNextDroite() {
 		return caseNext[2];
@@ -135,7 +135,7 @@ public class Case {
 	}
 
 	/**
-	 * Setter de la prochaine case à gauche
+	 * Setter de la prochaine case a gauche
 	 * 
 	 * @param c
 	 *            une Case
@@ -155,7 +155,7 @@ public class Case {
 	}
 
 	/**
-	 * Setter de la prochaine case à droite
+	 * Setter de la prochaine case a droite
 	 * 
 	 * @param c
 	 *            une Case
@@ -242,13 +242,13 @@ public class Case {
 	/**
 	 * Cree une String de la case sous la forme : <br>
 	 * <ul>
-	 * <li>* : S'il n'y a pas de mur à proximité</li>
-	 * <li>|* : si un mur est à gauche</li>
+	 * <li>* : S'il n'y a pas de mur a proximite</li>
+	 * <li>|* : si un mur est a gauche</li>
 	 * <li>*<br>
 	 * _ : Si le mur est en bas</li>
 	 * <li>_<br>
 	 * |*|<br>
-	 * _ : Si la case est entourée de murs</li>
+	 * _ : Si la case est entouree de murs</li>
 	 * <li>etc.</li>
 	 * 
 	 * @return
@@ -283,7 +283,7 @@ public class Case {
 	}
 
 	/**
-	 * Genere une Case entourée de Cases Vides (donc une case non vide)
+	 * Genere une Case entouree de Cases Vides (donc une case non vide)
 	 * 
 	 * @return
 	 */

@@ -1,7 +1,7 @@
 package ricochetRobot;
 
 /**
- * Case que le RobotRequis doit atteindre. Le robotRequis par défaut est le Robot d'id = 1
+ * Case que le RobotRequis doit atteindre. Le robotRequis par defaut est le Robot d'id = 1
  * 
  * @author Dorian
  *
