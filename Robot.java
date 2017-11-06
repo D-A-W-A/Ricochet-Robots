@@ -18,17 +18,22 @@ package ricochetRobot;
  *
  */
 public class Robot {
-	private int idRobot;
+	
+	/////////// ATTRIBUTS ///////////
 	private boolean selectione;
-	private int[] position = new int[2];
-	private static int nbRobot = 0;
+	private Case caseActuelle;
 
+	/////////// CONSTRUCTEURS /////////////
 	public Robot() {
-		nbRobot++;
-		this.idRobot = nbRobot;
-		// TODO
+		selectione = false;
+	}
+	
+	public Robot (Case c) {
+		selectione = false;
+		caseActuelle = c;
 	}
 
+	////////// GETTERS AND SETTERS ////////
 	public boolean isSelectione() {
 		return selectione;
 	}
@@ -37,16 +42,15 @@ public class Robot {
 		this.selectione = selectione;
 	}
 
-	public int[] getPosition() {
-		return position;
+	public Case getCaseActuelle() {
+		return caseActuelle;
 	}
 
-	public void setPosition(int[] position) {
-		this.position = position;
+	public void setCaseActuelle(Case caseActuelle) {
+		this.caseActuelle = caseActuelle;
 	}
+	
+	////////// METHODES ////////////
 
-	public int getIdRobot() {
-		return idRobot;
-	}
 
 }

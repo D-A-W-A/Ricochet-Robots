@@ -23,6 +23,7 @@ public class Case {
 	private boolean occupe;
 	private int posX;
 	private int posY;
+	private Robot robot;
 
 	//////// CONSTRUCTEURS ////////
 
@@ -186,6 +187,15 @@ public class Case {
 		return occupe;
 	}
 
+	
+	public Robot getRobot() {
+		return robot;
+	}
+
+	public void setRobot(Robot robot) {
+		this.robot = robot;
+	}
+
 	/**
 	 * Permet de changer l'état de la case (La rendre occupée ou non)
 	 * 
@@ -232,7 +242,7 @@ public class Case {
 	public String toString() {
 		if (!this.estVide()) {
 			if (occupe)
-				return "R";
+				return robot.toString();
 			else
 				return (".");
 		} else {

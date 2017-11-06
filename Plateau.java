@@ -123,8 +123,9 @@ public class Plateau {
 	 * case ait au moins un mur (donc 3 % par coté)<br>
 	 * Utilise :<br>
 	 * 
-	 * @see initLigne(int i)<br>
-	 * @see determinerMurRandom(int n)
+	 * @see initLigne
+	 * @see determinerMurRandom
+	 * @see murDesDeuxCotes
 	 * 
 	 * @param n
 	 * @return
@@ -232,7 +233,7 @@ public class Plateau {
 
 	/**
 	 * Configure les CaseNext en fontion d'un tableau où les murs sont déjà
-	 * initialisés : Les caseNext actuels sont soit null, soit une case Vide) <br>
+	 * initialises : Les caseNext actuels sont soit null, soit une case Vide) <br>
 	 * 
 	 * @param tCases
 	 */
