@@ -37,7 +37,7 @@ public class Partie extends FlecheClavierListener {
 	private int nbVictoire = 0;
 
 	/**
-	 * 0 : Partie arrêtee 1 : Partie en cours 2 : Pause
+	 * 0 : Partie arretee 1 : Partie en cours 2 : Pause
 	 */
 	private int lancerPartie = 0;
 
