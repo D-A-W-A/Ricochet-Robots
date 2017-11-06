@@ -35,7 +35,13 @@ public class Partie extends FlecheClavierListener {
 	private Chrono chrono;
 	private int nbCoups;
 	private int nbVictoire = 0;
-	private int lancerPartie = 0;
+	
+	/**
+	 * 0 : Partie arrêtée
+	 * 1 : Partie en cours
+	 * 2 : Pause
+	 */
+	private int lancerPartie = 0; 
 
 	
 	//////// CONSTRUCTEURS ///////
@@ -84,6 +90,9 @@ public class Partie extends FlecheClavierListener {
 	
 	////////// METHODES /////////
 	
+	public String toString() {
+		return plateau.toString();
+	}
 	/**
 	 * Cree une partie random avec un plateau genere aleatoirement de taille 16
 	 */
@@ -112,13 +121,15 @@ public class Partie extends FlecheClavierListener {
 	 * Met en pause la Partie
 	 */
 	public void pausePartie() {
-		lancerPartie = 0;
+		System.out.println("PAUSE");
+		lancerPartie = 2;
 	}
 	
 	/**
 	 * Relance la partie
 	 */
 	public void reprendrePartie() {
+		System.out.println("REPRISE");
 		lancerPartie = 1;
 	}
 	
@@ -142,10 +153,13 @@ public class Partie extends FlecheClavierListener {
 	public void keyPressed(KeyEvent e) {
 		int code = e.getKeyCode();
 		if (code == KeyEvent.VK_ESCAPE) {
-			System.exit(1);
+			arreterPartie();
 		}
 		if (lancerPartie == 1) {
-			int deplacement;
+			if (e.getKeyChar() == 'P' || e.getKeyChar() == 'p')
+				pausePartie();
+			
+			int deplacement = 0;
 			if (code == KeyEvent.VK_DOWN) {
 				deplacement = plateau.getTabRobots()[0].deplacerRobotBas();
 			}
@@ -158,6 +172,18 @@ public class Partie extends FlecheClavierListener {
 			else if (code == KeyEvent.VK_RIGHT) {
 				deplacement = plateau.getTabRobots()[0].deplacerRobotDroite();
 			}
+			if (deplacement == 1) {
+				nbCoups++;
+			
+			}
+		}else if (lancerPartie == 2){
+			if (e.getKeyChar() == 'P' || e.getKeyChar() == 'p')
+				reprendrePartie();
+		}else if (lancerPartie == 0) {
+			if (e.getKeyChar() == 'O' || e.getKeyChar() == 'o')
+				lancerPartie = 1;
+			if (e.getKeyChar() == 'N' || e.getKeyChar() == 'n')
+				arreterPartie();
 		}
 		
 	}
