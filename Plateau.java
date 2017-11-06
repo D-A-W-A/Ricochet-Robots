@@ -460,7 +460,7 @@ public class Plateau {
 			tabCases[i - k][j].setCaseNextBas(tabCases[i - 1][j]);
 		}
 
-		if (i < taille-1) {
+		if (i < taille - 1) {
 			int k = 1;
 			while (!tabCases[i + k][j].getCaseNextBas().estVide()) {
 				tabCases[i + k][j].setCaseNextHaut(tabCases[i][j]);
@@ -505,33 +505,73 @@ public class Plateau {
 	}
 
 	/**
-	 * Ajoute un mur sur le plateau aux coordonnees (i,j) et sur la gauche de la case et redefinie toutes les autres cases pour pouvoir interagir avec ce nouveau mur
-	 * @param i la ligne
-	 * @param j la colone
+	 * Ajoute un mur sur le plateau aux coordonnees (i,j) et sur la gauche de la
+	 * case et redefinie toutes les autres cases pour pouvoir interagir avec ce
+	 * nouveau mur
+	 * 
+	 * @param i
+	 *            la ligne
+	 * @param j
+	 *            la colone
 	 */
 	public void ajouterMurGauche(int i, int j) {
 		tabCases[i][j].setCaseNextGauche(new Case());
-		if (i>0)
-			tabCases[i][j-1].setCaseNextDroite(new Case());
-		
+		if (j > 0)
+			tabCases[i][j - 1].setCaseNextDroite(new Case());
+
 		if (j > 1) {
 			int k = 2;
-			while (!tabCases[i][j-k].getCaseNextGauche().estVide()) {
-				tabCases[i][j-k].setCaseNextDroite(tabCases[i][j-1]);
+			while (!tabCases[i][j - k].getCaseNextGauche().estVide()) {
+				tabCases[i][j - k].setCaseNextDroite(tabCases[i][j - 1]);
 				k++;
 			}
-			tabCases[i][j-k].setCaseNextDroite(tabCases[i][j-1]);
-			
+			tabCases[i][j - k].setCaseNextDroite(tabCases[i][j - 1]);
+
+		}
+
+		if (j < taille - 1) {
+			int k = 1;
+			while (!tabCases[i][j + k].getCaseNextDroite().estVide()) {
+				tabCases[i][j + k].setCaseNextGauche(tabCases[i][j]);
+				k++;
+			}
+			tabCases[i][j + k].setCaseNextGauche(tabCases[i][j]);
+		}
+	}
+
+	/**
+	 * Ajoute un mur sur le plateau aux coordonnees (i,j) et sur la droite de la
+	 * case et redefinie toutes les autres cases pour pouvoir interagir avec ce
+	 * nouveau mur
+	 * 
+	 * @param i
+	 *            la ligne
+	 * @param j
+	 *            la colone
+	 */
+	public void ajouterMurDroite(int i, int j) {
+		tabCases[i][j].setCaseNextDroite(new Case());
+		if (j < taille)
+			tabCases[i][j+1].setCaseNextGauche(new Case());
+		
+		if (j > 1) {
+			int k = 1;
+			while (!tabCases[i][j-k].getCaseNextGauche().estVide()) {
+				tabCases[i][j-k].setCaseNextDroite(tabCases[i][j]);
+				k++;
+			}
+			tabCases[i][j-k].setCaseNextDroite(tabCases[i][j]);
 		}
 		
-		if (j < taille-1) {
-			int k = 1;
+		if (j<taille-1) {
+			int k=2;
 			while (!tabCases[i][j+k].getCaseNextDroite().estVide()) {
-				tabCases[i][j+k].setCaseNextGauche(tabCases[i][j]);
+				tabCases[i][j+k].setCaseNextGauche(tabCases[i][j+1]);
 				k++;
 			}
-			tabCases[i][j+k].setCaseNextGauche(tabCases[i][j]);
+			tabCases[i][j+k].setCaseNextGauche(tabCases[i][j+1]);
 		}
+
 	}
 
 	/**

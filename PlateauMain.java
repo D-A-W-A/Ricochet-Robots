@@ -26,5 +26,8 @@ public class PlateauMain {
 		
 //		p.ajouterMurGauche(1, 1);
 //		System.out.println("\n\n==================================\n \n"+p.toString());
+		
+		p.ajouterMurDroite(0,0);
+		System.out.println("\n\n==================================\n \n"+p.toString());
 	}
 }
