@@ -438,6 +438,8 @@ public class Plateau {
 
 	/**
 	 * Ajoute un mur sur le plateau aux coordonnes (i,j) et sur le haut de la case
+	 * @param i la ligne
+	 * @param j la colone
 	 */
 	public void ajouterMurHaut(int i, int j) {
 		tabCases[i][j].setCaseNextHaut(new Case());
@@ -453,13 +455,42 @@ public class Plateau {
 			tabCases[i - k][j].setCaseNextBas(tabCases[i - 1][j]);
 		}
 
-		if (i < taille - 1) {
+		if (i < taille) {
 			int k = 1;
 			while (!tabCases[i + k][j].getCaseNextBas().estVide()) {
 				tabCases[i + k][j].setCaseNextHaut(tabCases[i][j]);
 				k++;
 			}
 			tabCases[i + k][j].setCaseNextHaut(tabCases[i][j]);
+		}
+	}
+	
+	/**
+	 * Ajoute un mur sur le plateau aux coordonnées (i,j) et sur le bas de la case
+	 * @param i la ligne
+	 * @param j la colone
+	 */
+	public void ajouterMurBas(int i, int j) {
+		tabCases[i][j].setCaseNextBas(new Case());
+		if (i<taille)
+			tabCases[i+1][j].setCaseNextHaut(new Case());
+		
+		if (i > 0) {
+			int k = 1;
+			while (!tabCases[i-k][j].getCaseNextHaut().estVide()) {
+				tabCases[i-k][j].setCaseNextBas(tabCases[i][j]);
+				k++;
+			}
+			tabCases[i-k][j].setCaseNextBas(tabCases[i][j]);
+		}
+		
+		if (i<taille-1) {
+			int k = 2;
+			while (!tabCases[i+k][j].getCaseNextBas().estVide()) {
+				tabCases[i+k][j].setCaseNextHaut(tabCases[i+1][j]);
+				k++;
+			}
+			tabCases[i+k][j].setCaseNextHaut(tabCases[i+1][j]);
 		}
 	}
 
