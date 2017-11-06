@@ -20,7 +20,6 @@ public class Case {
 
 	// 0 => Gauche --- 1 => Haut --- 2 => Droite --- 3 => Bas
 	private Case[] caseNext = new Case[4];
-	private boolean occupe;
 	private int posX;
 	private int posY;
 	private Robot robot;
@@ -33,7 +32,6 @@ public class Case {
 	public Case() {
 		for (int i = 0; i < 4; i++)
 			this.caseNext[i] = null;
-		occupe = false;
 	}
 
 	/**
@@ -49,7 +47,6 @@ public class Case {
 			caseNext[2] = new Case(c.getCaseNextDroite());
 			caseNext[3] = new Case(c.getCaseNextBas());
 		}
-		occupe = false;
 	}
 	
 	/**
@@ -61,7 +58,6 @@ public class Case {
 		Case caseVide = new Case();
 		for (int i = 0; i < 4; i++)
 			this.caseNext[i] = caseVide;
-		occupe = false;
 		posX = x;
 		posY = y;
 	}
@@ -183,8 +179,8 @@ public class Case {
 	 * 
 	 * @return true si la case est occupee
 	 */
-	public boolean isOccupe() {
-		return occupe;
+	public boolean estOccupe() {
+		return robot != null;
 	}
 
 	
@@ -196,14 +192,6 @@ public class Case {
 		this.robot = robot;
 	}
 
-	/**
-	 * Permet de changer l'état de la case (La rendre occupée ou non)
-	 * 
-	 * @param occupe
-	 */
-	public void setOccupe(boolean occupe) {
-		this.occupe = occupe;
-	}
 	
 	public int getPosX() {
 		return posX;
@@ -241,7 +229,7 @@ public class Case {
 
 	public String toString() {
 		if (!this.estVide()) {
-			if (occupe)
+			if (estOccupe())
 				return robot.toString();
 			else
 				return (".");
@@ -310,12 +298,10 @@ public class Case {
 	}
 	
 	public void affecterRobot (Robot r) {
-		this.occupe = true;
 		this.robot = r;
 	}
 	
 	public void supprimerRobot () {
-		this.occupe = false;
 		this.robot = null;
 	}
 
