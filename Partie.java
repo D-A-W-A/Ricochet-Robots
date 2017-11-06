@@ -139,7 +139,7 @@ public class Partie extends FlecheClavierListener {
 	private void mainPartieTerminalRandomAux() {
 		System.out.println("RICOCHET - ROBOTS\nVersion sur Terminal - Plateau Random\n\n");
 		System.out.println(
-				"Le jeu se joue avec les feches directionnelles.\nPour mettre en pause, appuyez sur P.\nPour arreter la partie, appuyez sur ECHAP\n");
+				"Le jeu se joue avec les feches directionnelles.\nPour mettre en pause, appuyez sur P. Une fois le jeu en pause, vous pouvez appuyer sur R pour reccomencer sur un autre Plateau\nPour arreter la partie, appuyez sur ECHAP\n");
 		creerPartieRandom();
 		plateau.placerRobotRandom(0);
 		plateau.ajouterObjectifRandom();
@@ -185,6 +185,7 @@ public class Partie extends FlecheClavierListener {
 	 * <br>
 	 * Lors d'une Pause : <br>
 	 * ==> Si le joueur appuie sur P, la partie reprend <br>
+	 * ==> Si le joueur appuie sur R, une nouvelle manche est lancée<br>
 	 * <br>
 	 * Lorsque la partie est arrettee :<br>
 	 * ==> Si le joueur appuie sur O, une nouvelle manche est lancée ==> Si le
@@ -220,6 +221,8 @@ public class Partie extends FlecheClavierListener {
 		} else if (lancerPartie == 2) {
 			if (e.getKeyChar() == 'P' || e.getKeyChar() == 'p')
 				reprendrePartie();
+			else if (e.getKeyChar() == 'r' || e.getKeyChar() == 'r')
+				mainPartieTerminalRandomAux();
 		} else if (lancerPartie == 0) {
 			if (e.getKeyChar() == 'O' || e.getKeyChar() == 'o') {
 				lancerPartie = 1;

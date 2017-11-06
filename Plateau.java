@@ -350,7 +350,9 @@ public class Plateau {
 	 * Pour inserer une case avec un mur, ajouter la case, utiliser les methodes
 	 * AjouterMur(), puis utiliser ensuite cette fonction
 	 * 
-	 * <br><br> PEUT ETRE OBSOLETE
+	 * <br>
+	 * <br>
+	 * PEUT ETRE OBSOLETE
 	 * 
 	 * @param i
 	 * @param j
@@ -411,11 +413,9 @@ public class Plateau {
 		c.setCaseNext(tabCases[i][j].getCaseNext());
 
 		tabCases[i][j] = c;
-		// TODO : AJOUTER DES MURS
-
-
 		objectifPos[0] = i;
 		objectifPos[1] = j;
+		ajouterMursRandomObjectif();
 
 	}
 
@@ -651,6 +651,30 @@ public class Plateau {
 					tabCases[i][j].setCaseNextDroite(tabCases[i][j + k]);
 				}
 			}
+		}
+	}
+
+	/**
+	 * Ajoute un mur formant un angle sur l'objectif
+	 */
+	public void ajouterMursRandomObjectif() {
+		int i = objectifPos[0];
+		int j = objectifPos[1];
+		Random r = new Random();
+		int random = r.nextInt(4);
+
+		if (random == 0) {
+			ajouterMurGauche(i, j);
+			ajouterMurHaut(i, j);
+		} else if (random == 1) {
+			ajouterMurHaut(i, j);
+			ajouterMurDroite(i, j);
+		} else if (random == 2) {
+			ajouterMurDroite(i, j);
+			ajouterMurBas(i, j);
+		} else if (random == 3) {
+			ajouterMurBas(i, j);
+			ajouterMurGauche(i, j);
 		}
 	}
 
