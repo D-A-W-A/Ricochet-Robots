@@ -60,6 +60,17 @@ public class Robot {
 	}
 
 	////////// METHODES ////////////
+	
+	public boolean estSurUneCase() {
+		return caseActuelle != null;
+	}
+	
+	public String toString() {
+		if (this.estSurUneCase())
+			return Character.toString(couleur);
+		else 
+			return "";
+	}
 
 	/**
 	 * Deplace le robot vers le haut Ne fait rien si le robot se deplace vers un mur
