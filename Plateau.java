@@ -405,8 +405,30 @@ public class Plateau {
 		Random r = new Random();
 		int i = r.nextInt(taille);
 		int j = r.nextInt(taille);
+		
 		CaseObjectif c = new CaseObjectif();
 		c.setCaseNext(tabCases[i][j].getCaseNext());
+		
+		
+		// Definition de maniere random les 2 murs pres de l'objectif
+		Case cVide = new Case();
+		int mur = r.nextInt(4);
+		if (mur == 0) {
+			c.setCaseNextGauche(cVide);
+			c.setCaseNextHaut(cVide);
+		}
+		else if (mur == 1) {
+			c.setCaseNextHaut(cVide);
+			c.setCaseNextDroite(cVide);
+		}
+		else if (mur == 2) {
+			c.setCaseNextDroite(cVide);
+			c.setCaseNextBas(cVide);
+		}
+		else if (mur == 3) {
+			c.setCaseNextBas(cVide);
+			c.setCaseNextGauche(cVide);
+		}
 		tabCases[i][j] = c;
 		redefinirLignes(i, j);
 		objectif = c;
