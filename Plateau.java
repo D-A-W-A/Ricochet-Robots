@@ -95,7 +95,7 @@ public class Plateau {
 	public void setTabRobots(Robot[] tabRobots) {
 		this.tabRobots = tabRobots;
 	}
-	
+
 	public CaseObjectif getObjectif() {
 		return objectif;
 	}
@@ -104,11 +104,7 @@ public class Plateau {
 		this.objectif = objectif;
 	}
 
-	
-	
-
 	/////// METHODES /////////
-
 
 	/**
 	 * Initialise la ligne i du plateau avec des cases Vides
@@ -398,63 +394,113 @@ public class Plateau {
 	}
 
 	/**
-	 * Ajoute de façon aleatoire un objectif sur le plateau
-	 * Note : L'objectif doit se trouver à coté d'un mur sinon la partie est impossible
+	 * Ajoute de façon aleatoire un objectif sur le plateau Note : L'objectif doit
+	 * se trouver à coté d'un mur sinon la partie est impossible
 	 */
 	public void ajouterObjectifRandom() {
 		Random r = new Random();
 		int i = r.nextInt(taille);
 		int j = r.nextInt(taille);
-		
+
 		CaseObjectif c = new CaseObjectif();
 		c.setCaseNext(tabCases[i][j].getCaseNext());
-		
-		
-		// Definition de maniere random les 2 murs pres de l'objectif
-		Case cVide = new Case();
-		int mur = r.nextInt(4);
-		if (mur == 0) {
-			c.setCaseNextGauche(cVide);
-			c.setCaseNextHaut(cVide);
-		}
-		else if (mur == 1) {
-			c.setCaseNextHaut(cVide);
-			c.setCaseNextDroite(cVide);
-		}
-		else if (mur == 2) {
-			c.setCaseNextDroite(cVide);
-			c.setCaseNextBas(cVide);
-		}
-		else if (mur == 3) {
-			c.setCaseNextBas(cVide);
-			c.setCaseNextGauche(cVide);
-		}
+
 		tabCases[i][j] = c;
 		redefinirLignes(i, j);
 		objectif = c;
 
 	}
-	
+
 	/**
 	 * Place le robot n° num de façon random
+	 * 
 	 * @param num
 	 */
 	public void placerRobotRandom(int num) {
 		Random r = new Random();
 		int i = r.nextInt(taille);
 		int j = r.nextInt(taille);
-		int[] t = {i,j};
+		int[] t = { i, j };
 		this.tabRobots[num].setCaseActuelle(tabCases[i][j]);
 		this.tabCases[i][j].affecterRobot(tabRobots[num]);
 	}
-	
+
 	/**
 	 * Insere les coordonees de chaque Case dans Case.posX et Case.posY
 	 */
 	public void insererCoordonees() {
-		for (int i=0; i <taille; i++) {
-			for (int j=0; j<taille; j++) {
+		for (int i = 0; i < taille; i++) {
+			for (int j = 0; j < taille; j++) {
 				this.tabCases[i][j].setPos(i, j);
+			}
+		}
+	}
+
+	/**
+	 * Ajoute 2 murs a cote de l'objectif
+	 */
+	public void placerMurObjectif() {
+		Random r = new Random();
+		Case cVide = new Case();
+		int mur = r.nextInt(4);
+		if (mur == 0) {
+			objectif.setCaseNextGauche(cVide);
+			objectif.setCaseNextHaut(cVide);
+		} else if (mur == 1) {
+			objectif.setCaseNextHaut(cVide);
+			objectif.setCaseNextDroite(cVide);
+		} else if (mur == 2) {
+			objectif.setCaseNextDroite(cVide);
+			objectif.setCaseNextBas(cVide);
+		} else if (mur == 3) {
+			objectif.setCaseNextBas(cVide);
+			objectif.setCaseNextGauche(cVide);
+		}
+	}
+	
+	/**
+	 * Configure les casesNext du plateau
+	 * Prereq : Le plateau doit contenir des cases qui ont comme caseNext soit une case Vide, soit une Case valide
+	 */
+	public void configureCaseNextPlateau() {
+		int k;
+		for (int i = 0; i < taille; i++) {
+			for (int j = 0; j < taille; j++) {
+				if (!tabCases[i][j].getCaseNextHaut().estVide()) {
+					// Ajout des CasesNext vers le haut
+					k = 0;
+					while (!tabCases[i - k][j].getCaseNextHaut().estVide()) {
+						k++;
+					}
+					tabCases[i][j].setCaseNextHaut(tabCases[i - k][j]);
+				}
+
+				if (!tabCases[i][j].getCaseNextBas().estVide()) {
+					// Ajout des CasesNext vers le bas
+					k = 0;
+					while (!tabCases[i + k][j].getCaseNextBas().estVide()) {
+						k++;
+					}
+					tabCases[i][j].setCaseNextBas(tabCases[i + k][j]);
+				}
+
+				if (!tabCases[i][j].getCaseNextGauche().estVide()) {
+					// Ajout des CasesNext vers la gauche
+					k = 0;
+					while (!tabCases[i][j - k].getCaseNextGauche().estVide()) {
+						k++;
+					}
+					tabCases[i][j].setCaseNextGauche(tabCases[i][j - k]);
+				}
+
+				if (!tabCases[i][j].getCaseNextDroite().estVide()) {
+					// Ajout des CasesNext vers la Droite
+					k = 0;
+					while (!tabCases[i][j + k].getCaseNextDroite().estVide()) {
+						k++;
+					}
+					tabCases[i][j].setCaseNextDroite(tabCases[i][j + k]);
+				}
 			}
 		}
 	}
