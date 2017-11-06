@@ -27,23 +27,20 @@ import java.awt.event.KeyEvent;
  *
  */
 public class Partie extends FlecheClavierListener {
-	
+
 	/////// ATTRIBUTS //////////
-	
+
 	private int idPartie;
 	private Plateau plateau;
 	private Chrono chrono;
 	private int nbCoups;
 	private int nbVictoire = 0;
-	
-	/**
-	 * 0 : Partie arrêtée
-	 * 1 : Partie en cours
-	 * 2 : Pause
-	 */
-	private int lancerPartie = 0; 
 
-	
+	/**
+	 * 0 : Partie arrêtée 1 : Partie en cours 2 : Pause
+	 */
+	private int lancerPartie = 0;
+
 	//////// CONSTRUCTEURS ///////
 	public Partie() {
 		super();
@@ -51,7 +48,7 @@ public class Partie extends FlecheClavierListener {
 	}
 
 	//////// GETTERS AND SETTERS ///////
-	
+
 	public Plateau getPlateau() {
 		return plateau;
 	}
@@ -87,21 +84,22 @@ public class Partie extends FlecheClavierListener {
 	public int getIdPartie() {
 		return idPartie;
 	}
-	
+
 	////////// METHODES /////////
-	
+
 	public String toString() {
 		return plateau.toString();
 	}
+
 	/**
 	 * Cree une partie random avec un plateau genere aleatoirement de taille 16
 	 */
-	public void creerPartieRandom () {
+	public void creerPartieRandom() {
 		plateau = Plateau.genererPlateauRandom(16);
 		lancerPartie = 0;
 		nbCoups = 0;
 	}
-	
+
 	/**
 	 * Lance la partie
 	 */
@@ -109,14 +107,15 @@ public class Partie extends FlecheClavierListener {
 		lancerPartie = 1;
 		lancer();
 	}
-	
+
 	/**
 	 * Arrete completement la partie. Rien n'est stocke
 	 */
 	public void arreterPartie() {
 		System.exit(0);
+		stop();
 	}
-	
+
 	/**
 	 * Met en pause la Partie
 	 */
@@ -124,7 +123,7 @@ public class Partie extends FlecheClavierListener {
 		System.out.println("PAUSE");
 		lancerPartie = 2;
 	}
-	
+
 	/**
 	 * Relance la partie
 	 */
@@ -132,32 +131,42 @@ public class Partie extends FlecheClavierListener {
 		System.out.println("REPRISE");
 		lancerPartie = 1;
 	}
-	
-	/** 
+
+	/**
 	 * Permet de lancer une partie avec toute les fonctionnalites necessaires.
 	 */
 	private void mainPartieTerminalRandomAux() {
 		System.out.println("RICOCHET - ROBOTS\nVersion sur Terminal - Plateau Random\n\n");
-		System.out.println("Le jeu se joue avec les feches directionnelles.\nPour mettre en pause, appuyez sur P.\nPour arreter la partie, appuyez sur ECHAP\n");
+		System.out.println(
+				"Le jeu se joue avec les feches directionnelles.\nPour mettre en pause, appuyez sur P.\nPour arreter la partie, appuyez sur ECHAP\n");
 		creerPartieRandom();
 		plateau.placerRobotRandom(0);
 		plateau.ajouterObjectifRandom();
 		lancerPartie();
 		System.out.println(toString());
-		
+
 	}
-	
+
 	public static void mainPartieTerminalRandom() {
 		Partie p = new Partie();
 		p.mainPartieTerminalRandomAux();
 	}
-	
-	public void update () {
-		System.out.println("\n\n=====================================================================\n\n"+ toString());
+
+	public void update() {
+		System.out
+				.println("\n\n=====================================================================\nNombre de Coups : "
+						+ nbCoups + "\n" + toString());
+	}
+
+	public void victoire() {
+		nbVictoire++;
+		lancerPartie = 0;
+		System.out.println("Bien joue !\nNombre de victoires : "+nbVictoire+"\nVoulez vous refaire une manche ? (O / N)\n");
 	}
 
 	// MODIFICATION DU LISTENER DES FLECHES
-	// TODO : Redéfinir la classe pour déplacer le robot dans la direction indiquée par le joueur
+	// TODO : Redéfinir la classe pour déplacer le robot dans la direction indiquée
+	// par le joueur
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int code = e.getKeyCode();
@@ -167,18 +176,15 @@ public class Partie extends FlecheClavierListener {
 		if (lancerPartie == 1) {
 			if (e.getKeyChar() == 'P' || e.getKeyChar() == 'p')
 				pausePartie();
-			
+
 			int deplacement = 0;
 			if (code == KeyEvent.VK_DOWN) {
 				deplacement = plateau.getTabRobots()[0].deplacerRobotBas();
-			}
-			else if (code == KeyEvent.VK_UP) {
+			} else if (code == KeyEvent.VK_UP) {
 				deplacement = plateau.getTabRobots()[0].deplacerRobotHaut();
-			}
-			else if (code == KeyEvent.VK_LEFT) {
+			} else if (code == KeyEvent.VK_LEFT) {
 				deplacement = plateau.getTabRobots()[0].deplacerRobotGauche();
-			}
-			else if (code == KeyEvent.VK_RIGHT) {
+			} else if (code == KeyEvent.VK_RIGHT) {
 				deplacement = plateau.getTabRobots()[0].deplacerRobotDroite();
 			}
 			if (deplacement == 1) {
@@ -186,18 +192,20 @@ public class Partie extends FlecheClavierListener {
 				update();
 			}
 			if (plateau.getObjectif().reussite()) {
-				
+				victoire();
 			}
-		}else if (lancerPartie == 2){
+		} else if (lancerPartie == 2) {
 			if (e.getKeyChar() == 'P' || e.getKeyChar() == 'p')
 				reprendrePartie();
-		}else if (lancerPartie == 0) {
-			if (e.getKeyChar() == 'O' || e.getKeyChar() == 'o')
+		} else if (lancerPartie == 0) {
+			if (e.getKeyChar() == 'O' || e.getKeyChar() == 'o') {
 				lancerPartie = 1;
+				mainPartieTerminalRandomAux();
+			}
 			if (e.getKeyChar() == 'N' || e.getKeyChar() == 'n')
 				arreterPartie();
 		}
-		
+
 	}
 
 	public static void main(String[] args) {

@@ -29,6 +29,11 @@ public class FlecheClavierListener extends JFrame implements KeyListener {
 	public void pause () {
 		fenetreListener.setVisible(false);
 	}
+	
+	public void stop () {
+		setVisible(false); //you can't see me!
+		dispose(); //Destroy the JFrame object
+	}
 
 	// VK_DOWN
 	// VK_LEFT
