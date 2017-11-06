@@ -93,17 +93,33 @@ public class Partie extends FlecheClavierListener {
 		nbCoups = 0;
 	}
 	
+	/**
+	 * Lance la partie
+	 */
 	public void lancerPartie() {
 		lancerPartie = 1;
 		lancer();
 	}
 	
+	/**
+	 * Arrete completement la partie. Rien n'est stocke
+	 */
 	public void arreterPartie() {
 		System.exit(0);
 	}
 	
-	public void PausePartie() {
+	/**
+	 * Met en pause la Partie
+	 */
+	public void pausePartie() {
 		lancerPartie = 0;
+	}
+	
+	/**
+	 * Relance la partie
+	 */
+	public void reprendrePartie() {
+		lancerPartie = 1;
 	}
 
 	// MODIFICATION DU LISTENER DES FLECHES
