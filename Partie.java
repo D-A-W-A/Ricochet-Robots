@@ -152,21 +152,43 @@ public class Partie extends FlecheClavierListener {
 		p.mainPartieTerminalRandomAux();
 	}
 
+	/**
+	 * Met à jour le terminal pour montrer la nouvelle disposition du plateau
+	 */
 	public void update() {
 		System.out
 				.println("\n\n=====================================================================\nNombre de Coups : "
 						+ nbCoups + "\n" + toString());
 	}
 
+	/**
+	 * En cas de victoire, cette fonction est appelée
+	 */
 	public void victoire() {
 		nbVictoire++;
 		lancerPartie = 0;
-		System.out.println("Bien joue !\nNombre de victoires : "+nbVictoire+"\nVoulez vous refaire une manche ? (O / N)\n");
+		System.out.println(
+				"Bien joue !\nNombre de victoires : " + nbVictoire + "\nVoulez vous refaire une manche ? (O / N)\n");
 	}
 
-	// MODIFICATION DU LISTENER DES FLECHES
-	// TODO : Redéfinir la classe pour déplacer le robot dans la direction indiquée
-	// par le joueur
+	/**
+	 * LISTENER : <br>
+	 * Ce listener se comporte de 3 facons differentes : lors d'une partie arrettee,
+	 * lors d'une partie lancee, lors d'une pause.<br>
+	 * Si le joueur appuie sur ECHAP, la partie s'arrette immediatement. <br>
+	 * <br>
+	 * Lors d'une Partie : <br>
+	 * ==> Si le joueur appuie sur une fleche directionelle, Le Robot est deplacee
+	 * dans la direction indiquee ==> Si le joueur Appuie sur P : la partie est mise
+	 * en pause <br>
+	 * <br>
+	 * Lors d'une Pause : <br>
+	 * ==> Si le joueur appuie sur P, la partie reprend <br>
+	 * <br>
+	 * Lorsque la partie est arrettee :<br>
+	 * ==> Si le joueur appuie sur O, une nouvelle manche est lancée ==> Si le
+	 * joueur appuie sur N, La partie se termine et se ferme.
+	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int code = e.getKeyCode();
