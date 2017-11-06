@@ -21,5 +21,10 @@ public class PlateauMain {
 //		System.out.println(p.getTabCases()[0][0].getCaseNextHaut().estVide());
 //		System.out.println("\n\n==================================\n \n"+p.toString());
 		
+//		p.ajouterMurBas(1, 1);
+//		System.out.println("\n\n==================================\n \n"+p.toString());
+		
+//		p.ajouterMurGauche(1, 1);
+//		System.out.println("\n\n==================================\n \n"+p.toString());
 	}
 }

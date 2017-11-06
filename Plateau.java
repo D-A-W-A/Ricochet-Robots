@@ -345,8 +345,8 @@ public class Plateau {
 	}
 
 	/**
-	 * Redefinis les lignes lors d'une modification de case
-	 * @ OBSOLETE
+	 * Redefinis les lignes lors d'une modification de case @ OBSOLETE
+	 * 
 	 * @param i
 	 * @param j
 	 */
@@ -438,8 +438,13 @@ public class Plateau {
 
 	/**
 	 * Ajoute un mur sur le plateau aux coordonnes (i,j) et sur le haut de la case
-	 * @param i la ligne
-	 * @param j la colone
+	 * et redefinie toutes les autres cases pour pouvoir interagir avec ce nouveau
+	 * mur
+	 * 
+	 * @param i
+	 *            la ligne
+	 * @param j
+	 *            la colone
 	 */
 	public void ajouterMurHaut(int i, int j) {
 		tabCases[i][j].setCaseNextHaut(new Case());
@@ -455,7 +460,7 @@ public class Plateau {
 			tabCases[i - k][j].setCaseNextBas(tabCases[i - 1][j]);
 		}
 
-		if (i < taille) {
+		if (i < taille-1) {
 			int k = 1;
 			while (!tabCases[i + k][j].getCaseNextBas().estVide()) {
 				tabCases[i + k][j].setCaseNextHaut(tabCases[i][j]);
@@ -464,33 +469,68 @@ public class Plateau {
 			tabCases[i + k][j].setCaseNextHaut(tabCases[i][j]);
 		}
 	}
-	
+
 	/**
 	 * Ajoute un mur sur le plateau aux coordonnées (i,j) et sur le bas de la case
-	 * @param i la ligne
-	 * @param j la colone
+	 * et redefinie toutes les autres cases pour pouvoir interagir avec ce nouveau
+	 * mur
+	 * 
+	 * @param i
+	 *            la ligne
+	 * @param j
+	 *            la colone
 	 */
 	public void ajouterMurBas(int i, int j) {
 		tabCases[i][j].setCaseNextBas(new Case());
-		if (i<taille)
-			tabCases[i+1][j].setCaseNextHaut(new Case());
-		
+		if (i < taille)
+			tabCases[i + 1][j].setCaseNextHaut(new Case());
+
 		if (i > 0) {
 			int k = 1;
-			while (!tabCases[i-k][j].getCaseNextHaut().estVide()) {
-				tabCases[i-k][j].setCaseNextBas(tabCases[i][j]);
+			while (!tabCases[i - k][j].getCaseNextHaut().estVide()) {
+				tabCases[i - k][j].setCaseNextBas(tabCases[i][j]);
 				k++;
 			}
-			tabCases[i-k][j].setCaseNextBas(tabCases[i][j]);
+			tabCases[i - k][j].setCaseNextBas(tabCases[i][j]);
+		}
+
+		if (i < taille - 1) {
+			int k = 2;
+			while (!tabCases[i + k][j].getCaseNextBas().estVide()) {
+				tabCases[i + k][j].setCaseNextHaut(tabCases[i + 1][j]);
+				k++;
+			}
+			tabCases[i + k][j].setCaseNextHaut(tabCases[i + 1][j]);
+		}
+	}
+
+	/**
+	 * Ajoute un mur sur le plateau aux coordonnees (i,j) et sur la gauche de la case et redefinie toutes les autres cases pour pouvoir interagir avec ce nouveau mur
+	 * @param i la ligne
+	 * @param j la colone
+	 */
+	public void ajouterMurGauche(int i, int j) {
+		tabCases[i][j].setCaseNextGauche(new Case());
+		if (i>0)
+			tabCases[i][j-1].setCaseNextDroite(new Case());
+		
+		if (j > 1) {
+			int k = 2;
+			while (!tabCases[i][j-k].getCaseNextGauche().estVide()) {
+				tabCases[i][j-k].setCaseNextDroite(tabCases[i][j-1]);
+				k++;
+			}
+			tabCases[i][j-k].setCaseNextDroite(tabCases[i][j-1]);
+			
 		}
 		
-		if (i<taille-1) {
-			int k = 2;
-			while (!tabCases[i+k][j].getCaseNextBas().estVide()) {
-				tabCases[i+k][j].setCaseNextHaut(tabCases[i+1][j]);
+		if (j < taille-1) {
+			int k = 1;
+			while (!tabCases[i][j+k].getCaseNextDroite().estVide()) {
+				tabCases[i][j+k].setCaseNextGauche(tabCases[i][j]);
 				k++;
 			}
-			tabCases[i+k][j].setCaseNextHaut(tabCases[i+1][j]);
+			tabCases[i][j+k].setCaseNextGauche(tabCases[i][j]);
 		}
 	}
 
