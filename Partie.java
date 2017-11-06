@@ -139,12 +139,21 @@ public class Partie extends FlecheClavierListener {
 	private void mainPartieTerminalRandomAux() {
 		System.out.println("RICOCHET - ROBOTS\nVersion sur Terminal - Plateau Random\n\n");
 		System.out.println("Le jeu se joue avec les feches directionnelles.\nPour mettre en pause, appuyez sur P.\nPour arreter la partie, appuyez sur ECHAP\n");
+		creerPartieRandom();
+		plateau.placerRobotRandom(0);
+		plateau.ajouterObjectifRandom();
+		lancerPartie();
+		System.out.println(toString());
 		
 	}
 	
 	public static void mainPartieTerminalRandom() {
 		Partie p = new Partie();
 		p.mainPartieTerminalRandomAux();
+	}
+	
+	public void update () {
+		System.out.println("\n\n=====================================================================\n\n"+ toString());
 	}
 
 	// MODIFICATION DU LISTENER DES FLECHES
@@ -174,7 +183,10 @@ public class Partie extends FlecheClavierListener {
 			}
 			if (deplacement == 1) {
 				nbCoups++;
-			
+				update();
+			}
+			if (plateau.getObjectif().reussite()) {
+				
 			}
 		}else if (lancerPartie == 2){
 			if (e.getKeyChar() == 'P' || e.getKeyChar() == 'p')

@@ -27,6 +27,7 @@ public class Plateau {
 	private int taille;
 	private Case[][] tabCases;
 	private Robot[] tabRobots;
+	private CaseObjectif objectif;
 
 	/////// CONSTRUCTEURS /////////
 
@@ -94,8 +95,20 @@ public class Plateau {
 	public void setTabRobots(Robot[] tabRobots) {
 		this.tabRobots = tabRobots;
 	}
+	
+	public CaseObjectif getObjectif() {
+		return objectif;
+	}
+
+	public void setObjectif(CaseObjectif objectif) {
+		this.objectif = objectif;
+	}
+
+	
+	
 
 	/////// METHODES /////////
+
 
 	/**
 	 * Initialise la ligne i du plateau avec des cases Vides
@@ -396,6 +409,7 @@ public class Plateau {
 		c.setCaseNext(tabCases[i][j].getCaseNext());
 		tabCases[i][j] = c;
 		redefinirLignes(i, j);
+		objectif = c;
 
 	}
 	

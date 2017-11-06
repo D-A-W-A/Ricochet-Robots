@@ -299,6 +299,7 @@ public class Case {
 	
 	public void affecterRobot (Robot r) {
 		this.robot = r;
+		r.setCaseActuelle(this);
 	}
 	
 	public void supprimerRobot () {
