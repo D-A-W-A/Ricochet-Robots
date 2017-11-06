@@ -18,8 +18,9 @@ package ricochetRobot;
  *
  */
 public class Robot {
-	
+
 	/////////// ATTRIBUTS ///////////
+	private char couleur = 'R';
 	private boolean selectione;
 	private Case caseActuelle;
 
@@ -27,8 +28,8 @@ public class Robot {
 	public Robot() {
 		selectione = false;
 	}
-	
-	public Robot (Case c) {
+
+	public Robot(Case c) {
 		selectione = false;
 		caseActuelle = c;
 	}
@@ -49,12 +50,20 @@ public class Robot {
 	public void setCaseActuelle(Case caseActuelle) {
 		this.caseActuelle = caseActuelle;
 	}
-	
+
+	public char getCouleur() {
+		return couleur;
+	}
+
+	public void setCouleur(char couleur) {
+		this.couleur = couleur;
+	}
+
 	////////// METHODES ////////////
-	
+
 	/**
-	 * Deplace le robot vers le haut
-	 * Ne fait rien si le robot se deplace vers un mur
+	 * Deplace le robot vers le haut Ne fait rien si le robot se deplace vers un mur
+	 * 
 	 * @param direction
 	 */
 	public void deplacerRobotHaut() {
@@ -65,10 +74,10 @@ public class Robot {
 			this.setCaseActuelle(aux);
 		}
 	}
-	
+
 	/**
-	 * Deplace le robot vers le bas
-	 * Ne fait rien si le robot se deplace vers un mur
+	 * Deplace le robot vers le bas Ne fait rien si le robot se deplace vers un mur
+	 * 
 	 * @param direction
 	 */
 	public void deplacerRobotBas() {
@@ -79,10 +88,11 @@ public class Robot {
 			this.setCaseActuelle(aux);
 		}
 	}
-	
+
 	/**
-	 * Deplace le robot vers la gauche
-	 * Ne fait rien si le robot se deplace vers un mur
+	 * Deplace le robot vers la gauche Ne fait rien si le robot se deplace vers un
+	 * mur
+	 * 
 	 * @param direction
 	 */
 	public void deplacerRobotGauche() {
@@ -93,10 +103,11 @@ public class Robot {
 			this.setCaseActuelle(aux);
 		}
 	}
-	
+
 	/**
-	 * Deplace le robot vers la droite
-	 * Ne fait rien si le robot se deplace vers un mur
+	 * Deplace le robot vers la droite Ne fait rien si le robot se deplace vers un
+	 * mur
+	 * 
 	 * @param direction
 	 */
 	public void deplacerRobotDroite() {
@@ -107,6 +118,5 @@ public class Robot {
 			this.setCaseActuelle(aux);
 		}
 	}
-
 
 }
