@@ -26,7 +26,7 @@ public class FlecheClavierListener extends JFrame implements KeyListener {
 		fenetreListener.setVisible(true);
 	}
 	
-	public void stop () {
+	public void pause () {
 		fenetreListener.setVisible(false);
 	}
 
@@ -50,7 +50,7 @@ public class FlecheClavierListener extends JFrame implements KeyListener {
 			System.out.println("DROITE");
 		}
 		if (code == KeyEvent.VK_ESCAPE) {
-			stop();
+			pause();
 			System.exit(1);
 		}
 

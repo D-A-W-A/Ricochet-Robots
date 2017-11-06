@@ -98,6 +98,13 @@ public class Partie extends FlecheClavierListener {
 		lancer();
 	}
 	
+	public void arreterPartie() {
+		System.exit(0);
+	}
+	
+	public void PausePartie() {
+		lancerPartie = 0;
+	}
 
 	// MODIFICATION DU LISTENER DES FLECHES
 	// TODO : Redéfinir la classe pour déplacer le robot dans la direction indiquée par le joueur
