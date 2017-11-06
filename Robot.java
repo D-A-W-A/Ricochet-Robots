@@ -65,6 +65,48 @@ public class Robot {
 			this.setCaseActuelle(aux);
 		}
 	}
+	
+	/**
+	 * Deplace le robot vers le bas
+	 * Ne fait rien si le robot se deplace vers un mur
+	 * @param direction
+	 */
+	public void deplacerRobotBas() {
+		if (!caseActuelle.getCaseNextBas().estVide()) {
+			Case aux = caseActuelle.getCaseNextBas();
+			caseActuelle.supprimerRobot();
+			aux.affecterRobot(this);
+			this.setCaseActuelle(aux);
+		}
+	}
+	
+	/**
+	 * Deplace le robot vers la gauche
+	 * Ne fait rien si le robot se deplace vers un mur
+	 * @param direction
+	 */
+	public void deplacerRobotGauche() {
+		if (!caseActuelle.getCaseNextGauche().estVide()) {
+			Case aux = caseActuelle.getCaseNextGauche();
+			caseActuelle.supprimerRobot();
+			aux.affecterRobot(this);
+			this.setCaseActuelle(aux);
+		}
+	}
+	
+	/**
+	 * Deplace le robot vers la droite
+	 * Ne fait rien si le robot se deplace vers un mur
+	 * @param direction
+	 */
+	public void deplacerRobotDroite() {
+		if (!caseActuelle.getCaseNextDroite().estVide()) {
+			Case aux = caseActuelle.getCaseNextDroite();
+			caseActuelle.supprimerRobot();
+			aux.affecterRobot(this);
+			this.setCaseActuelle(aux);
+		}
+	}
 
 
 }
