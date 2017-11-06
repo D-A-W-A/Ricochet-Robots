@@ -112,6 +112,7 @@ public class Partie extends FlecheClavierListener {
 	 * Arrete completement la partie. Rien n'est stocke
 	 */
 	public void arreterPartie() {
+		System.out.println("FIN DE LA PARTIE");
 		System.exit(0);
 		stop();
 	}

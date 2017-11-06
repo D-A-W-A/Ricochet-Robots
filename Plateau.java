@@ -27,7 +27,7 @@ public class Plateau {
 	private int taille;
 	private Case[][] tabCases;
 	private Robot[] tabRobots;
-	private CaseObjectif objectif;
+	private int[] objectifPos = new int[2];
 
 	/////// CONSTRUCTEURS /////////
 
@@ -97,11 +97,11 @@ public class Plateau {
 	}
 
 	public CaseObjectif getObjectif() {
-		return objectif;
+		return (CaseObjectif) tabCases[objectifPos[0]][objectifPos[1]];
 	}
 
 	public void setObjectif(CaseObjectif objectif) {
-		this.objectif = objectif;
+		this.tabCases[objectifPos[0]][objectifPos[1]] = objectif;
 	}
 
 	/////// METHODES /////////
@@ -407,7 +407,8 @@ public class Plateau {
 
 		tabCases[i][j] = c;
 		redefinirLignes(i, j);
-		objectif = c;
+		objectifPos[0] = i;
+		objectifPos[1] = j;
 
 	}
 
@@ -437,30 +438,33 @@ public class Plateau {
 	}
 
 	/**
-	 * Ajoute 2 murs a cote de l'objectif
+	 * Ajoute un mur sur le plateau aux coordonnes (i,j) et sur le haut de la case
+	 *TODO Boucle infinie
 	 */
-	public void placerMurObjectif() {
-		Random r = new Random();
-		Case cVide = new Case();
-		int mur = r.nextInt(4);
-		if (mur == 0) {
-			objectif.setCaseNextGauche(cVide);
-			objectif.setCaseNextHaut(cVide);
-		} else if (mur == 1) {
-			objectif.setCaseNextHaut(cVide);
-			objectif.setCaseNextDroite(cVide);
-		} else if (mur == 2) {
-			objectif.setCaseNextDroite(cVide);
-			objectif.setCaseNextBas(cVide);
-		} else if (mur == 3) {
-			objectif.setCaseNextBas(cVide);
-			objectif.setCaseNextGauche(cVide);
+	public void ajouterMurHaut(int i, int j) {
+		tabCases[i][j].setCaseNextHaut(new Case());
+		if (i > 0)
+			tabCases[i - 1][j].setCaseNextBas(new Case());
+
+		if (i > 0) {
+			int k = 1;
+			while (!tabCases[i - k][j].getCaseNextHaut().estVide()) {
+				tabCases[i - k][j].getCaseNextHaut().setCaseNextBas(tabCases[i - 1][j]);
+				k++;
+			}
+		}
+
+		if (i < taille - 1) {
+			int k = 0;
+			while (!tabCases[i + k][j].getCaseNextBas().estVide()) {
+				tabCases[i + k][j].getCaseNextBas().setCaseNextHaut(tabCases[i][j]);
+			}
 		}
 	}
-	
+
 	/**
-	 * Configure les casesNext du plateau
-	 * Prereq : Le plateau doit contenir des cases qui ont comme caseNext soit une case Vide, soit une Case valide
+	 * Configure les casesNext du plateau Prereq : Le plateau doit contenir des
+	 * cases qui ont comme caseNext soit une case Vide, soit une Case valide
 	 */
 	public void configureCaseNextPlateau() {
 		int k;
