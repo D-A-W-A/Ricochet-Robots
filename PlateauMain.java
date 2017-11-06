@@ -15,7 +15,10 @@ public class PlateauMain {
 		p.placerRobotRandom(0);
 		System.out.println("\n\n==================================\n \n"+p.toString());
 
-		p.ajouterMurHaut(0, 1);
+		p.ajouterMurHaut(1, 1);
+		System.out.println("\n\n==================================\n \n"+p.toString());
+		System.out.println(p.getTabCases()[0][1].getCaseNextHaut().estVide());
+		System.out.println(p.getTabCases()[0][0].getCaseNextHaut().estVide());
 		System.out.println("\n\n==================================\n \n"+p.toString());
 		
 	}

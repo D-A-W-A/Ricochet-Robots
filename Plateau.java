@@ -346,7 +346,7 @@ public class Plateau {
 
 	/**
 	 * Redefinis les lignes lors d'une modification de case
-	 * 
+	 * @ OBSOLETE
 	 * @param i
 	 * @param j
 	 */
@@ -421,7 +421,6 @@ public class Plateau {
 		Random r = new Random();
 		int i = r.nextInt(taille);
 		int j = r.nextInt(taille);
-		int[] t = { i, j };
 		this.tabRobots[num].setCaseActuelle(tabCases[i][j]);
 		this.tabCases[i][j].affecterRobot(tabRobots[num]);
 	}
@@ -439,26 +438,28 @@ public class Plateau {
 
 	/**
 	 * Ajoute un mur sur le plateau aux coordonnes (i,j) et sur le haut de la case
-	 *TODO Boucle infinie
 	 */
 	public void ajouterMurHaut(int i, int j) {
 		tabCases[i][j].setCaseNextHaut(new Case());
 		if (i > 0)
 			tabCases[i - 1][j].setCaseNextBas(new Case());
 
-		if (i > 0) {
-			int k = 1;
+		if (i > 1) {
+			int k = 2;
 			while (!tabCases[i - k][j].getCaseNextHaut().estVide()) {
-				tabCases[i - k][j].getCaseNextHaut().setCaseNextBas(tabCases[i - 1][j]);
+				tabCases[i - k][j].setCaseNextBas(tabCases[i - 1][j]);
 				k++;
 			}
+			tabCases[i - k][j].setCaseNextBas(tabCases[i - 1][j]);
 		}
 
 		if (i < taille - 1) {
-			int k = 0;
+			int k = 1;
 			while (!tabCases[i + k][j].getCaseNextBas().estVide()) {
-				tabCases[i + k][j].getCaseNextBas().setCaseNextHaut(tabCases[i][j]);
+				tabCases[i + k][j].setCaseNextHaut(tabCases[i][j]);
+				k++;
 			}
+			tabCases[i + k][j].setCaseNextHaut(tabCases[i][j]);
 		}
 	}
 

@@ -143,6 +143,7 @@ public class Partie extends FlecheClavierListener {
 		creerPartieRandom();
 		plateau.placerRobotRandom(0);
 		plateau.ajouterObjectifRandom();
+
 		lancerPartie();
 		System.out.println(toString());
 
