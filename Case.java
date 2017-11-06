@@ -308,5 +308,15 @@ public class Case {
 		c.setCaseNext(tabCase);
 		return c;
 	}
+	
+	public void affecterRobot (Robot r) {
+		this.occupe = true;
+		this.robot = r;
+	}
+	
+	public void supprimerRobot () {
+		this.occupe = false;
+		this.robot = null;
+	}
 
 }

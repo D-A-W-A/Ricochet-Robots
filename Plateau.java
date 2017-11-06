@@ -408,8 +408,8 @@ public class Plateau {
 		int i = r.nextInt(taille);
 		int j = r.nextInt(taille);
 		int[] t = {i,j};
-		this.tabRobots[num].setPosition(t);
-		this.tabCases[i][j].setOccupe(true);
+		this.tabRobots[num].setCaseActuelle(tabCases[i][j]);
+		this.tabCases[i][j].affecterRobot(tabRobots[num]);
 	}
 	
 	/**
