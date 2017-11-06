@@ -52,7 +52,19 @@ public class Robot {
 	
 	////////// METHODES ////////////
 	
-	
+	/**
+	 * Deplace le robot vers le haut
+	 * Ne fait rien si le robot se deplace vers un mur
+	 * @param direction
+	 */
+	public void deplacerRobotHaut() {
+		if (!caseActuelle.getCaseNextHaut().estVide()) {
+			Case aux = caseActuelle.getCaseNextHaut();
+			caseActuelle.supprimerRobot();
+			aux.affecterRobot(this);
+			this.setCaseActuelle(aux);
+		}
+	}
 
 
 }
