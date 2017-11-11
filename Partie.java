@@ -26,7 +26,7 @@ import java.awt.event.KeyEvent;
  *
  *
  */
-public class Partie extends FlecheClavierListener {
+public abstract class Partie extends FlecheClavierListener {
 
 	/////// ATTRIBUTS //////////
 
@@ -39,7 +39,7 @@ public class Partie extends FlecheClavierListener {
 	/**
 	 * 0 : Partie arretee 1 : Partie en cours 2 : Pause
 	 */
-	private int lancerPartie = 0;
+	private int etatPartie = 0;
 
 	//////// CONSTRUCTEURS ///////
 	public Partie() {
@@ -85,81 +85,51 @@ public class Partie extends FlecheClavierListener {
 		return idPartie;
 	}
 
+	public int getEtatPartie() {
+		return etatPartie;
+	}
+
+	public void setEtatPartie(int etatPartie) {
+		this.etatPartie = etatPartie;
+	}
+
 	////////// METHODES /////////
 
 	public String toString() {
 		return plateau.toString();
 	}
 
-	/**
-	 * Cree une partie random avec un plateau genere aleatoirement de taille 16
-	 */
-	public void creerPartieRandom() {
-		plateau = Plateau.genererPlateauRandom(16);
-		lancerPartie = 0;
-		nbCoups = 0;
-	}
-
+	
+	
+	///////// GESTION DE LA PARTIE ////////
 	/**
 	 * Lance la partie
 	 */
 	public void lancerPartie() {
-		lancerPartie = 1;
+		etatPartie = 1;
 		lancer();
-	}
-
-	/**
-	 * Arrete completement la partie. Rien n'est stocke
-	 */
-	public void arreterPartie() {
-		System.out.println("FIN DE LA PARTIE");
-		System.exit(0);
-		stop();
 	}
 
 	/**
 	 * Met en pause la Partie
 	 */
 	public void pausePartie() {
-		System.out.println("PAUSE");
-		lancerPartie = 2;
+		etatPartie = 2;
 	}
 
 	/**
 	 * Relance la partie
 	 */
 	public void reprendrePartie() {
-		System.out.println("REPRISE");
-		lancerPartie = 1;
+		etatPartie = 1;
 	}
 
 	/**
-	 * Permet de lancer une partie avec toute les fonctionnalites necessaires.
+	 * Arrete completement la partie. Rien n'est stocke
 	 */
-	private void mainPartieTerminalRandomAux() {
-		System.out.println("RICOCHET - ROBOTS\nVersion sur Terminal - Plateau Random\n\n");
-		System.out.println(
-				"Le jeu se joue avec les feches directionnelles.\nPour mettre en pause, appuyez sur P. Une fois le jeu en pause, vous pouvez appuyer sur R pour reccomencer sur un autre Plateau\nPour arreter la partie, appuyez sur ECHAP\n");
-		creerPartieRandom();
-		plateau.placerRobotRandom(0);
-		plateau.ajouterObjectifRandom();
-		lancerPartie();
-		System.out.println(toString());
-
-	}
-
-	public static void mainPartieTerminalRandom() {
-		Partie p = new Partie();
-		p.mainPartieTerminalRandomAux();
-	}
-
-	/**
-	 * Met a jour le terminal pour montrer la nouvelle disposition du plateau
-	 */
-	public void update() {
-		System.out
-				.println("\n\n=====================================================================\nNombre de Coups : "
-						+ nbCoups + "\n" + toString());
+	public void arreterPartie() {
+		System.exit(0);
+		stop();
 	}
 
 	/**
@@ -167,21 +137,21 @@ public class Partie extends FlecheClavierListener {
 	 */
 	public void victoire() {
 		nbVictoire++;
-		lancerPartie = 0;
+		etatPartie = 0;
 		System.out.println(
 				"Bien joue !\nNombre de victoires : " + nbVictoire + "\nVoulez vous refaire une manche ? (O / N)\n");
 	}
 
 	/**
 	 * LISTENER : <br>
-	 * Ce listener se comporte de 3 facons differentes : lors d'une partie arrettee,
+	 * Ce listener se comporte de 3 facons differentes : lors d'une partie arretee,
 	 * lors d'une partie lancee, lors d'une pause.<br>
-	 * Si le joueur appuie sur ECHAP, la partie s'arrette immediatement. <br>
+	 * Si le joueur appuie sur ECHAP, la partie s'arrete immediatement. <br>
 	 * <br>
 	 * Lors d'une Partie : <br>
 	 * ==> Si le joueur appuie sur une fleche directionelle, Le Robot est deplacee
-	 * dans la direction indiquee ==> Si le joueur Appuie sur P : la partie est mise
-	 * en pause <br>
+	 * dans la direction indiquee <br>
+	 * ==> Si le joueur Appuie sur P : la partie est mise en pause <br>
 	 * <br>
 	 * Lors d'une Pause : <br>
 	 * ==> Si le joueur appuie sur P, la partie reprend <br>
@@ -197,7 +167,7 @@ public class Partie extends FlecheClavierListener {
 		if (code == KeyEvent.VK_ESCAPE) {
 			arreterPartie();
 		}
-		if (lancerPartie == 1) {
+		if (etatPartie == 1) {
 			if (e.getKeyChar() == 'P' || e.getKeyChar() == 'p')
 				pausePartie();
 
@@ -218,24 +188,50 @@ public class Partie extends FlecheClavierListener {
 			if (plateau.getObjectif().reussite()) {
 				victoire();
 			}
-		} else if (lancerPartie == 2) {
+		} else if (etatPartie == 2) {
 			if (e.getKeyChar() == 'P' || e.getKeyChar() == 'p')
 				reprendrePartie();
 			else if (e.getKeyChar() == 'r' || e.getKeyChar() == 'r')
-				mainPartieTerminalRandomAux();
-		} else if (lancerPartie == 0) {
+				mainPartieAux();
+		} else if (etatPartie == 0) {
 			if (e.getKeyChar() == 'O' || e.getKeyChar() == 'o') {
-				lancerPartie = 1;
-				mainPartieTerminalRandomAux();
+				etatPartie = 1;
+				mainPartieAux();
 			}
 			if (e.getKeyChar() == 'N' || e.getKeyChar() == 'n')
 				arreterPartie();
 		}
 
 	}
+	
+	
+	//////////// CREATION ET MAJ DE LA PARTIE ///////////
+	
+	/**
+	 * Cree une partie en generant un plateau, met le compteur de coups et l'etat de
+	 * la partie a 0
+	 */
+	public abstract void creerPartie();
 
-	public static void main(String[] args) {
-		Partie.mainPartieTerminalRandom();
+
+	/**
+	 * Met a jour l'interface graphique / terminal pour montrer la nouvelle
+	 * disposition du plateau
+	 */
+	public abstract void update();
+
+	/**
+	 * 
+	 * Permet de lancer une partie avec toute les fonctionnalites necessaires.
+	 *
+	 */
+	protected abstract void mainPartieAux();
+
+	/**
+	 * Fonction appelee dans le main(String[] args)
+	 * Instancie une nouvelle partie puis appelle mainPartieAux():
+	 */
+	public static void mainPartie() {
 	}
 
 }
