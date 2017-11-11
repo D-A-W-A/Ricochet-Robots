@@ -24,7 +24,7 @@ public class Plateau {
 
 	//////// ATTRIBUTS ///////////
 
-	private int taille;
+	private int taille = 16;
 	private Case[][] tabCases;
 	private Robot[] tabRobots;
 	private int[] objectifPos = new int[2];
@@ -70,20 +70,6 @@ public class Plateau {
 		this.tabCases = tabCases;
 	}
 
-	/**
-	 * Insert la case aux coordonnees i,j
-	 * 
-	 * @param c
-	 *            La case a inserer
-	 * @param i
-	 *            La ligne ou inserer la case
-	 * @param j
-	 *            La colone ou inserer la case
-	 */
-	public void setCaseCoord(Case c, int i, int j) {
-
-	}
-
 	public void setLigne(int i, Case[] t) {
 		tabCases[i] = t;
 	}
@@ -119,18 +105,56 @@ public class Plateau {
 	}
 
 	/**
-	 * Genere un plateau classique : 16*16 cases, murs predefinis
-	 * 
-	 */
-	public void genererPlateauClassique() {
-		
-	}
-	
-	/**
 	 * Genere un plateau sans aucun murs
 	 */
 	public void genererPlateauSansMur() {
+		Case caseNonVide = Case.creerCase();
+		Case caseVide = new Case();
+
+		Case[] tVide = new Case[4];
+		for (int i = 0; i < 4; i++) {
+			tVide[i] = caseVide;
+		}
+
+		Case[] tNonVide = new Case[4];
+		for (int i = 0; i < 4; i++) {
+			tNonVide[i] = caseNonVide;
+		}
+		tabCases = new Case[taille][taille];
+		// Ajout du plateau global
+		for (int i = 0; i < taille; i++) {
+			for (int j = 0; j < taille; j++) {
+				tabCases[i][j] = new Case();
+				tabCases[i][j].setCaseNext(tNonVide);
+
+			}
+		}
+		System.out.println(tabCases[0][1].getCaseNextHaut().estVide());
 		
+		tabCases[0][0].setCaseNextHaut(new Case());
+		System.out.println(tabCases[0][1].getCaseNextHaut().estVide());
+
+		 // Ajout du bord du plateau haut
+		 for (int j = 0; j < taille; j++) {
+			 tabCases[0][j].setCaseNextHaut(caseVide);
+		 }
+		
+		 // Ajout du bord du plateau gauche
+		 for (int i = 0; i < taille; i++) {
+			 tabCases[i][0].setCaseNextGauche(caseVide);
+		 }
+		
+		 // Ajout du bord du plateau droit
+		 for (int i = 0; i < taille; i++) {
+			 tabCases[i][taille - 1].setCaseNextDroite(caseVide);
+		 }
+		
+		 // Ajout du bord du plateau bas
+		 for (int j = 0; j < taille; j++) {
+			 tabCases[taille - 1][j].setCaseNextBas(caseVide);
+		 }
+
+		configureCaseNextPlateau();
 	}
 
 	/**
@@ -248,7 +272,7 @@ public class Plateau {
 
 	/**
 	 * Configure les CaseNext en fontion d'un tableau où les murs sont deja
-	 * initialises : Les caseNext actuels sont soit null, soit une case Vide) <br>
+	 * initialises : Les caseNext actuelles sont soit null, soit une case Vide) <br>
 	 * 
 	 * @param tCases
 	 */
@@ -614,8 +638,9 @@ public class Plateau {
 	}
 
 	/**
-	 * Configure les casesNext du plateau Prereq : Le plateau doit contenir des
-	 * cases qui ont comme caseNext soit une case Vide, soit une Case valide
+	 * Configure les casesNext du plateau <br>
+	 * Prereq : Le plateau doit contenir des cases qui ont comme caseNext soit une
+	 * case Vide, soit une Case valide
 	 */
 	public void configureCaseNextPlateau() {
 		int k;

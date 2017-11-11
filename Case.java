@@ -116,7 +116,9 @@ public class Case {
 	 *            un tableau de Case
 	 */
 	public void setCaseNext(Case[] caseNext) {
-		this.caseNext = caseNext;
+		for (int i = 0 ; i<4; i++) {
+			this.caseNext[i] = caseNext[i];
+		}
 	}
 
 	/**
