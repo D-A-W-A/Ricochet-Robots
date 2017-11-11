@@ -33,6 +33,9 @@ public class PlateauMain {
 		Plateau p = new Plateau();
 		p.genererPlateauSansMur();
 		System.out.println(p.toString());
+		p.getTabCases()[0][0].setPos(0, 0);
+		p.getTabCases()[0][p.getTaille()-1].setPos(15, 15);
+		System.out.println(p.getTabCases()[0][0].getCaseNextDroite().getPosX());
 		
 	}
 }
