@@ -129,11 +129,7 @@ public class Plateau {
 
 			}
 		}
-		System.out.println(tabCases[0][1].getCaseNextHaut().estVide());
 		
-		tabCases[0][0].setCaseNextHaut(new Case());
-		System.out.println(tabCases[0][1].getCaseNextHaut().estVide());
-
 		 // Ajout du bord du plateau haut
 		 for (int j = 0; j < taille; j++) {
 			 tabCases[0][j].setCaseNextHaut(caseVide);
