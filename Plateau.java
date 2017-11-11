@@ -121,10 +121,16 @@ public class Plateau {
 	/**
 	 * Genere un plateau classique : 16*16 cases, murs predefinis
 	 * 
-	 * @return le plateau genere
 	 */
-	public static Plateau genererPlateauClassique() {
-		return null;
+	public void genererPlateauClassique() {
+		
+	}
+	
+	/**
+	 * Genere un plateau sans aucun murs
+	 */
+	public void genererPlateauSansMur() {
+		
 	}
 
 	/**
