@@ -92,17 +92,6 @@ public class Plateau {
 
 	/////// METHODES /////////
 
-	/**
-	 * Initialise la ligne i du plateau avec des cases Vides
-	 */
-	public void initLigne(int i) {
-		Case[] tCases = new Case[this.getTaille()];
-		for (int j = 0; i < this.getTaille(); i++) {
-			tCases[j] = new Case();
-		}
-		this.setLigne(i, tCases);
-
-	}
 
 	/**
 	 * Genere un plateau sans aucun murs
@@ -120,7 +109,9 @@ public class Plateau {
 		for (int i = 0; i < 4; i++) {
 			tNonVide[i] = caseNonVide;
 		}
+		
 		tabCases = new Case[taille][taille];
+		
 		// Ajout du plateau global
 		for (int i = 0; i < taille; i++) {
 			for (int j = 0; j < taille; j++) {
@@ -151,191 +142,6 @@ public class Plateau {
 		 }
 
 		configureCaseNextPlateau();
-	}
-
-	/**
-	 * Genere un plateau de taille n de maniere Aleatoire : 12% de chances qu'une
-	 * case ait au moins un mur (donc 3 % par cote)<br>
-	 * Utilise :<br>
-	 * 
-	 * @see initLigne
-	 * @see determinerMurRandom
-	 * @see murDesDeuxCotes
-	 * 
-	 * @param n
-	 * @return
-	 */
-	public static Plateau genererPlateauRandom(int n) {
-		// Generation d'un Plateau de taille n
-		Plateau p = new Plateau(n);
-
-		// Cree le tableau de case
-		Case[][] tCases = new Case[n][n];
-
-		// Determine quelles cases ont un mur
-		boolean[][] murHaut = determinerMurRandom(n);
-		for (int i = 0; i < n; i++)
-			murHaut[0][i] = true;
-
-		boolean[][] murGauche = determinerMurRandom(n);
-		for (int i = 0; i < n; i++)
-			murGauche[i][0] = true;
-
-		boolean[][] murBas = determinerMurRandom(n);
-		for (int i = 0; i < n; i++)
-			murBas[n - 1][i] = true;
-
-		boolean[][] murDroite = determinerMurRandom(n);
-		for (int i = 0; i < n; i++)
-			murDroite[i][n - 1] = true;
-
-		// corrige les tableaux de booleens pour appliquer les murs des deux cotes
-		murDesDeuxCotes(murHaut, murBas, murGauche, murDroite);
-
-		// Creation de cases next temporaire pour toutes les autres cases
-		Case caseNonVide = Case.creerCase();
-		Case caseVide = new Case();
-
-		// Place les murs
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < n; j++) {
-				Case c = new Case();
-
-				// Met soit un mur en HAUT de la case courante, soit une case non vide
-				if (murHaut[i][j])
-					c.setCaseNextHaut(caseVide);
-				else
-					c.setCaseNextHaut(caseNonVide);
-
-				// Met soit un mur a GAUCHE de la case courante, soit une case non vide
-				if (murGauche[i][j])
-					c.setCaseNextGauche(caseVide);
-				else
-					c.setCaseNextGauche(caseNonVide);
-
-				// Met soit un mur a DROITE de la case courante, soit une case non vide
-				if (murDroite[i][j])
-					c.setCaseNextDroite(caseVide);
-				else
-					c.setCaseNextDroite(caseNonVide);
-
-				// Met soit un mur en BAS de la case courante, soit une case non vide
-				if (murBas[i][j])
-					c.setCaseNextBas(caseVide);
-				else
-					c.setCaseNextBas(caseNonVide);
-
-				tCases[i][j] = c;
-			}
-		}
-
-		// Attribue les CaseNext pour chaque case du plateau
-		configureCaseNext(tCases);
-
-		// Attribue le tableau de case dans le Plateau
-		p.setTabCases(tCases);
-
-		return p;
-	}
-
-	/**
-	 * Reevalue les tableaux de murs pour qu'un mur soit present sur les deux cotes
-	 * : <br>
-	 * ex : Un murDroite sur une Case est un murGauche sur la case de Droite
-	 * 
-	 * @param murHaut
-	 * @param murBas
-	 * @param murGauche
-	 * @param murDroite
-	 *            <br>
-	 *            prereq : tous les tableaux doivent être de même taille
-	 */
-	private static void murDesDeuxCotes(boolean[][] murHaut, boolean[][] murBas, boolean[][] murGauche,
-			boolean[][] murDroite) {
-		for (int i = 0; i < murHaut[0].length; i++) {
-			for (int j = 0; j < murHaut[0].length; j++) {
-				if (i > 0 && murHaut[i][j])
-					murBas[i - 1][j] = true;
-				if (i < murHaut[0].length - 1 && murBas[i][j])
-					murHaut[i + 1][j] = true;
-				if (j > 0 && murGauche[i][j])
-					murDroite[i][j - 1] = true;
-				if (j < murHaut[0].length - 1 && murDroite[i][j])
-					murGauche[i][j + 1] = true;
-			}
-		}
-	}
-
-	/**
-	 * Configure les CaseNext en fontion d'un tableau où les murs sont deja
-	 * initialises : Les caseNext actuelles sont soit null, soit une case Vide) <br>
-	 * 
-	 * @param tCases
-	 */
-	private static void configureCaseNext(Case[][] tCases) {
-		int k;
-		for (int i = 0; i < tCases.length; i++) {
-			for (int j = 0; j < tCases.length; j++) {
-				if (!tCases[i][j].getCaseNextHaut().estVide()) {
-					// Ajout des CasesNext vers le haut
-					k = 0;
-					while (!tCases[i - k][j].getCaseNextHaut().estVide()) {
-						k++;
-					}
-					tCases[i][j].setCaseNextHaut(tCases[i - k][j]);
-				}
-
-				if (!tCases[i][j].getCaseNextBas().estVide()) {
-					// Ajout des CasesNext vers le bas
-					k = 0;
-					while (!tCases[i + k][j].getCaseNextBas().estVide()) {
-						k++;
-					}
-					tCases[i][j].setCaseNextBas(tCases[i + k][j]);
-				}
-
-				if (!tCases[i][j].getCaseNextGauche().estVide()) {
-					// Ajout des CasesNext vers la gauche
-					k = 0;
-					while (!tCases[i][j - k].getCaseNextGauche().estVide()) {
-						k++;
-					}
-					tCases[i][j].setCaseNextGauche(tCases[i][j - k]);
-				}
-
-				if (!tCases[i][j].getCaseNextDroite().estVide()) {
-					// Ajout des CasesNext vers la Droite
-					k = 0;
-					while (!tCases[i][j + k].getCaseNextDroite().estVide()) {
-						k++;
-					}
-					tCases[i][j].setCaseNextDroite(tCases[i][j + k]);
-				}
-			}
-		}
-	}
-
-	/**
-	 * Determine de facon aleatoire quelle case aura un mur. Une case a 5 % de
-	 * chance d'avoir un mur
-	 * 
-	 * @param n
-	 *            la taille du plateau
-	 */
-	private static boolean[][] determinerMurRandom(int n) {
-		Random r = new Random();
-		int tirage;
-		boolean[][] t = new boolean[n][n];
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < n; j++) {
-				tirage = r.nextInt(100);
-				if (tirage < 5)
-					t[i][j] = true;
-				else
-					t[i][j] = false;
-			}
-		}
-		return t;
 	}
 
 	/**
@@ -426,24 +232,6 @@ public class Plateau {
 		}
 	}
 
-	/**
-	 * Ajoute de facon aleatoire un objectif sur le plateau Note : L'objectif doit
-	 * se trouver a cote d'un mur sinon la partie est impossible
-	 */
-	public void ajouterObjectifRandom() {
-		Random r = new Random();
-		int i = r.nextInt(taille);
-		int j = r.nextInt(taille);
-
-		CaseObjectif c = new CaseObjectif();
-		c.setCaseNext(tabCases[i][j].getCaseNext());
-
-		tabCases[i][j] = c;
-		objectifPos[0] = i;
-		objectifPos[1] = j;
-		ajouterMursRandomObjectif();
-
-	}
 
 	/**
 	 * Place le robot n° num de facon random
@@ -703,6 +491,212 @@ public class Plateau {
 			ajouterMurBas(i, j);
 			ajouterMurGauche(i, j);
 		}
+	}
+	
+	
+	//////// METHODES POUR LA GENERATION D'UN PLATEAU RANDOM /////////
+	/**
+	 * Genere un plateau de taille n de maniere Aleatoire : 12% de chances qu'une
+	 * case ait au moins un mur (donc 3 % par cote)<br>
+	 * Utilise :<br>
+	 * 
+	 * @see initLigne
+	 * @see determinerMurRandom
+	 * @see murDesDeuxCotes
+	 * 
+	 * @param n
+	 * @return
+	 */
+	public static Plateau genererPlateauRandom(int n) {
+		// Generation d'un Plateau de taille n
+		Plateau p = new Plateau(n);
+
+		// Cree le tableau de case
+		Case[][] tCases = new Case[n][n];
+
+		// Determine quelles cases ont un mur
+		boolean[][] murHaut = determinerMurRandom(n);
+		for (int i = 0; i < n; i++)
+			murHaut[0][i] = true;
+
+		boolean[][] murGauche = determinerMurRandom(n);
+		for (int i = 0; i < n; i++)
+			murGauche[i][0] = true;
+
+		boolean[][] murBas = determinerMurRandom(n);
+		for (int i = 0; i < n; i++)
+			murBas[n - 1][i] = true;
+
+		boolean[][] murDroite = determinerMurRandom(n);
+		for (int i = 0; i < n; i++)
+			murDroite[i][n - 1] = true;
+
+		// corrige les tableaux de booleens pour appliquer les murs des deux cotes
+		murDesDeuxCotes(murHaut, murBas, murGauche, murDroite);
+
+		// Creation de cases next temporaire pour toutes les autres cases
+		Case caseNonVide = Case.creerCase();
+		Case caseVide = new Case();
+
+		// Place les murs
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				Case c = new Case();
+
+				// Met soit un mur en HAUT de la case courante, soit une case non vide
+				if (murHaut[i][j])
+					c.setCaseNextHaut(caseVide);
+				else
+					c.setCaseNextHaut(caseNonVide);
+
+				// Met soit un mur a GAUCHE de la case courante, soit une case non vide
+				if (murGauche[i][j])
+					c.setCaseNextGauche(caseVide);
+				else
+					c.setCaseNextGauche(caseNonVide);
+
+				// Met soit un mur a DROITE de la case courante, soit une case non vide
+				if (murDroite[i][j])
+					c.setCaseNextDroite(caseVide);
+				else
+					c.setCaseNextDroite(caseNonVide);
+
+				// Met soit un mur en BAS de la case courante, soit une case non vide
+				if (murBas[i][j])
+					c.setCaseNextBas(caseVide);
+				else
+					c.setCaseNextBas(caseNonVide);
+
+				tCases[i][j] = c;
+			}
+		}
+
+		// Attribue les CaseNext pour chaque case du plateau
+		configureCaseNext(tCases);
+
+		// Attribue le tableau de case dans le Plateau
+		p.setTabCases(tCases);
+
+		return p;
+	}
+
+	/**
+	 * Reevalue les tableaux de murs pour qu'un mur soit present sur les deux cotes
+	 * : <br>
+	 * ex : Un murDroite sur une Case est un murGauche sur la case de Droite
+	 * 
+	 * @param murHaut
+	 * @param murBas
+	 * @param murGauche
+	 * @param murDroite
+	 *            <br>
+	 *            prereq : tous les tableaux doivent être de même taille
+	 */
+	private static void murDesDeuxCotes(boolean[][] murHaut, boolean[][] murBas, boolean[][] murGauche,
+			boolean[][] murDroite) {
+		for (int i = 0; i < murHaut[0].length; i++) {
+			for (int j = 0; j < murHaut[0].length; j++) {
+				if (i > 0 && murHaut[i][j])
+					murBas[i - 1][j] = true;
+				if (i < murHaut[0].length - 1 && murBas[i][j])
+					murHaut[i + 1][j] = true;
+				if (j > 0 && murGauche[i][j])
+					murDroite[i][j - 1] = true;
+				if (j < murHaut[0].length - 1 && murDroite[i][j])
+					murGauche[i][j + 1] = true;
+			}
+		}
+	}
+
+	/**
+	 * Configure les CaseNext en fontion d'un tableau où les murs sont deja
+	 * initialises : Les caseNext actuelles sont soit null, soit une case Vide) <br>
+	 * 
+	 * @param tCases
+	 */
+	private static void configureCaseNext(Case[][] tCases) {
+		int k;
+		for (int i = 0; i < tCases.length; i++) {
+			for (int j = 0; j < tCases.length; j++) {
+				if (!tCases[i][j].getCaseNextHaut().estVide()) {
+					// Ajout des CasesNext vers le haut
+					k = 0;
+					while (!tCases[i - k][j].getCaseNextHaut().estVide()) {
+						k++;
+					}
+					tCases[i][j].setCaseNextHaut(tCases[i - k][j]);
+				}
+
+				if (!tCases[i][j].getCaseNextBas().estVide()) {
+					// Ajout des CasesNext vers le bas
+					k = 0;
+					while (!tCases[i + k][j].getCaseNextBas().estVide()) {
+						k++;
+					}
+					tCases[i][j].setCaseNextBas(tCases[i + k][j]);
+				}
+
+				if (!tCases[i][j].getCaseNextGauche().estVide()) {
+					// Ajout des CasesNext vers la gauche
+					k = 0;
+					while (!tCases[i][j - k].getCaseNextGauche().estVide()) {
+						k++;
+					}
+					tCases[i][j].setCaseNextGauche(tCases[i][j - k]);
+				}
+
+				if (!tCases[i][j].getCaseNextDroite().estVide()) {
+					// Ajout des CasesNext vers la Droite
+					k = 0;
+					while (!tCases[i][j + k].getCaseNextDroite().estVide()) {
+						k++;
+					}
+					tCases[i][j].setCaseNextDroite(tCases[i][j + k]);
+				}
+			}
+		}
+	}
+
+	/**
+	 * Determine de facon aleatoire quelle case aura un mur. Une case a 5 % de
+	 * chance d'avoir un mur
+	 * 
+	 * @param n
+	 *            la taille du plateau
+	 */
+	private static boolean[][] determinerMurRandom(int n) {
+		Random r = new Random();
+		int tirage;
+		boolean[][] t = new boolean[n][n];
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				tirage = r.nextInt(100);
+				if (tirage < 5)
+					t[i][j] = true;
+				else
+					t[i][j] = false;
+			}
+		}
+		return t;
+	}
+	
+	/**
+	 * Ajoute de facon aleatoire un objectif sur le plateau Note : L'objectif doit
+	 * se trouver a cote d'un mur sinon la partie est impossible
+	 */
+	public void ajouterObjectifRandom() {
+		Random r = new Random();
+		int i = r.nextInt(taille);
+		int j = r.nextInt(taille);
+
+		CaseObjectif c = new CaseObjectif();
+		c.setCaseNext(tabCases[i][j].getCaseNext());
+
+		tabCases[i][j] = c;
+		objectifPos[0] = i;
+		objectifPos[1] = j;
+		ajouterMursRandomObjectif();
+
 	}
 
 }
