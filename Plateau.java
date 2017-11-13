@@ -509,6 +509,37 @@ public class Plateau {
 		ajouterMurBas(i, j);
 		ajouterMurGauche(i, j);
 	}
+	
+	/**
+	 * Genere un plateau grace a un tableau d'int qui definie les murs :<br>
+	 * - 1 : Un angle Gauche-Haut<br>
+	 * - 2 : Un angle Haut-Droite<br>
+	 * - 3 : Un angle Droite-Bas<br>
+	 * - 4 : Un angle Bas-Gauche<br>
+	 * - Autre : Une case normale, sans aucuns murs<br>
+	 * <br>
+	 * Prereq : Le tableau doit etre de la meme taille que le plateau 
+	 * @param murs
+	 * @param posXObjectif : La position x de l'objectif
+	 * @param posYObjectif : La position y de l'objectif
+	 * 
+	 * TODO
+	 */
+	public void genererPlateau(int[][] murs, int posXObjectif, int posYObjectif) {
+		genererPlateauSansMur();
+		for (int i=0; i<murs.length; i++) {
+			for (int j=0; j<murs.length; j++) {
+				if (murs[i][j] == 1) 
+					ajouterCoinGH(i, j);
+				if (murs[i][j] == 2)
+					ajouterCoinHD(i, j);
+				if (murs[i][j] == 3)
+					ajouterCoinDB(i, j);
+				if (murs[i][j] == 4)
+					ajouterCoinBG(i, j);
+			}
+		}
+	}
 
 	// ////// METHODES POUR LA GENERATION D'UN PLATEAU RANDOM /////////
 
