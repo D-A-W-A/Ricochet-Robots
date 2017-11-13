@@ -509,7 +509,7 @@ public class Plateau {
 		ajouterMurBas(i, j);
 		ajouterMurGauche(i, j);
 	}
-	
+
 	/**
 	 * Genere un plateau grace a un tableau d'int qui definie les murs :<br>
 	 * - 1 : Un angle Gauche-Haut<br>
@@ -518,18 +518,21 @@ public class Plateau {
 	 * - 4 : Un angle Bas-Gauche<br>
 	 * - Autre : Une case normale, sans aucuns murs<br>
 	 * <br>
-	 * Prereq : Le tableau doit etre de la meme taille que le plateau 
-	 * @param murs
-	 * @param posXObjectif : La position x de l'objectif
-	 * @param posYObjectif : La position y de l'objectif
+	 * Prereq : Le tableau doit etre de la meme taille que le plateau
 	 * 
-	 * TODO
+	 * @param murs
+	 * @param posXObjectif
+	 *            : La position x de l'objectif
+	 * @param posYObjectif
+	 *            : La position y de l'objectif
+	 * 
+	 *            TODO
 	 */
 	public void genererPlateau(int[][] murs, int posXObjectif, int posYObjectif) {
 		genererPlateauSansMur();
-		for (int i=0; i<murs.length; i++) {
-			for (int j=0; j<murs.length; j++) {
-				if (murs[i][j] == 1) 
+		for (int i = 0; i < murs.length; i++) {
+			for (int j = 0; j < murs.length; j++) {
+				if (murs[i][j] == 1)
 					ajouterCoinGH(i, j);
 				if (murs[i][j] == 2)
 					ajouterCoinHD(i, j);
@@ -539,6 +542,16 @@ public class Plateau {
 					ajouterCoinBG(i, j);
 			}
 		}
+		ajouterObjectif(posXObjectif, posYObjectif);
+	}
+
+	public void ajouterObjectif(int i, int j) {
+		CaseObjectif c = new CaseObjectif();
+		c.setCaseNext(tabCases[i][j].getCaseNext());
+
+		tabCases[i][j] = c;
+		objectifPos[0] = i;
+		objectifPos[1] = j;
 	}
 
 	// ////// METHODES POUR LA GENERATION D'UN PLATEAU RANDOM /////////
