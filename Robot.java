@@ -18,17 +18,23 @@ package ricochetRobot;
  *
  */
 public class Robot {
-	private int idRobot;
-	private boolean selectione;
-	private int[] position = new int[2];
-	private static int nbRobot = 0;
 
+	/////////// ATTRIBUTS ///////////
+	private char couleur = 'R';
+	private boolean selectione;
+	private Case caseActuelle;
+
+	/////////// CONSTRUCTEURS /////////////
 	public Robot() {
-		nbRobot++;
-		this.idRobot = nbRobot;
-		// TODO
+		selectione = false;
 	}
 
+	public Robot(Case c) {
+		selectione = false;
+		caseActuelle = c;
+	}
+
+	////////// GETTERS AND SETTERS ////////
 	public boolean isSelectione() {
 		return selectione;
 	}
@@ -37,16 +43,108 @@ public class Robot {
 		this.selectione = selectione;
 	}
 
-	public int[] getPosition() {
-		return position;
+	public Case getCaseActuelle() {
+		return caseActuelle;
 	}
 
-	public void setPosition(int[] position) {
-		this.position = position;
+	public void setCaseActuelle(Case caseActuelle) {
+		this.caseActuelle = caseActuelle;
 	}
 
-	public int getIdRobot() {
-		return idRobot;
+	public char getCouleur() {
+		return couleur;
+	}
+
+	public void setCouleur(char couleur) {
+		this.couleur = couleur;
+	}
+
+	////////// METHODES ////////////
+	
+	public boolean estSurUneCase() {
+		return caseActuelle != null;
+	}
+	
+	public String toString() {
+		if (this.estSurUneCase())
+			return Character.toString(couleur);
+		else 
+			return "";
+	}
+
+	/**
+	 * 
+	 * Deplace le robot vers le haut<br> Ne fait rien si le robot se deplace vers un mur
+	 * 
+	 * @param direction
+	 * @return 1 si le robot s'est deplace
+	 */
+	public int deplacerRobotHaut() {
+		if (!caseActuelle.getCaseNextHaut().estVide()) {
+			Case aux = caseActuelle.getCaseNextHaut();
+			caseActuelle.supprimerRobot();
+			aux.affecterRobot(this);
+			this.setCaseActuelle(aux);
+			return 1;
+		}
+		else
+			return 0;
+	}
+
+	/**
+	 * Deplace le robot vers le bas<br> Ne fait rien si le robot se deplace vers un mur
+	 * 
+	 * @param direction
+	 * @return 1 si le robot s'est deplace
+	 */
+	public int deplacerRobotBas() {
+		if (!caseActuelle.getCaseNextBas().estVide()) {
+			Case aux = caseActuelle.getCaseNextBas();
+			caseActuelle.supprimerRobot();
+			aux.affecterRobot(this);
+			this.setCaseActuelle(aux);
+			return 1;
+		}
+		else 
+			return 0;
+	}
+
+	/**
+	 * Deplace le robot vers la gauche <br>Ne fait rien si le robot se deplace vers un
+	 * mur
+	 * 
+	 * @param direction
+	 * @return 1 si le robot s'est deplace
+	 */
+	public int deplacerRobotGauche() {
+		if (!caseActuelle.getCaseNextGauche().estVide()) {
+			Case aux = caseActuelle.getCaseNextGauche();
+			caseActuelle.supprimerRobot();
+			aux.affecterRobot(this);
+			this.setCaseActuelle(aux);
+			return 1;
+		}
+		else 
+			return 0;
+	}
+
+	/**
+	 * Deplace le robot vers la droite <br>Ne fait rien si le robot se deplace vers un
+	 * mur
+	 * 
+	 * @param direction
+	 * @return 1 si le robot s'est deplace
+	 */
+	public int deplacerRobotDroite() {
+		if (!caseActuelle.getCaseNextDroite().estVide()) {
+			Case aux = caseActuelle.getCaseNextDroite();
+			caseActuelle.supprimerRobot();
+			aux.affecterRobot(this);
+			this.setCaseActuelle(aux);
+			return 1;
+		}
+		else 
+			return 0;
 	}
 
 }

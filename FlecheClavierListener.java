@@ -7,8 +7,8 @@ import javax.swing.JFrame;
 
 /**
  * Premier Listener pour la version du jeu sous terminal.<br>
- * Ce listener écoute les flèches du clavier et fait une action lorque l'une
- * d'elle est préssée
+ * Ce listener ecoute les fleches du clavier et fait une action lorque l'une
+ * d'elle est pressee
  * 
  * @author Dorian
  *
@@ -19,8 +19,20 @@ public class FlecheClavierListener extends JFrame implements KeyListener {
 
 	public FlecheClavierListener() {
 		fenetreListener = new JFrame();
-		fenetreListener.setVisible(true);
 		fenetreListener.addKeyListener(this);
+	}
+	
+	public void lancer() {
+		fenetreListener.setVisible(true);
+	}
+	
+	public void pause () {
+		fenetreListener.setVisible(false);
+	}
+	
+	public void stop () {
+		setVisible(false); //you can't see me!
+		dispose(); //Destroy the JFrame object
 	}
 
 	// VK_DOWN
@@ -42,6 +54,10 @@ public class FlecheClavierListener extends JFrame implements KeyListener {
 		if (code == KeyEvent.VK_RIGHT) {
 			System.out.println("DROITE");
 		}
+		if (code == KeyEvent.VK_ESCAPE) {
+			pause();
+			System.exit(1);
+		}
 
 	}
 
@@ -55,6 +71,11 @@ public class FlecheClavierListener extends JFrame implements KeyListener {
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
 
+	}
+	
+	public static void main (String[] args) {
+		FlecheClavierListener l = new FlecheClavierListener();
+		l.lancer();
 	}
 
 }
