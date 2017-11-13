@@ -22,18 +22,18 @@ import java.util.Random;
  */
 public class Plateau {
 
-	//////// ATTRIBUTS ///////////
+	// ////// ATTRIBUTS ///////////
 
 	private int taille = 16;
 	private Case[][] tabCases;
 	private Robot[] tabRobots;
 	private int[] objectifPos = new int[2];
 
-	/////// CONSTRUCTEURS /////////
+	// ///// CONSTRUCTEURS /////////
 
 	/**
-	 * Constructeur Vide : Cree un plateau de taille 16 et alloue la memoire pour
-	 * tabCases et tabRobots
+	 * Constructeur Vide : Cree un plateau de taille 16 et alloue la memoire
+	 * pour tabCases et tabRobots
 	 */
 	public Plateau() {
 		taille = 16;
@@ -43,7 +43,8 @@ public class Plateau {
 	}
 
 	/**
-	 * Cree un plateau de taille n et alloue la memoire pour tabCases et tabRobots
+	 * Cree un plateau de taille n et alloue la memoire pour tabCases et
+	 * tabRobots
 	 */
 	public Plateau(int n) {
 		taille = n;
@@ -52,7 +53,7 @@ public class Plateau {
 		tabRobots[0] = new Robot();
 	}
 
-	/////// GETTERS AND SETTERS ////////
+	// ///// GETTERS AND SETTERS ////////
 
 	public int getTaille() {
 		return taille;
@@ -90,8 +91,7 @@ public class Plateau {
 		this.tabCases[objectifPos[0]][objectifPos[1]] = objectif;
 	}
 
-	/////// METHODES /////////
-
+	// ///// METHODES /////////
 
 	/**
 	 * Genere un plateau sans aucun murs
@@ -109,9 +109,9 @@ public class Plateau {
 		for (int i = 0; i < 4; i++) {
 			tNonVide[i] = caseNonVide;
 		}
-		
+
 		tabCases = new Case[taille][taille];
-		
+
 		// Ajout du plateau global
 		for (int i = 0; i < taille; i++) {
 			for (int j = 0; j < taille; j++) {
@@ -120,33 +120,33 @@ public class Plateau {
 
 			}
 		}
-		
-		 // Ajout du bord du plateau haut
-		 for (int j = 0; j < taille; j++) {
-			 tabCases[0][j].setCaseNextHaut(caseVide);
-		 }
-		
-		 // Ajout du bord du plateau gauche
-		 for (int i = 0; i < taille; i++) {
-			 tabCases[i][0].setCaseNextGauche(caseVide);
-		 }
-		
-		 // Ajout du bord du plateau droit
-		 for (int i = 0; i < taille; i++) {
-			 tabCases[i][taille - 1].setCaseNextDroite(caseVide);
-		 }
-		
-		 // Ajout du bord du plateau bas
-		 for (int j = 0; j < taille; j++) {
-			 tabCases[taille - 1][j].setCaseNextBas(caseVide);
-		 }
+
+		// Ajout du bord du plateau haut
+		for (int j = 0; j < taille; j++) {
+			tabCases[0][j].setCaseNextHaut(caseVide);
+		}
+
+		// Ajout du bord du plateau gauche
+		for (int i = 0; i < taille; i++) {
+			tabCases[i][0].setCaseNextGauche(caseVide);
+		}
+
+		// Ajout du bord du plateau droit
+		for (int i = 0; i < taille; i++) {
+			tabCases[i][taille - 1].setCaseNextDroite(caseVide);
+		}
+
+		// Ajout du bord du plateau bas
+		for (int j = 0; j < taille; j++) {
+			tabCases[taille - 1][j].setCaseNextBas(caseVide);
+		}
 
 		configureCaseNextPlateau();
 	}
 
 	/**
-	 * Genere une String du Plateau, * Pour une case, _ Pour mur du haut ou bas, |
-	 * pour mur de gauche ou droite
+	 * Genere une String du Plateau, * Pour une case, _ Pour mur du haut ou bas,
+	 * | pour mur de gauche ou droite
 	 */
 	public String toString() {
 		StringBuilder s = new StringBuilder("");
@@ -177,14 +177,14 @@ public class Plateau {
 	}
 
 	/**
-	 * Redefinis les lignes lors d'une modification de case. <br>
+	 * <h1>OBSOLETE NE PAS UTILISER</h1> Redefinis les lignes lors d'une
+	 * modification de case. <br>
 	 * ATTENTION : Ne prend pas en compte les murs :<br>
 	 * Pour inserer une case avec un mur, ajouter la case, utiliser les methodes
 	 * AjouterMur(), puis utiliser ensuite cette fonction
 	 * 
 	 * <br>
 	 * <br>
-	 * PEUT ETRE OBSOLETE
 	 * 
 	 * @param i
 	 * @param j
@@ -232,9 +232,8 @@ public class Plateau {
 		}
 	}
 
-
 	/**
-	 * Place le robot n° num de facon random
+	 * Place le robot nï¿½ num de facon random
 	 * 
 	 * @param num
 	 */
@@ -258,11 +257,9 @@ public class Plateau {
 	}
 
 	/**
-	 * Ajoute un mur sur le plateau aux coordonnes (i,j) et sur le haut de la case
-	 * et redefinie toutes les autres cases pour pouvoir interagir avec ce nouveau
-	 * mur <br>
-	 * NOTE DE TEST : Creations tres tres rare de mur invisible sur la case du
-	 * dessus. Pas d'autres pbrobleme
+	 * Ajoute un mur sur le plateau aux coordonnes (i,j) et sur le haut de la
+	 * case et redefinie toutes les autres cases pour pouvoir interagir avec ce
+	 * nouveau mur <br>
 	 * 
 	 * @param i
 	 *            la ligne
@@ -298,11 +295,9 @@ public class Plateau {
 	}
 
 	/**
-	 * Ajoute un mur sur le plateau aux coordonnees (i,j) et sur le bas de la case
-	 * et redefinie toutes les autres cases pour pouvoir interagir avec ce nouveau
-	 * mur <br>
-	 * NOTES DE TEST : Creations tres tres rare de mur invisible sur la case du
-	 * dessus. Pas d'autres pbrobleme
+	 * Ajoute un mur sur le plateau aux coordonnees (i,j) et sur le bas de la
+	 * case et redefinie toutes les autres cases pour pouvoir interagir avec ce
+	 * nouveau mur <br>
 	 * 
 	 * @param i
 	 *            la ligne
@@ -342,9 +337,6 @@ public class Plateau {
 	 * case et redefinie toutes les autres cases pour pouvoir interagir avec ce
 	 * nouveau mur
 	 * 
-	 * NOTES DE TEST : Creations tres tres rare de mur invisible sur la case du
-	 * dessus. Disparition dans caseObjectif NOTE 2 : La Classe ajouterMurDroite
-	 * redefinit mal le mur gauche
 	 * 
 	 * @param i
 	 *            la ligne
@@ -384,9 +376,6 @@ public class Plateau {
 	 * case et redefinie toutes les autres cases pour pouvoir interagir avec ce
 	 * nouveau mur
 	 * 
-	 * NOTES DU TEST : Traversee systematique d'un mur a droite sur la case de
-	 * droite : OK Mal redefinition du premier mur a gauche
-	 * 
 	 * @param i
 	 *            la ligne
 	 * @param j
@@ -423,8 +412,8 @@ public class Plateau {
 
 	/**
 	 * Configure les casesNext du plateau <br>
-	 * Prereq : Le plateau doit contenir des cases qui ont comme caseNext soit une
-	 * case Vide, soit une Case valide
+	 * Prereq : Le plateau doit contenir des cases qui ont comme caseNext soit
+	 * une case Vide, soit une Case valide
 	 */
 	public void configureCaseNextPlateau() {
 		int k;
@@ -470,34 +459,62 @@ public class Plateau {
 	}
 
 	/**
-	 * Ajoute un mur formant un angle sur l'objectif
+	 * Ajoute un mur a GAUCHE et en HAUT de la case definie en (i,j)
+	 * 
+	 * @param i
+	 *            la ligne de la case
+	 * @param j
+	 *            la colonne de la case
 	 */
-	public void ajouterMursRandomObjectif() {
-		int i = objectifPos[0];
-		int j = objectifPos[1];
-		Random r = new Random();
-		int random = r.nextInt(4);
-
-		if (random == 0) {
-			ajouterMurGauche(i, j);
-			ajouterMurHaut(i, j);
-		} else if (random == 1) {
-			ajouterMurHaut(i, j);
-			ajouterMurDroite(i, j);
-		} else if (random == 2) {
-			ajouterMurDroite(i, j);
-			ajouterMurBas(i, j);
-		} else if (random == 3) {
-			ajouterMurBas(i, j);
-			ajouterMurGauche(i, j);
-		}
+	public void ajouterCoinGH(int i, int j) {
+		ajouterMurHaut(i, j);
+		ajouterMurGauche(i, j);
 	}
-	
-	
-	//////// METHODES POUR LA GENERATION D'UN PLATEAU RANDOM /////////
+
 	/**
-	 * Genere un plateau de taille n de maniere Aleatoire : 12% de chances qu'une
-	 * case ait au moins un mur (donc 3 % par cote)<br>
+	 * Ajoute un mur en HAUT et a DROITE de la case definie en (i,j)
+	 *
+	 * @param i
+	 *            la ligne de la case
+	 * @param j
+	 *            la colonne de la case
+	 */
+	public void ajouterCoinHD(int i, int j) {
+		ajouterMurHaut(i, j);
+		ajouterMurDroite(i, j);
+	}
+
+	/**
+	 * Ajoute un mur a DROITE et en BAS de la case definie en (i,j)
+	 * 
+	 * @param i
+	 *            la ligne de la case
+	 * @param j
+	 *            la colonne de la case
+	 */
+	public void ajouterCoinDB(int i, int j) {
+		ajouterMurDroite(i, j);
+		ajouterMurBas(i, j);
+	}
+
+	/**
+	 * Ajoute un mur en BAS et a DROITE de la case definie en (i,j)
+	 * 
+	 * @param i
+	 *            la ligne de la case
+	 * @param j
+	 *            la colonne de la case
+	 */
+	public void ajouterCoinBG(int i, int j) {
+		ajouterMurBas(i, j);
+		ajouterMurGauche(i, j);
+	}
+
+	// ////// METHODES POUR LA GENERATION D'UN PLATEAU RANDOM /////////
+
+	/**
+	 * Genere un plateau de taille n de maniere Aleatoire : 12% de chances
+	 * qu'une case ait au moins un mur (donc 3 % par cote)<br>
 	 * Utilise :<br>
 	 * 
 	 * @see initLigne
@@ -531,7 +548,8 @@ public class Plateau {
 		for (int i = 0; i < n; i++)
 			murDroite[i][n - 1] = true;
 
-		// corrige les tableaux de booleens pour appliquer les murs des deux cotes
+		// corrige les tableaux de booleens pour appliquer les murs des deux
+		// cotes
 		murDesDeuxCotes(murHaut, murBas, murGauche, murDroite);
 
 		// Creation de cases next temporaire pour toutes les autres cases
@@ -543,25 +561,29 @@ public class Plateau {
 			for (int j = 0; j < n; j++) {
 				Case c = new Case();
 
-				// Met soit un mur en HAUT de la case courante, soit une case non vide
+				// Met soit un mur en HAUT de la case courante, soit une case
+				// non vide
 				if (murHaut[i][j])
 					c.setCaseNextHaut(caseVide);
 				else
 					c.setCaseNextHaut(caseNonVide);
 
-				// Met soit un mur a GAUCHE de la case courante, soit une case non vide
+				// Met soit un mur a GAUCHE de la case courante, soit une case
+				// non vide
 				if (murGauche[i][j])
 					c.setCaseNextGauche(caseVide);
 				else
 					c.setCaseNextGauche(caseNonVide);
 
-				// Met soit un mur a DROITE de la case courante, soit une case non vide
+				// Met soit un mur a DROITE de la case courante, soit une case
+				// non vide
 				if (murDroite[i][j])
 					c.setCaseNextDroite(caseVide);
 				else
 					c.setCaseNextDroite(caseNonVide);
 
-				// Met soit un mur en BAS de la case courante, soit une case non vide
+				// Met soit un mur en BAS de la case courante, soit une case non
+				// vide
 				if (murBas[i][j])
 					c.setCaseNextBas(caseVide);
 				else
@@ -581,19 +603,19 @@ public class Plateau {
 	}
 
 	/**
-	 * Reevalue les tableaux de murs pour qu'un mur soit present sur les deux cotes
-	 * : <br>
+	 * Reevalue les tableaux de murs pour qu'un mur soit present sur les deux
+	 * cotes : <br>
 	 * ex : Un murDroite sur une Case est un murGauche sur la case de Droite
 	 * 
 	 * @param murHaut
 	 * @param murBas
 	 * @param murGauche
 	 * @param murDroite
-	 *            <br>
-	 *            prereq : tous les tableaux doivent être de même taille
+	 * <br>
+	 *            prereq : tous les tableaux doivent ï¿½tre de mï¿½me taille
 	 */
-	private static void murDesDeuxCotes(boolean[][] murHaut, boolean[][] murBas, boolean[][] murGauche,
-			boolean[][] murDroite) {
+	private static void murDesDeuxCotes(boolean[][] murHaut,
+			boolean[][] murBas, boolean[][] murGauche, boolean[][] murDroite) {
 		for (int i = 0; i < murHaut[0].length; i++) {
 			for (int j = 0; j < murHaut[0].length; j++) {
 				if (i > 0 && murHaut[i][j])
@@ -609,7 +631,7 @@ public class Plateau {
 	}
 
 	/**
-	 * Configure les CaseNext en fontion d'un tableau où les murs sont deja
+	 * Configure les CaseNext en fontion d'un tableau oï¿½ les murs sont deja
 	 * initialises : Les caseNext actuelles sont soit null, soit une case Vide) <br>
 	 * 
 	 * @param tCases
@@ -679,10 +701,10 @@ public class Plateau {
 		}
 		return t;
 	}
-	
+
 	/**
-	 * Ajoute de facon aleatoire un objectif sur le plateau Note : L'objectif doit
-	 * se trouver a cote d'un mur sinon la partie est impossible
+	 * Ajoute de facon aleatoire un objectif sur le plateau Note : L'objectif
+	 * doit se trouver a cote d'un mur sinon la partie est impossible
 	 */
 	public void ajouterObjectifRandom() {
 		Random r = new Random();
@@ -697,6 +719,30 @@ public class Plateau {
 		objectifPos[1] = j;
 		ajouterMursRandomObjectif();
 
+	}
+
+	/**
+	 * Ajoute un mur formant un angle sur l'objectif
+	 */
+	public void ajouterMursRandomObjectif() {
+		int i = objectifPos[0];
+		int j = objectifPos[1];
+		Random r = new Random();
+		int random = r.nextInt(4);
+
+		if (random == 0) {
+			ajouterMurGauche(i, j);
+			ajouterMurHaut(i, j);
+		} else if (random == 1) {
+			ajouterMurHaut(i, j);
+			ajouterMurDroite(i, j);
+		} else if (random == 2) {
+			ajouterMurDroite(i, j);
+			ajouterMurBas(i, j);
+		} else if (random == 3) {
+			ajouterMurBas(i, j);
+			ajouterMurGauche(i, j);
+		}
 	}
 
 }

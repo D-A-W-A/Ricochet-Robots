@@ -32,10 +32,14 @@ public class PlateauMain {
 		
 		Plateau p = new Plateau();
 		p.genererPlateauSansMur();
+		p.ajouterCoinBG(12, 12);
+		p.ajouterCoinGH(1,1);
+		p.ajouterCoinHD(5,5);
+		p.ajouterCoinDB(7, 7);
 		System.out.println(p.toString());
-		p.getTabCases()[0][0].setPos(0, 0);
-		p.getTabCases()[0][p.getTaille()-1].setPos(15, 15);
-		System.out.println(p.getTabCases()[0][0].getCaseNextDroite().getPosX());
+//		p.getTabCases()[0][0].setPos(0, 0);
+//		p.getTabCases()[0][p.getTaille()-1].setPos(15, 15);
+//		System.out.println(p.getTabCases()[0][0].getCaseNextDroite().getPosX());
 		
 	}
 }
