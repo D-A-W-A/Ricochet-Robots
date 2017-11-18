@@ -138,8 +138,8 @@ public abstract class Partie extends FlecheClavierListener {
 	 * Arrete completement la partie. Rien n'est stocke
 	 */
 	public void arreterPartie() {
-		System.exit(0);
 		stop();
+		System.exit(0);
 	}
 
 	/**
@@ -220,6 +220,9 @@ public abstract class Partie extends FlecheClavierListener {
 	/**
 	 * Cree une partie en generant un plateau, met le compteur de coups et l'etat de
 	 * la partie a 0
+	 * Place les robots;
+	 * Place un objectif;
+	 * Appelle lancerPartie();
 	 */
 	public abstract void creerPartie();
 
@@ -234,8 +237,6 @@ public abstract class Partie extends FlecheClavierListener {
 	 * 
 	 * Permet de lancer une partie avec toute les fonctionnalites necessaires:
 	 * Appelle creerPartie();
-	 * Place les robots;
-	 * Place un objectif;
 	 * Appelle lancerPartie();
 	 *
 	 */

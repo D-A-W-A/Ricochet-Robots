@@ -233,18 +233,23 @@ public class Plateau {
 	}
 
 	/**
-	 * Place le robot n� num de facon random
+	 * Place le robot numero num de facon random et retourne ses coordonees
 	 * 
 	 * @param num
 	 */
-	public void placerRobotRandom(int num) {
+	public int [] placerRobotRandom(int num) {
 		Random r = new Random();
 		int i = r.nextInt(taille);
 		int j = r.nextInt(taille);
 		this.tabRobots[num].setCaseActuelle(tabCases[i][j]);
 		this.tabCases[i][j].affecterRobot(tabRobots[num]);
+		int [] tab = {i,j};
+		return tab;
 	}
-
+	
+	public void supprimerRobot(int num) {
+		tabRobots[num].getCaseActuelle().supprimerRobot();
+	}
 	/**
 	 * Insere les coordonees de chaque Case dans Case.posX et Case.posY
 	 */

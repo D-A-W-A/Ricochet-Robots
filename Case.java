@@ -305,6 +305,7 @@ public class Case {
 	}
 	
 	public void supprimerRobot () {
+		robot.setCaseActuelle(null);
 		this.robot = null;
 	}
 
