@@ -39,9 +39,9 @@ public class PartieRandomTerminal extends Partie {
 	 * Arrete completement la partie. Rien n'est stocke
 	 */
 	public void arreterPartie() {
+		stop();
 		System.out.println("GAME OVER !");
 		System.exit(0);
-		stop();
 	}
 	
 	

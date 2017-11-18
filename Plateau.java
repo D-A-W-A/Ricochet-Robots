@@ -535,6 +535,7 @@ public class Plateau {
 	 */
 	public void genererPlateau(int[][] murs, int posXObjectif, int posYObjectif) {
 		genererPlateauSansMur();
+		ajouterObjectif(posXObjectif, posYObjectif);
 		for (int i = 0; i < murs.length; i++) {
 			for (int j = 0; j < murs.length; j++) {
 				if (murs[i][j] == 1)
@@ -547,17 +548,21 @@ public class Plateau {
 					ajouterCoinBG(i, j);
 			}
 		}
-		ajouterObjectif(posXObjectif, posYObjectif);
+		
+
+		
 	}
 
 	public void ajouterObjectif(int i, int j) {
 		CaseObjectif c = new CaseObjectif();
 		c.setCaseNext(tabCases[i][j].getCaseNext());
 
+		
 		tabCases[i][j] = c;
 		objectifPos[0] = i;
 		objectifPos[1] = j;
 	}
+	
 
 	// ////// METHODES POUR LA GENERATION D'UN PLATEAU RANDOM /////////
 

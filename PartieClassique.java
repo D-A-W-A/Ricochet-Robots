@@ -7,6 +7,8 @@ import java.util.Random;
  *
  * 
  * @author Dorian
+ * 
+ * ATTENTIONS : MURS INVISIBLES, MAIS BIEN LA, PAS LE TEMPS DE BOSSER DESSUS
  *
  */
 public class PartieClassique extends Partie {
@@ -177,8 +179,9 @@ public class PartieClassique extends Partie {
 
 	@Override
 	public void creerPartie() {
-		
-		// Creer un plateau : met les murs, un objectif aleatoire parmi les 17 possibles, et place un robot
+
+		// Creer un plateau : met les murs, un objectif aleatoire parmi les 17
+		// possibles, et place un robot
 		Random r = new Random();
 		int obj = r.nextInt(17);
 		Plateau p = new Plateau();
@@ -190,13 +193,13 @@ public class PartieClassique extends Partie {
 			posRobot = p.placerRobotRandom(0);
 		}
 		setPlateau(p);
-		
+
 		// Initialise le compteur de coup
 		setEtatPartie(0);
 		setNbCoups(0);
 
 	}
-	
+
 	/**
 	 * Met en pause la Partie
 	 */
@@ -212,7 +215,7 @@ public class PartieClassique extends Partie {
 		System.out.println("REPRISE");
 		setEtatPartie(1);
 	}
-	
+
 	/**
 	 * Arrete completement la partie. Rien n'est stocke
 	 */
@@ -221,18 +224,20 @@ public class PartieClassique extends Partie {
 		System.exit(0);
 		stop();
 	}
-	
 
 	@Override
 	public void update() {
 		System.out
-		.println("\n\n=====================================================================\nNombre de Coups : "
-				+ getNbCoups() + "\n" + toString());
+				.println("\n\n=====================================================================\nNombre de Coups : "
+						+ getNbCoups() + "\n" + toString());
 
 	}
 
 	@Override
 	protected void mainPartieAux() {
+		System.out.println("RICOCHET - ROBOTS\nVersion sur Terminal - Plateau Classique\n\n");
+		System.out.println(
+				"Le jeu se joue avec les feches directionnelles.\nPour mettre en pause, appuyez sur P. Une fois le jeu en pause, vous pouvez appuyer sur R pour reccomencer sur un autre Plateau\nPour arreter la partie, appuyez sur ECHAP\n");
 		creerPartie();
 		lancerPartie();
 		System.out.println(toString());
@@ -243,7 +248,6 @@ public class PartieClassique extends Partie {
 		p.mainPartieAux();
 	}
 
-	
 	public static void main(String[] args) {
 		PartieClassique.mainPartie();
 	}
