@@ -233,18 +233,23 @@ public class Plateau {
 	}
 
 	/**
-	 * Place le robot n� num de facon random
+	 * Place le robot numero num de facon random et retourne ses coordonees
 	 * 
 	 * @param num
 	 */
-	public void placerRobotRandom(int num) {
+	public int [] placerRobotRandom(int num) {
 		Random r = new Random();
 		int i = r.nextInt(taille);
 		int j = r.nextInt(taille);
 		this.tabRobots[num].setCaseActuelle(tabCases[i][j]);
 		this.tabCases[i][j].affecterRobot(tabRobots[num]);
+		int [] tab = {i,j};
+		return tab;
 	}
-
+	
+	public void supprimerRobot(int num) {
+		tabRobots[num].getCaseActuelle().supprimerRobot();
+	}
 	/**
 	 * Insere les coordonees de chaque Case dans Case.posX et Case.posY
 	 */
@@ -530,6 +535,7 @@ public class Plateau {
 	 */
 	public void genererPlateau(int[][] murs, int posXObjectif, int posYObjectif) {
 		genererPlateauSansMur();
+		ajouterObjectif(posXObjectif, posYObjectif);
 		for (int i = 0; i < murs.length; i++) {
 			for (int j = 0; j < murs.length; j++) {
 				if (murs[i][j] == 1)
@@ -542,17 +548,21 @@ public class Plateau {
 					ajouterCoinBG(i, j);
 			}
 		}
-		ajouterObjectif(posXObjectif, posYObjectif);
+		
+
+		
 	}
 
 	public void ajouterObjectif(int i, int j) {
 		CaseObjectif c = new CaseObjectif();
 		c.setCaseNext(tabCases[i][j].getCaseNext());
 
+		
 		tabCases[i][j] = c;
 		objectifPos[0] = i;
 		objectifPos[1] = j;
 	}
+	
 
 	// ////// METHODES POUR LA GENERATION D'UN PLATEAU RANDOM /////////
 
