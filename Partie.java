@@ -35,6 +35,7 @@ public abstract class Partie extends FlecheClavierListener {
 	private Chrono chrono;
 	private int nbCoups;
 	private int nbVictoire = 0;
+	private int robotSelectionne = 0;
 
 	/**
 	 * 0 : Partie arretee 1 : Partie en cours 2 : Pause
@@ -92,8 +93,17 @@ public abstract class Partie extends FlecheClavierListener {
 	public void setEtatPartie(int etatPartie) {
 		this.etatPartie = etatPartie;
 	}
+	
+	public int getRobotSelectionne() {
+		return robotSelectionne;
+	}
+
+	public void setRobotSelectionne(int robotSelectionne) {
+		this.robotSelectionne = robotSelectionne;
+	}
 
 	////////// METHODES /////////
+
 
 	public String toString() {
 		return plateau.toString();
@@ -173,13 +183,13 @@ public abstract class Partie extends FlecheClavierListener {
 
 			int deplacement = 0;
 			if (code == KeyEvent.VK_DOWN) {
-				deplacement = plateau.getTabRobots()[0].deplacerRobotBas();
+				deplacement = plateau.getTabRobots()[robotSelectionne].deplacerRobotBas();
 			} else if (code == KeyEvent.VK_UP) {
-				deplacement = plateau.getTabRobots()[0].deplacerRobotHaut();
+				deplacement = plateau.getTabRobots()[robotSelectionne].deplacerRobotHaut();
 			} else if (code == KeyEvent.VK_LEFT) {
-				deplacement = plateau.getTabRobots()[0].deplacerRobotGauche();
+				deplacement = plateau.getTabRobots()[robotSelectionne].deplacerRobotGauche();
 			} else if (code == KeyEvent.VK_RIGHT) {
-				deplacement = plateau.getTabRobots()[0].deplacerRobotDroite();
+				deplacement = plateau.getTabRobots()[robotSelectionne].deplacerRobotDroite();
 			}
 			if (deplacement == 1) {
 				nbCoups++;
