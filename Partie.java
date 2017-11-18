@@ -232,7 +232,11 @@ public abstract class Partie extends FlecheClavierListener {
 
 	/**
 	 * 
-	 * Permet de lancer une partie avec toute les fonctionnalites necessaires.
+	 * Permet de lancer une partie avec toute les fonctionnalites necessaires:
+	 * Appelle creerPartie();
+	 * Place les robots;
+	 * Place un objectif;
+	 * Appelle lancerPartie();
 	 *
 	 */
 	protected abstract void mainPartieAux();
