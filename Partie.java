@@ -238,5 +238,63 @@ public abstract class Partie extends FlecheClavierListener {
 	 * puis appelle mainPartieAux():
 	 */
 	public static void mainPartie() {
+	
 	}
+	
+	
+	
+	/////// RESOLUTION DU JEU ///////
+
+	/**
+	 * @param regardee
+	 *            : Case
+	 * @return True si l'une des voisine de regardee est de type CaseObjectif
+	 */
+	protected static boolean objectifVoisin(Case regardee) {
+		boolean check = false;
+		for (int i = 0; i < 4; i++) {
+			if (regardee.getCaseNext(i) instanceof CaseObjectif) {
+				check = true;
+			}
+		}
+		return check;
+	}
+
+	
+//	SERT A RIEN JE PENSE. Et surtout, très complexe. 
+//	/**
+//	 * Donne la matrice correspondant au graphe du plateau avec 1 si la case est
+//	 * voisine, 0 sinon.
+//	 */
+//	protected int[][] mat() {
+//		int taillePlateau = plateau.getTaille();
+//		Case[][] tabCases = plateau.getTabCases();
+//		int tailleMat = taillePlateau * taillePlateau;
+//		int[][] mat = new int[tailleMat][tailleMat];
+//		for (int i = 0; i < taillePlateau; i++) {
+//			for (int j = 0; j < taillePlateau; j++) {
+//				mat[i][j] = 0;
+//			}
+//		}
+//		for (int i = 0; i < taillePlateau; i++) {
+//			for (int j = 0; j < taillePlateau; j++) {
+//				for (int k = 0; k < 4; k++) {
+//					mat[tabCases[i][j].getPosX() * (taillePlateau - 1)
+//							+ tabCases[i][j].getPosY()][tabCases[i][j].getCaseNext(k).getPosX() * (taillePlateau - 1)
+//									+ tabCases[i][j].getCaseNext(k).getPosY()] = 1;
+//				}
+//			}
+//		}
+//		return mat;
+//	}
+
+	/**
+	 * Avec un seul robot
+	 */
+	protected static void solve1() {
+
+	}
+
+}
+
 
