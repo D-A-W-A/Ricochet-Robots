@@ -140,7 +140,7 @@ public class Plateau {
 		for (int j = 0; j < taille; j++) {
 			tabCases[taille - 1][j].setCaseNextBas(caseVide);
 		}
-
+		insererCoordonees();
 		configureCaseNextPlateau();
 	}
 
