@@ -93,7 +93,7 @@ public abstract class Partie extends FlecheClavierListener {
 	public void setEtatPartie(int etatPartie) {
 		this.etatPartie = etatPartie;
 	}
-	
+
 	public int getRobotSelectionne() {
 		return robotSelectionne;
 	}
@@ -104,13 +104,10 @@ public abstract class Partie extends FlecheClavierListener {
 
 	////////// METHODES /////////
 
-
 	public String toString() {
 		return plateau.toString();
 	}
 
-	
-	
 	///////// GESTION DE LA PARTIE ////////
 	/**
 	 * Lance la partie
@@ -213,19 +210,14 @@ public abstract class Partie extends FlecheClavierListener {
 		}
 
 	}
-	
-	
+
 	//////////// CREATION ET MAJ DE LA PARTIE ///////////
-	
+
 	/**
 	 * Cree une partie en generant un plateau, met le compteur de coups et l'etat de
-	 * la partie a 0
-	 * Place les robots;
-	 * Place un objectif;
-	 * Appelle lancerPartie();
+	 * la partie a 0 Place les robots; Place un objectif; Appelle lancerPartie();
 	 */
 	public abstract void creerPartie();
-
 
 	/**
 	 * Met a jour l'interface graphique / terminal pour montrer la nouvelle
@@ -236,40 +228,15 @@ public abstract class Partie extends FlecheClavierListener {
 	/**
 	 * 
 	 * Permet de lancer une partie avec toute les fonctionnalites necessaires:
-	 * Appelle creerPartie();
-	 * Appelle lancerPartie();
+	 * Appelle creerPartie(); Appelle lancerPartie();
 	 *
 	 */
 	protected abstract void mainPartieAux();
 
 	/**
-	 * Fonction appelee dans le main(String[] args)
-	 * Instancie une nouvelle partie puis appelle mainPartieAux():
+	 * Fonction appelee dans le main(String[] args) Instancie une nouvelle partie
+	 * puis appelle mainPartieAux():
 	 */
 	public static void mainPartie() {
 	}
-	
-	/////// RESOLUTION DU JEU ///////
-	
-	/**
-	 * @param regardee : Case
-	 * @return True si l'une des voisine de regardee est de type CaseObjectif
-	 */
-	protected static boolean objectifVoisin(Case regardee) {
-		boolean check = false;
-		for (int i=0; i<4; i++) {
-			if (regardee.getCaseNext(i) instanceof CaseObjectif) {
-				check = true;
-			}
-		}
-		return check;
-	}
-	
-	/**
-	 *  
-	 */
-	protected static void solve1() {
-		
-	}
 
-}
