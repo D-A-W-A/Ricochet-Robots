@@ -248,5 +248,28 @@ public abstract class Partie extends FlecheClavierListener {
 	 */
 	public static void mainPartie() {
 	}
+	
+	/////// RESOLUTION DU JEU ///////
+	
+	/**
+	 * @param regardee : Case
+	 * @return True si l'une des voisine de regardee est de type CaseObjectif
+	 */
+	protected static boolean objectifVoisin(Case regardee) {
+		boolean check = false;
+		for (int i=0; i<4; i++) {
+			if (regardee.getCaseNext(i) instanceof CaseObjectif) {
+				check = true;
+			}
+		}
+		return check;
+	}
+	
+	/**
+	 *  
+	 */
+	protected static void solve1() {
+		
+	}
 
 }

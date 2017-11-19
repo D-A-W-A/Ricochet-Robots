@@ -72,7 +72,16 @@ public class Case {
 	public Case[] getCaseNext() {
 		return caseNext;
 	}
-
+	
+	/**
+	 * Getter de la caseNext en fonction de son numero
+	 * 
+	 * @return la prochaine caseNext[i]
+	 */
+	public Case getCaseNext(int i) {
+		return caseNext[i];
+	}
+	
 	/**
 	 * Getter de la caseNext de gauche
 	 * 
