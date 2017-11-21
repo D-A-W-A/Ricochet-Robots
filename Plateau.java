@@ -342,11 +342,14 @@ public class Plateau {
 	 * case et redefinie toutes les autres cases pour pouvoir interagir avec ce
 	 * nouveau mur
 	 * 
+	 * TODO DEBBUGGING : Traversable par la droite
 	 * 
 	 * @param i
 	 *            la ligne
 	 * @param j
 	 *            la colone
+	 *            
+	 *            
 	 */
 	public void ajouterMurGauche(int i, int j) {
 		tabCases[i][j].setCaseNextGauche(new Case());
@@ -406,14 +409,15 @@ public class Plateau {
 		}
 
 		if (j < taille - 2) {
-			if (!tabCases[i][j].getCaseNextDroite().estVide()) {
-				int k = 1;
-				while (!tabCases[i][j + k].getCaseNextDroite().estVide()) {
-					tabCases[i][j + k].setCaseNextGauche(tabCases[i][j + 1]);
-					k++;
-				}
-				tabCases[i][j + k].setCaseNextGauche(tabCases[i][j + 1]);
-			}
+//			if (!tabCases[i][j].getCaseNextDroite().estVide()) {
+//				int k = 1;
+//				while (!tabCases[i][j + k].getCaseNextDroite().estVide()) {
+//					tabCases[i][j + k].setCaseNextGauche(tabCases[i][j + 1]);
+//					k++;
+//				}
+//				tabCases[i][j + k].setCaseNextGauche(tabCases[i][j + 1]);
+//			}
+			ajouterMurGauche(i, j+1);
 		}
 
 	}
