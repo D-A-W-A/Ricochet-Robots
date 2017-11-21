@@ -380,11 +380,14 @@ public class Plateau {
 	 * Ajoute un mur sur le plateau aux coordonnees (i,j) et sur la droite de la
 	 * case et redefinie toutes les autres cases pour pouvoir interagir avec ce
 	 * nouveau mur
+	 * TODO : DEBUGGING !!!
 	 * 
 	 * @param i
 	 *            la ligne
 	 * @param j
 	 *            la colone
+	 *            
+	 *            
 	 */
 	public void ajouterMurDroite(int i, int j) {
 		tabCases[i][j].setCaseNextDroite(new Case());
@@ -403,7 +406,7 @@ public class Plateau {
 		}
 
 		if (j < taille - 2) {
-			if (!tabCases[i][j + 1].getCaseNextDroite().estVide()) {
+			if (!tabCases[i][j].getCaseNextDroite().estVide()) {
 				int k = 1;
 				while (!tabCases[i][j + k].getCaseNextDroite().estVide()) {
 					tabCases[i][j + k].setCaseNextGauche(tabCases[i][j + 1]);
