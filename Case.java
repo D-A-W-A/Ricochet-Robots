@@ -292,6 +292,15 @@ public class Case {
 			return "";
 		}
 	}
+	
+	/**
+	 * 
+	 * @param case2 : Case comparée
+	 * @return True si les positions des deux cases sont égales.
+	 */
+	public boolean equals(Case case2) {
+		return ((case2.getPosX()==this.getPosX()) && (case2.getPosY()==this.getPosY()));
+	}
 
 	/**
 	 * Genere une Case entouree de Cases Vides (donc une case non vide)

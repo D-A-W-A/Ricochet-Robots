@@ -1,6 +1,7 @@
 package ricochetRobot;
 
 import java.awt.event.KeyEvent;
+import java.util.LinkedList;
 
 /**
  * Une Partie de Ricochet-Robots.<br>
@@ -238,11 +239,9 @@ public abstract class Partie extends FlecheClavierListener {
 	 * puis appelle mainPartieAux():
 	 */
 	public static void mainPartie() {
-	
+
 	}
-	
-	
-	
+
 	/////// RESOLUTION DU JEU ///////
 
 	/**
@@ -260,41 +259,84 @@ public abstract class Partie extends FlecheClavierListener {
 		return check;
 	}
 
-	
-//	SERT A RIEN JE PENSE. Et surtout, très complexe. 
-//	/**
-//	 * Donne la matrice correspondant au graphe du plateau avec 1 si la case est
-//	 * voisine, 0 sinon.
-//	 */
-//	protected int[][] mat() {
-//		int taillePlateau = plateau.getTaille();
-//		Case[][] tabCases = plateau.getTabCases();
-//		int tailleMat = taillePlateau * taillePlateau;
-//		int[][] mat = new int[tailleMat][tailleMat];
-//		for (int i = 0; i < taillePlateau; i++) {
-//			for (int j = 0; j < taillePlateau; j++) {
-//				mat[i][j] = 0;
-//			}
-//		}
-//		for (int i = 0; i < taillePlateau; i++) {
-//			for (int j = 0; j < taillePlateau; j++) {
-//				for (int k = 0; k < 4; k++) {
-//					mat[tabCases[i][j].getPosX() * (taillePlateau - 1)
-//							+ tabCases[i][j].getPosY()][tabCases[i][j].getCaseNext(k).getPosX() * (taillePlateau - 1)
-//									+ tabCases[i][j].getCaseNext(k).getPosY()] = 1;
-//				}
-//			}
-//		}
-//		return mat;
-//	}
+	// SERT A RIEN JE PENSE. Et surtout, très complexe.
+	// /**
+	// * Donne la matrice correspondant au graphe du plateau avec 1 si la case est
+	// * voisine, 0 sinon.
+	// */
+	// protected int[][] mat() {
+	// int taillePlateau = plateau.getTaille();
+	// Case[][] tabCases = plateau.getTabCases();
+	// int tailleMat = taillePlateau * taillePlateau;
+	// int[][] mat = new int[tailleMat][tailleMat];
+	// for (int i = 0; i < taillePlateau; i++) {
+	// for (int j = 0; j < taillePlateau; j++) {
+	// mat[i][j] = 0;
+	// }
+	// }
+	// for (int i = 0; i < taillePlateau; i++) {
+	// for (int j = 0; j < taillePlateau; j++) {
+	// for (int k = 0; k < 4; k++) {
+	// mat[tabCases[i][j].getPosX() * (taillePlateau - 1)
+	// + tabCases[i][j].getPosY()][tabCases[i][j].getCaseNext(k).getPosX() *
+	// (taillePlateau - 1)
+	// + tabCases[i][j].getCaseNext(k).getPosY()] = 1;
+	// }
+	// }
+	// }
+	// return mat;
+	// }
 
 	/**
 	 * Avec un seul robot
 	 */
-	protected static void solve1() {
+	protected void solve1() {
+		LinkedList<Case> marked = new LinkedList<Case>(); // Création de la liste des cases "marquées en vert"
+		LinkedList<Case> checked = new LinkedList<Case>(); // Création de la liste des cases "marquées en rouge"
+		LinkedList<Integer> counter = new LinkedList<Integer>(); // Compte les coups pour atteindre les cases de marked.
+		// marked et counter sont "liées" par l'index, c'est à dire qu'il faut
+		// counter[i] coups pour atteindre marked[i] depuis la case d'origine du robot
+		LinkedList<LinkedList<Integer>> path = new LinkedList<LinkedList<Integer>>(); // Contient les coups pour atteindre les cases de marked.
+		// Les coups sont des entiers : 0 = gauche, 1 = haut, 2 = droite et 3 = bas
+		// marked et path sont "liées" par l'index, c'est à dire qu'il faut réaliser les coups de
+		// path[i] coups pour atteindre marked[i] depuis la case d'origine du robot
+		marked.add(plateau.getTabRobots()[0].getCaseActuelle()); // La 1ere case marquée est celle où se trouve le robot
+		counter.add(0); // Et il faut 0 coup pour l'atteindre
+		//A ESSAYER
+		//path.add(new LinkedList<Integer>());
+		path.add(counter); // Le premier coup de tous les chemins est faut et devra être supprimé. On ne le fera qu'à la fin si on trouve l'objectif
+		Case objectif = plateau.getObjectif();
+		boolean found = false;
+		int nbSteps; // Contiendra le nombre de coups pour aller de la case du robot à l'objectif
+		while (!found && !marked.isEmpty()) { // Tant qu'on a des cases marquées et qu'on n'a pas trouvé l'objectif...
+			Case current = marked.getFirst(); // On s'intéresse à la première case marquée
+			for (int i = 0; i < 4; i++) { // Et à ses cases suivantes
+				Case nextI = current.getCaseNext(i);
+				if (nextI.equals(objectif)) { // Si on l'objectif est une case suivante de la case courrante...
+					found = true; // On l'a trouvé
+					LinkedList<Integer> nextPath = new LinkedList<Integer>(path.peek()); //On initialise le chemin jusqu'à l'objectif en utilisant le chemin jusqu'à courant
+					nextPath.add(i); // On ajoute à ce chemin le coup pour passer de courant à l'objectif 
+					path.add(nextPath); // On place ce chemin à la fin de la liste des chemins
+					nbSteps = counter.get(marked.indexOf(current)) + 1; // On peut l'atteindre en autant de coup que
+					// pour atteindre la case courrante +1
+				} else {
+					if (!marked.contains(nextI) && !checked.contains(nextI)) { // Sinon, si la case suivante regarnée
+						// n'est ni "verte" ni "rouge"
+						marked.add(nextI); // On l'ajoute à la liste des cases marquées
+						counter.add(counter.peek() + 1); // Et on lui attribue le nombre de coup pour atteindre la
+						// case courante +1
+						LinkedList<Integer> nextPath = new LinkedList<Integer>(path.peek()); //On initialise le chemin jusqu'à cette case suivante en utilisant le chemin jusqu'à courant
+						nextPath.add(i); // On ajoute à ce chemin le coup pour passer de courant à cette case suivante 
+						path.add(nextPath); // On place ce chemin à la fin de la liste des chemins
+					}
 
+				}
+			}
+			checked.add(marked.remove()); // La case courante n'est plus verte, mais rouge
+			counter.remove(); // On retire le nombre de coup pour la case courante
+			path.remove(); // On retire le chemin jusqu'à la case courante de la liste des chemins.
+		}
+		// end while
 	}
 
 }
-
-
