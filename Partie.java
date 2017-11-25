@@ -286,11 +286,30 @@ public abstract class Partie extends FlecheClavierListener {
 	// }
 	// return mat;
 	// }
+	
+	protected void displaySolution() {
+		LinkedList<Integer> solution = new LinkedList<Integer>(this.solve1());
+		if (solution.isEmpty()) {
+			System.out.println("L'objectif n'est pas atteignable");
+		} else {
+			StringBuilder s = new StringBuilder("La solution est : ");
+			while (!solution.isEmpty()) {
+				switch (solution.peek()) {
+				case 0 : s.append("gauche, ");
+				case 1 : s.append("haut, ");
+				case 2 : s.append("droite, ");
+				case 3 : s.append("bas, ");
+				}
+			}
+		}		
+	}
 
 	/**
-	 * Avec un seul robot
+	 * Les coups retournés sont des entiers sous la forme : 0 = gauche, 1 = haut, 2 = droite et 3 = bas
+	 * Si la liste est vide, l'objectif n'est pas atteignable
+	 * @return La liste des coups
 	 */
-	protected void solve1() {
+	protected LinkedList<Integer> solve1() {
 		LinkedList<Case> marked = new LinkedList<Case>(); // Création de la liste des cases "marquées en vert"
 		LinkedList<Case> checked = new LinkedList<Case>(); // Création de la liste des cases "marquées en rouge"
 		LinkedList<Integer> counter = new LinkedList<Integer>(); // Compte les coups pour atteindre les cases de marked.
@@ -336,7 +355,27 @@ public abstract class Partie extends FlecheClavierListener {
 			counter.remove(); // On retire le nombre de coup pour la case courante
 			path.remove(); // On retire le chemin jusqu'à la case courante de la liste des chemins.
 		}
-		// end while
+		if(!found) {
+			return (new LinkedList<Integer>()); 
+		}
+		else {
+			LinkedList<Integer> finalPath = new LinkedList<Integer>(path.getLast()); // Pour l'optimisation, on stocke la liste des coups.
+			finalPath.remove(); // On retire le premier coups qui était faux
+			return finalPath;
+		}
+//		int[] pathArray;
+//		if (!found) {
+//			pathArray = new int[1]; 
+//			pathArray[0] = 1;
+//		} else {
+//			LinkedList<Integer> finalPath = new LinkedList<Integer>(path.getLast()); // Pour l'optimisation, on stocke la liste des coups.
+//			finalPath.remove(); // On retire le premier coups qui était faux
+//			pathArray = new int[finalPath.size()]; // On initialise le tableau des coups
+//			for(int i=0; i<finalPath.size(); i++) { // Et on le remplit
+//				pathArray[i] = finalPath.remove(); 
+//			}
+//		}
+//		return pathArray;
 	}
 
 }
