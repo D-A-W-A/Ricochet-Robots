@@ -1,6 +1,5 @@
 package ricochetRobot;
 
-
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -12,15 +11,15 @@ import javax.swing.JPanel;
 public class Fenetre extends JFrame {
 
 	Grille grille = new Grille();
-	
+
 	public Fenetre() {
-		
+
 		// Obtiens et configure les dimentions de la fenetre
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		Dimension screenSize = tk.getScreenSize();
 		int screenHeight = screenSize.height;
 		int screenWidth = screenSize.width;
-		this.setSize(screenWidth/2 + screenWidth/3, screenHeight/2 + screenHeight/3);
+		this.setSize(screenWidth / 2 + screenWidth / 3, screenHeight / 2 + screenHeight / 3);
 
 		// Definis le titre et les parametres de la fenetre
 		this.setTitle("Ma première fenêtre Java");
