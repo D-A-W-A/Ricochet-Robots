@@ -7,9 +7,18 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 
+/**
+ * Partie graphique d'une case : Elle n'affiche pas encore les murs mais bientot :)
+ *  
+ * @author Dorian
+ *
+ *	
+ */
 public class CaseGrille extends JPanel implements MouseListener {
 	private int posX;
 	private int posY;
+	
+	// Change lorsque la souris passe au dessus
 	int hover = 0;
 	
 	public CaseGrille() {
@@ -43,12 +52,17 @@ public class CaseGrille extends JPanel implements MouseListener {
 	}
 
 	public void paintComponent(Graphics g) {
+		// Reset la case en la coloriant en blanc
 		g.setColor(Color.white);
 		g.fillRect(0, 0, this.getWidth(), this.getHeight());
+		
+		// Si la souris est au dessus, la case est coloriee en gris
 		if (hover == 1) {
 			g.setColor(Color.LIGHT_GRAY);
 			g.fillRect(0, 0, this.getWidth(), this.getHeight());
 		}
+		
+		// Dessine les bords de la case
 		g.setColor(Color.black);
 		g.drawRect(0, 0, this.getWidth(), this.getHeight());
 		
