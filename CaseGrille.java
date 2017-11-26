@@ -16,7 +16,6 @@ public class CaseGrille extends JPanel implements MouseListener {
 		posX = 0;
 		posY = 0;
 		this.addMouseListener(this);
-		this.setBackground(Color.blue);
 	}
 
 	public CaseGrille(int x, int y) {
@@ -44,9 +43,15 @@ public class CaseGrille extends JPanel implements MouseListener {
 	}
 
 	public void paintComponent(Graphics g) {
-		if (hover == 1)
-			g.setColor(Color.blue);
+		g.setColor(Color.white);
+		g.fillRect(0, 0, this.getWidth(), this.getHeight());
+		if (hover == 1) {
+			g.setColor(Color.LIGHT_GRAY);
+			g.fillRect(0, 0, this.getWidth(), this.getHeight());
+		}
+		g.setColor(Color.black);
 		g.drawRect(0, 0, this.getWidth(), this.getHeight());
+		
 	}
 
 	@Override
@@ -64,7 +69,8 @@ public class CaseGrille extends JPanel implements MouseListener {
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
+		hover=0;
+		this.repaint();
 
 	}
 

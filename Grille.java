@@ -7,12 +7,29 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 
-public class Grille extends JPanel implements MouseListener{
+public class Grille extends JPanel implements MouseListener {
 	private int taille = 10;
-	private CaseGrille[][] grille = new CaseGrille[taille][taille];
+	private CaseGrille[][] grille;
 
 	public Grille() {
+		grille = new CaseGrille[taille][taille];
+		// On definit le layout qu'on adoptera
+		this.setLayout(new GridLayout(taille, taille));
 
+		// On crée nos differentes cases
+		for (int i = 0; i < taille; i++) {
+			for (int j = 0; j < taille; j++) {
+				grille[i][j] = new CaseGrille();
+				this.add(grille[i][j]);
+			}
+		}
+
+	}
+
+	public Grille(int t) {
+
+		taille = t;
+		grille = new CaseGrille[taille][taille];
 		// On definit le layout qu'on adoptera
 		this.setLayout(new GridLayout(taille, taille));
 
@@ -33,31 +50,30 @@ public class Grille extends JPanel implements MouseListener{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		
-		
+
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
