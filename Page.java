@@ -1,4 +1,4 @@
-// package ricochetRobot;
+package ricochetRobot;
 
 import java.awt.*;
 import java.awt.Toolkit;
