@@ -1,4 +1,4 @@
-package ricochetRobot;
+package guiRicochetRobot;
 
 import java.awt.Graphics;
 import java.awt.GridLayout;

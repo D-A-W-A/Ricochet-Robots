@@ -1,4 +1,4 @@
-package ricochetRobot;
+package guiRicochetRobot;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -125,7 +125,7 @@ public class Fenetre extends JFrame implements Observateur {
 
 	@Override
 	public void update(String ob) {
-		System.out.println("Clic de la souris : coordonnées" + grille.getCoordCaseClic()[0] + " " + grille.getCoordCaseClic()[1]);
+		System.out.println("Clic de la souris aux coordonnées : " + grille.getCoordCaseClic()[0] + " " + grille.getCoordCaseClic()[1]);
 		
 	}
 
