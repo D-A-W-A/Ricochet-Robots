@@ -4,9 +4,12 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
+
+import observer.Observable;
+import observer.Observateur;
 
 /**
  * La partie graphique de la grille. Elle est composee de CaseGrille
@@ -14,10 +17,12 @@ import javax.swing.JPanel;
  * @author Dorian
  *
  */
-public class Grille extends JPanel implements ActionListener {
+public class Grille extends JPanel implements ActionListener, Observable {
 	private int taille = 10;
 	private CaseGrille[][] grille;
-	private int[] coordCaseClic = new int [2];
+	private int[] coordCaseClic = new int[2];
+	//Notre collection d'observateurs
+	private ArrayList<Observateur> listObservateur = new ArrayList<Observateur>();
 
 	public Grille() {
 		// On alloue la memoire pour une grille de taille : (taille*taille)
@@ -83,8 +88,6 @@ public class Grille extends JPanel implements ActionListener {
 	public void paintComponent(Graphics g) {
 
 	}
-	
-	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -92,6 +95,24 @@ public class Grille extends JPanel implements ActionListener {
 		System.out.println("X : " + c.getPosX() + "\tY : " + c.getPosY());
 		coordCaseClic[0] = c.getPosX();
 		coordCaseClic[1] = c.getPosY();
+		this.updateObservateur();
+	}
+
+	// Ajoute un observateur à la liste
+	public void addObservateur(Observateur obs) {
+		this.listObservateur.add(obs);
+	}
+
+	// Retire tous les observateurs de la liste
+	public void delObservateur() {
+		this.listObservateur = new ArrayList<Observateur>();
+	}
+
+	// Avertit les observateurs que l'objet observable a changé
+	// et invoque la méthode update() de chaque observateur
+	public void updateObservateur() {
+		for (Observateur obs : this.listObservateur)
+			obs.update("clic");
 	}
 
 }

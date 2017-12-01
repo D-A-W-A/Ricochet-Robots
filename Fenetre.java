@@ -13,6 +13,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import observer.Observable;
+import observer.Observateur;
+
 
 /**
  * 
@@ -28,7 +31,7 @@ import javax.swing.JPanel;
  *
  *	
  */
-public class Fenetre extends JFrame  {
+public class Fenetre extends JFrame implements Observateur {
 
 	Grille grille;
 	String titre = "Ricochet - Robots";
@@ -36,6 +39,7 @@ public class Fenetre extends JFrame  {
 
 	public Fenetre() {
 		grille = new Grille(tailleGrille);
+		grille.addObservateur(this);
 	}
 
 	/**
@@ -117,6 +121,12 @@ public class Fenetre extends JFrame  {
 	public static void main(String[] args) {
 		Fenetre f = new Fenetre();
 		f.lancerFenetre();
+	}
+
+	@Override
+	public void update(String ob) {
+		System.out.println("Clic de la souris : coordonnées" + grille.getCoordCaseClic()[0] + " " + grille.getCoordCaseClic()[1]);
+		
 	}
 
 }
