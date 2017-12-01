@@ -2,10 +2,12 @@ package ricochetRobot;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.swing.JPanel;
+import javax.swing.JButton;
 
 /**
  * Partie graphique d'une case : Elle n'affiche pas encore les murs mais bientot :)
@@ -14,7 +16,7 @@ import javax.swing.JPanel;
  *
  *	
  */
-public class CaseGrille extends JPanel implements MouseListener {
+public class CaseGrille extends JButton implements MouseListener {
 	private int posX;
 	private int posY;
 	
@@ -70,7 +72,7 @@ public class CaseGrille extends JPanel implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		System.out.println("COUCOU");
+		//System.out.println("COUCOU");
 
 	}
 

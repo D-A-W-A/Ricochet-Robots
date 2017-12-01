@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -26,7 +28,7 @@ import javax.swing.JPanel;
  *
  *	
  */
-public class Fenetre extends JFrame {
+public class Fenetre extends JFrame  {
 
 	Grille grille;
 	String titre = "Ricochet - Robots";
@@ -116,4 +118,5 @@ public class Fenetre extends JFrame {
 		Fenetre f = new Fenetre();
 		f.lancerFenetre();
 	}
+
 }

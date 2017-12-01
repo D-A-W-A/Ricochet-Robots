@@ -2,8 +2,9 @@ package ricochetRobot;
 
 import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 
@@ -13,14 +14,15 @@ import javax.swing.JPanel;
  * @author Dorian
  *
  */
-public class Grille extends JPanel implements MouseListener {
+public class Grille extends JPanel implements ActionListener {
 	private int taille = 10;
 	private CaseGrille[][] grille;
+	private int[] coordCaseClic = new int [2];
 
 	public Grille() {
 		// On alloue la memoire pour une grille de taille : (taille*taille)
 		grille = new CaseGrille[taille][taille];
-		
+
 		// On definit le layout qu'on adoptera (Grid)
 		this.setLayout(new GridLayout(taille, taille));
 
@@ -29,6 +31,7 @@ public class Grille extends JPanel implements MouseListener {
 			for (int j = 0; j < taille; j++) {
 				grille[i][j] = new CaseGrille();
 				this.add(grille[i][j]);
+				grille[i][j].addActionListener(this);
 			}
 		}
 
@@ -44,6 +47,9 @@ public class Grille extends JPanel implements MouseListener {
 		for (int i = 0; i < taille; i++) {
 			for (int j = 0; j < taille; j++) {
 				grille[i][j] = new CaseGrille();
+				grille[i][j].setPosX(i);
+				grille[i][j].setPosY(j);
+				grille[i][j].addActionListener(this);
 				this.add(grille[i][j]);
 			}
 		}
@@ -66,37 +72,26 @@ public class Grille extends JPanel implements MouseListener {
 		this.grille = grille;
 	}
 
+	public int[] getCoordCaseClic() {
+		return coordCaseClic;
+	}
+
+	public void setCoordCaseClic(int[] coordCaseClic) {
+		this.coordCaseClic = coordCaseClic;
+	}
+
 	public void paintComponent(Graphics g) {
 
 	}
+	
+	
 
 	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-
+	public void actionPerformed(ActionEvent e) {
+		CaseGrille c = (CaseGrille) (e.getSource());
+		System.out.println("X : " + c.getPosX() + "\tY : " + c.getPosY());
+		coordCaseClic[0] = c.getPosX();
+		coordCaseClic[1] = c.getPosY();
 	}
 
 }
