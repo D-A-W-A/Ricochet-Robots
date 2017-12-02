@@ -5,6 +5,8 @@ import java.awt.event.KeyListener;
 
 import javax.swing.JFrame;
 
+import guiRicochetRobot.Fenetre;
+
 /**
  * Premier Listener pour la version du jeu sous terminal.<br>
  * Ce listener ecoute les fleches du clavier et fait une action lorque l'une
@@ -13,11 +15,12 @@ import javax.swing.JFrame;
  * @author Dorian
  *
  */
-public class FlecheClavierListener extends JFrame implements KeyListener {
+public class FlecheClavierListener extends Fenetre implements KeyListener {
 
 	JFrame fenetreListener;
 
 	public FlecheClavierListener() {
+		super();
 		fenetreListener = new JFrame();
 		fenetreListener.addKeyListener(this);
 	}
