@@ -34,7 +34,7 @@ import observer.Observateur;
 public class Fenetre extends JFrame implements Observateur {
 
 	Grille grille;
-	String titre = "Ricochet - Robots";
+	JLabel titreLabel;
 	int tailleGrille = 10;
 	
 
@@ -87,7 +87,7 @@ public class Fenetre extends JFrame implements Observateur {
 		this.getContentPane().add(menuGauche, BorderLayout.WEST);
 
 		// Creation du Titre + Nombre de coups
-		JLabel titreLabel = new JLabel(titre);
+		JLabel titreLabel = new JLabel("Ricochet - Robot");
 		Font police = new Font("Tahoma", Font.BOLD, 24);
 		titreLabel.setFont(police);
 		titreLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -109,12 +109,12 @@ public class Fenetre extends JFrame implements Observateur {
 		this.grille = grille;
 	}
 
-	public String getTitre() {
-		return titre;
+	public JLabel getTitreLabel() {
+		return titreLabel;
 	}
 
-	public void setTitre(String titre) {
-		this.titre = titre;
+	public void setTitreLabel(JLabel j) {
+		this.titreLabel = j;
 	}
 
 	public int getTailleGrille() {

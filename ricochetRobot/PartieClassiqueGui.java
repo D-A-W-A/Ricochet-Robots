@@ -1,6 +1,8 @@
 package ricochetRobot;
 
-import java.util.Random;
+import java.awt.Color;
+
+import javax.swing.JLabel;
 
 import guiRicochetRobot.Grille;
 
@@ -33,7 +35,6 @@ public class PartieClassiqueGui extends PartieClassique {
 	}
 
 	public void update(String ob) {
-		System.out.println("HEY !!!");
 		int next = this.getGrille().getGrille()[getGrille().getCoordCaseClic()[0]][getGrille().getCoordCaseClic()[1]]
 				.isNext();
 		if (next != 0) {
@@ -52,7 +53,21 @@ public class PartieClassiqueGui extends PartieClassique {
 			definirNext();
 			placerRobot();
 		}
+		if (getPlateau().getObjectif().reussite()) {
+			System.out.println("YAY");
+			JLabel j = new JLabel ("Gagné !!!");
+			j.setForeground(Color.red);
+			setTitreLabel(j);
+			victoire();
+		}
 		getGrille().repaint();
+		this.repaint();
+	}
+	
+	public void victoire() {
+		setNbVictoire(getNbVictoire()+1);
+		setEtatPartie(0);
+		
 	}
 
 	public void lancerPartie() {

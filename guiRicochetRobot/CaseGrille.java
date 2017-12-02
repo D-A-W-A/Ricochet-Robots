@@ -96,7 +96,7 @@ public class CaseGrille extends JButton implements MouseListener {
 		this.isNext = isNext;
 	}
 
-	public boolean isHasRobot() {
+	public boolean HasRobot() {
 		return hasRobot;
 	}
 
