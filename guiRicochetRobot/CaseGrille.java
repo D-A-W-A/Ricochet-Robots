@@ -23,7 +23,8 @@ public class CaseGrille extends JButton implements MouseListener {
 	private int posX;
 	private int posY;
 
-	private boolean isNext = false;
+	// 1 : Gauche, 2 : Haut, 3 : Droite, 4 : Bas
+	private int isNext = 0;
 	private boolean hasRobot = false;
 	private boolean isObjective = false;
 
@@ -87,11 +88,11 @@ public class CaseGrille extends JButton implements MouseListener {
 		this.posY = posY;
 	}
 
-	public boolean isNext() {
+	public int isNext() {
 		return isNext;
 	}
 
-	public void setNext(boolean isNext) {
+	public void setNext(int isNext) {
 		this.isNext = isNext;
 	}
 
@@ -110,7 +111,7 @@ public class CaseGrille extends JButton implements MouseListener {
 		g.fillRect(0, 0, this.getWidth(), this.getHeight());
 
 		// Si la souris est au dessus, la case est coloriee en gris
-		if (hover == 1 && isNext) {
+		if (hover == 1 && isNext !=0) {
 			g.setColor(Color.decode("#4d0000"));
 			g.fillRect(0, 0, this.getWidth(), this.getHeight());
 		} else if (hover == 1) {
@@ -132,7 +133,7 @@ public class CaseGrille extends JButton implements MouseListener {
 			g.setColor(Color.red);
 			g.fillOval(this.getWidth() / 4, this.getHeight() / 4, this.getWidth() / 2, this.getHeight() / 2);
 			g.setColor(Color.white);
-			g.fillOval((this.getWidth() / 4)+10, (this.getHeight() / 4)+10, (this.getWidth() / 2)-20,( this.getHeight() / 2)-20);
+			g.fillOval((this.getWidth() / 4)+this.getWidth()/10, (this.getHeight() / 4)+this.getWidth()/10, (this.getWidth() / 2)-this.getHeight()/5,( this.getHeight() / 2)-this.getHeight()/5);
 		}
 		g.setColor(Color.black);
 		// Dessine les murs s'il y en a

@@ -6,7 +6,6 @@ import guiRicochetRobot.Grille;
 
 public class PartieClassiqueGui extends PartieClassique {
 
-	
 	public PartieClassiqueGui() {
 		super();
 	}
@@ -15,7 +14,6 @@ public class PartieClassiqueGui extends PartieClassique {
 	 * Met en pause la Partie
 	 */
 	public void pausePartie() {
-		System.out.println("PAUSE");
 		setEtatPartie(2);
 	}
 
@@ -23,7 +21,6 @@ public class PartieClassiqueGui extends PartieClassique {
 	 * Relance la partie
 	 */
 	public void reprendrePartie() {
-		System.out.println("REPRISE");
 		setEtatPartie(1);
 	}
 
@@ -31,27 +28,90 @@ public class PartieClassiqueGui extends PartieClassique {
 	 * Arrete completement la partie. Rien n'est stocke
 	 */
 	public void arreterPartie() {
-		System.out.println("GAME OVER !");
 		System.exit(0);
 		stop();
 	}
 
-	@Override
-	public void update() {
+	public void update(String ob) {
+		System.out.println("HEY !!!");
+		int next = this.getGrille().getGrille()[getGrille().getCoordCaseClic()[0]][getGrille().getCoordCaseClic()[1]]
+				.isNext();
+		if (next != 0) {
+			supprimerNext();
+			supprimerRobot();
+			int deplacement;
+			if (next == 1) {
+				deplacement = getPlateau().getTabRobots()[getRobotSelectionne()].deplacerRobotGauche();
+			} else if (next == 2) {
+				deplacement = getPlateau().getTabRobots()[getRobotSelectionne()].deplacerRobotHaut();
+			} else if (next == 3) {
+				deplacement = getPlateau().getTabRobots()[getRobotSelectionne()].deplacerRobotDroite();
+			} else if (next == 4) {
+				deplacement = getPlateau().getTabRobots()[getRobotSelectionne()].deplacerRobotBas();
+			}
+			definirNext();
+			placerRobot();
+		}
+		getGrille().repaint();
+	}
 
+	public void lancerPartie() {
+		setEtatPartie(1);
+	}
+
+	/**
+	 * Replace le robot sur l'interface graphique
+	 */
+	public void supprimerRobot() {
+		int[] coord = { getPlateau().getTabRobots()[0].getCaseActuelle().getPosX(),
+				getPlateau().getTabRobots()[0].getCaseActuelle().getPosY() };
+		getGrille().getGrille()[coord[0]][coord[1]].setHasRobot(false);
+	}
+
+	public void placerRobot() {
+		int[] coord = { getPlateau().getTabRobots()[0].getCaseActuelle().getPosX(),
+				getPlateau().getTabRobots()[0].getCaseActuelle().getPosY() };
+		getGrille().getGrille()[coord[0]][coord[1]].setHasRobot(true);
+	}
+
+	public void supprimerNext() {
+		Case cActuelle = getPlateau().getTabRobots()[0].getCaseActuelle();
+		getGrille().getGrille()[cActuelle.getCaseNextGauche().getPosX()][cActuelle.getCaseNextGauche().getPosY()]
+				.setNext(0);
+		getGrille().getGrille()[cActuelle.getCaseNextHaut().getPosX()][cActuelle.getCaseNextHaut().getPosY()]
+				.setNext(0);
+		getGrille().getGrille()[cActuelle.getCaseNextDroite().getPosX()][cActuelle.getCaseNextDroite().getPosY()]
+				.setNext(0);
+		getGrille().getGrille()[cActuelle.getCaseNextBas().getPosX()][cActuelle.getCaseNextBas().getPosY()].setNext(0);
+	}
+
+	/**
+	 * Permet de definir les caseNext pour l'interface graphique
+	 */
+	public void definirNext() {
+		Case cActuelle = getPlateau().getTabRobots()[0].getCaseActuelle();
+		getGrille().getGrille()[cActuelle.getCaseNextGauche().getPosX()][cActuelle.getCaseNextGauche().getPosY()]
+				.setNext(1);
+		getGrille().getGrille()[cActuelle.getCaseNextHaut().getPosX()][cActuelle.getCaseNextHaut().getPosY()]
+				.setNext(2);
+		getGrille().getGrille()[cActuelle.getCaseNextDroite().getPosX()][cActuelle.getCaseNextDroite().getPosY()]
+				.setNext(3);
+		getGrille().getGrille()[cActuelle.getCaseNextBas().getPosX()][cActuelle.getCaseNextBas().getPosY()].setNext(4);
 	}
 
 	@Override
 	protected void mainPartieAux() {
 		creerPartie();
-		int [] posRobots = {this.getPlateau().getTabRobots()[0].getCaseActuelle().getPosX(), this.getPlateau().getTabRobots()[0].getCaseActuelle().getPosY()};
+		int[] posRobots = { this.getPlateau().getTabRobots()[0].getCaseActuelle().getPosX(),
+				this.getPlateau().getTabRobots()[0].getCaseActuelle().getPosY() };
 		Grille g = new Grille(16, this.getDispositionMursPlateau(), posRobots, this.getPlateau().getObjectifPos());
 		this.setGrille(g);
+		g.addObservateur(this);
+		definirNext();
 		lancerFenetre();
 		lancerPartie();
-		System.out.println(toString());
 	}
-	
+
 	public static void mainPartie() {
 		PartieClassiqueGui p = new PartieClassiqueGui();
 		p.mainPartieAux();
