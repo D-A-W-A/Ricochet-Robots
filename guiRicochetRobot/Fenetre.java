@@ -36,9 +36,16 @@ public class Fenetre extends JFrame implements Observateur {
 	Grille grille;
 	String titre = "Ricochet - Robots";
 	int tailleGrille = 10;
+	
 
 	public Fenetre() {
 		grille = new Grille(tailleGrille);
+		grille.addObservateur(this);
+	}
+	
+	public Fenetre(int taille, int [][] murs, int [] posRobot, int [] posObjectif) {
+		tailleGrille = taille;
+		grille = new Grille(taille);
 		grille.addObservateur(this);
 	}
 
@@ -51,7 +58,7 @@ public class Fenetre extends JFrame implements Observateur {
 		Dimension screenSize = tk.getScreenSize();
 		int screenHeight = screenSize.height;
 		int screenWidth = screenSize.width;
-		this.setSize(screenWidth / 2 + screenWidth / 3, screenHeight / 2 + screenHeight / 3);
+		this.setSize(screenWidth / 2, screenHeight / 2 + screenHeight / 3);
 
 		// Definis le titre et les parametres de la fenetre
 		this.setTitle("Ricochet-Robots");
