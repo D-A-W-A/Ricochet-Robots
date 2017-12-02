@@ -23,6 +23,8 @@ public class Grille extends JPanel implements ActionListener, Observable {
 	private int[] coordCaseClic = new int[2];
 	//Notre collection d'observateurs
 	private ArrayList<Observateur> listObservateur = new ArrayList<Observateur>();
+	
+	private int[][] murs;
 
 	public Grille() {
 		// On alloue la memoire pour une grille de taille : (taille*taille)
@@ -34,7 +36,7 @@ public class Grille extends JPanel implements ActionListener, Observable {
 		// On crée nos differentes cases et on les ajoute au panel this
 		for (int i = 0; i < taille; i++) {
 			for (int j = 0; j < taille; j++) {
-				grille[i][j] = new CaseGrille();
+				grille[i][j] = new CaseGrille(i,j,0);
 				this.add(grille[i][j]);
 				grille[i][j].addActionListener(this);
 			}
@@ -51,14 +53,20 @@ public class Grille extends JPanel implements ActionListener, Observable {
 		// On crée nos differentes cases
 		for (int i = 0; i < taille; i++) {
 			for (int j = 0; j < taille; j++) {
-				grille[i][j] = new CaseGrille();
-				grille[i][j].setPosX(i);
-				grille[i][j].setPosY(j);
+				grille[i][j] = new CaseGrille(i,j,0);
 				grille[i][j].addActionListener(this);
 				this.add(grille[i][j]);
 			}
 		}
+		initMurs(murs);
 
+	}
+	
+	public void initMurs (int [][] t) {
+		grille[1][2].setMurs(1);
+		grille[3][4].setMurs(2);
+		grille[5][6].setMurs(3);
+		grille[7][8].setMurs(4);
 	}
 
 	public int getTaille() {
@@ -93,6 +101,7 @@ public class Grille extends JPanel implements ActionListener, Observable {
 	public void actionPerformed(ActionEvent e) {
 		CaseGrille c = (CaseGrille) (e.getSource());
 		System.out.println("X : " + c.getPosX() + "\tY : " + c.getPosY());
+		System.out.println("Mur ? "+c.getMurs());
 		coordCaseClic[0] = c.getPosX();
 		coordCaseClic[1] = c.getPosY();
 		this.updateObservateur();
