@@ -12,9 +12,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JButton;
 
 /**
- * Partie graphique d'une case : Elle n'affiche pas encore les murs mais bientot
- * :)
- * 
+ * Partie graphique d'une case 
  * @author Dorian
  *
  * 
@@ -25,6 +23,8 @@ public class CaseGrille extends JButton implements MouseListener {
 
 	// 1 : Gauche, 2 : Haut, 3 : Droite, 4 : Bas
 	private int isNext = 0;
+	
+	// La case s'affichera differement si elle possede un robot ou si c'est l'objectif
 	private boolean hasRobot = false;
 	private boolean isObjective = false;
 
@@ -104,16 +104,20 @@ public class CaseGrille extends JButton implements MouseListener {
 		this.hasRobot = hasRobot;
 	}
 
+	
 	public void paintComponent(Graphics g) {
 		
 		// Reset la case en la coloriant en blanc
 		g.setColor(Color.white);
 		g.fillRect(0, 0, this.getWidth(), this.getHeight());
 
-		// Si la souris est au dessus, la case est coloriee en gris
+		// Si la souris est au dessus, la case est coloriee
+		// En rouge si elle est next
 		if (hover == 1 && isNext !=0) {
 			g.setColor(Color.decode("#4d0000"));
 			g.fillRect(0, 0, this.getWidth(), this.getHeight());
+
+		// En gris sinon
 		} else if (hover == 1) {
 			g.setColor(Color.LIGHT_GRAY);
 			g.fillRect(0, 0, this.getWidth(), this.getHeight());
@@ -129,14 +133,16 @@ public class CaseGrille extends JButton implements MouseListener {
 			g.fillOval(this.getWidth() / 4, this.getHeight() / 4, this.getWidth() / 2, this.getHeight() / 2);
 		}
 
+		// Dessine l'objectif
 		if (this.isObjective) {
 			g.setColor(Color.red);
 			g.fillOval(this.getWidth() / 4, this.getHeight() / 4, this.getWidth() / 2, this.getHeight() / 2);
 			g.setColor(Color.white);
 			g.fillOval((this.getWidth() / 4)+this.getWidth()/10, (this.getHeight() / 4)+this.getWidth()/10, (this.getWidth() / 2)-this.getHeight()/5,( this.getHeight() / 2)-this.getHeight()/5);
 		}
-		g.setColor(Color.black);
+		
 		// Dessine les murs s'il y en a
+		g.setColor(Color.black);
 		if (this.murs == 1) {
 			g.fillRect(0, 0, 5, this.getHeight());
 			g.fillRect(0, 0, this.getWidth(), 5);
@@ -164,7 +170,6 @@ public class CaseGrille extends JButton implements MouseListener {
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-
 		hover = 1;
 		this.repaint();
 

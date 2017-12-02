@@ -21,7 +21,8 @@ public class Grille extends JPanel implements ActionListener, Observable {
 	private int taille = 10;
 	private CaseGrille[][] grille;
 	private int[] coordCaseClic = new int[2];
-	//Notre collection d'observateurs
+
+	// Notre collection d'observateurs
 	private ArrayList<Observateur> listObservateur = new ArrayList<Observateur>();
 
 	public Grille(int t) {
@@ -34,7 +35,7 @@ public class Grille extends JPanel implements ActionListener, Observable {
 		// On crée nos differentes cases et on les ajoute au panel this
 		for (int i = 0; i < taille; i++) {
 			for (int j = 0; j < taille; j++) {
-				grille[i][j] = new CaseGrille(i,j,0);
+				grille[i][j] = new CaseGrille(i, j, 0);
 				this.add(grille[i][j]);
 				grille[i][j].addActionListener(this);
 			}
@@ -42,7 +43,7 @@ public class Grille extends JPanel implements ActionListener, Observable {
 
 	}
 
-	public Grille(int taille, int [][] murs, int [] posRobot, int [] posObjectif) {
+	public Grille(int taille, int[][] murs, int[] posRobot, int[] posObjectif) {
 		this.taille = taille;
 		grille = new CaseGrille[taille][taille];
 		// On definit le layout qu'on adoptera
@@ -51,19 +52,28 @@ public class Grille extends JPanel implements ActionListener, Observable {
 		// On crée nos differentes cases
 		for (int i = 0; i < taille; i++) {
 			for (int j = 0; j < taille; j++) {
-				grille[i][j] = new CaseGrille(i,j,murs[i][j]);
+				grille[i][j] = new CaseGrille(i, j, murs[i][j]);
+				
+				// On y definit les murs
 				grille[i][j].setMurs(murs[i][j]);
+				
+				// On place le robot
 				if (posRobot[0] == i && posRobot[1] == j)
 					grille[i][j].setHasRobot(true);
+				
+				// On place l'objectif
 				if (posObjectif[0] == i && posObjectif[1] == j)
 					grille[i][j].setObjective(true);
+				
+				// La grille ecoute chacune des cases
 				grille[i][j].addActionListener(this);
+				
+				// On ajoute la nouvelle case au tableau
 				this.add(grille[i][j]);
 			}
 		}
 
 	}
-	
 
 	public int getTaille() {
 		return taille;
@@ -89,20 +99,23 @@ public class Grille extends JPanel implements ActionListener, Observable {
 		this.coordCaseClic = coordCaseClic;
 	}
 
+	/**
+	 * Fonction declenchee lorsque l'utilisateur clique sur une case
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		CaseGrille c = (CaseGrille) (e.getSource());
 		System.out.println("X : " + c.getPosX() + "\tY : " + c.getPosY());
-		System.out.println("Mur ? "+c.getMurs());
-		System.out.println("Next ? " +c.isNext());
-		System.out.println("obj ? " +c.isObjective());
-		System.out.println("Robot ? "+ c.HasRobot()+ "\n");
+		System.out.println("Mur ? " + c.getMurs());
+		System.out.println("Next ? " + c.isNext());
+		System.out.println("obj ? " + c.isObjective());
+		System.out.println("Robot ? " + c.HasRobot() + "\n");
 		coordCaseClic[0] = c.getPosX();
 		coordCaseClic[1] = c.getPosY();
 		this.updateObservateur();
 	}
 
-	// Ajoute un observateur à la liste
+	// Ajoute un observateur a la liste
 	public void addObservateur(Observateur obs) {
 		this.listObservateur.add(obs);
 	}
@@ -112,8 +125,8 @@ public class Grille extends JPanel implements ActionListener, Observable {
 		this.listObservateur = new ArrayList<Observateur>();
 	}
 
-	// Avertit les observateurs que l'objet observable a changé
-	// et invoque la méthode update() de chaque observateur
+	// Avertit les observateurs que l'objet observable a change
+	// et invoque la methode update() de chaque observateur
 	public void updateObservateur() {
 		for (Observateur obs : this.listObservateur)
 			obs.update("clic");

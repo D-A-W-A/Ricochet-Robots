@@ -130,6 +130,9 @@ public class Fenetre extends JFrame implements Observateur {
 		f.lancerFenetre();
 	}
 
+	/**
+	 * Fonction appelee par grille lorsqu'une case est cliquee
+	 */
 	@Override
 	public void update(String ob) {
 		System.out.println("Clic de la souris aux coordonnées : " + grille.getCoordCaseClic()[0] + " " + grille.getCoordCaseClic()[1]);

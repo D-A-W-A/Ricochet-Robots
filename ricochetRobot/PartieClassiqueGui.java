@@ -34,9 +34,17 @@ public class PartieClassiqueGui extends PartieClassique {
 		stop();
 	}
 
+	/**
+	 * Cette fonction est appelee lorsque l'utilisateur clique sur n'importe quelle case <br>
+	 * Si il a clique sur une CaseNext, alors le robot se deplace, sinon, il ne se passe rien.
+	 * <br> Lorsque le robot atteint la case objectif, alors c'est la victoire.
+	 */
 	public void update(String ob) {
+		// On reccupere la case cliquee
 		int next = this.getGrille().getGrille()[getGrille().getCoordCaseClic()[0]][getGrille().getCoordCaseClic()[1]]
 				.isNext();
+		
+		// On deplace le robot s'il s'agit d'une caseNext
 		if (next != 0) {
 			supprimerNext();
 			supprimerRobot();
@@ -53,6 +61,8 @@ public class PartieClassiqueGui extends PartieClassique {
 			definirNext();
 			placerRobot();
 		}
+		
+		// En cas de victoire
 		if (getPlateau().getObjectif().reussite()) {
 			System.out.println("YAY");
 			JLabel j = new JLabel ("Gagné !!!");
@@ -60,22 +70,30 @@ public class PartieClassiqueGui extends PartieClassique {
 			setTitreLabel(j);
 			victoire();
 		}
+		
+		// On redessine tout pour eviter les bugs visuels
 		getGrille().repaint();
 		this.repaint();
 	}
 	
+	/**
+	 * Victoire
+	 */
 	public void victoire() {
 		setNbVictoire(getNbVictoire()+1);
 		setEtatPartie(0);
 		
 	}
 
+	/**
+	 * Fonction qui lance la partie
+	 */
 	public void lancerPartie() {
 		setEtatPartie(1);
 	}
 
 	/**
-	 * Replace le robot sur l'interface graphique
+	 * Supprime le robot de l'interface graphique
 	 */
 	public void supprimerRobot() {
 		int[] coord = { getPlateau().getTabRobots()[0].getCaseActuelle().getPosX(),
@@ -83,12 +101,18 @@ public class PartieClassiqueGui extends PartieClassique {
 		getGrille().getGrille()[coord[0]][coord[1]].setHasRobot(false);
 	}
 
+	/** 
+	 * Replace le robot sur l'interface graphique
+	 */
 	public void placerRobot() {
 		int[] coord = { getPlateau().getTabRobots()[0].getCaseActuelle().getPosX(),
 				getPlateau().getTabRobots()[0].getCaseActuelle().getPosY() };
 		getGrille().getGrille()[coord[0]][coord[1]].setHasRobot(true);
 	}
 
+	/**
+	 * Supprime les caseNext de l'interface graphique
+	 */
 	public void supprimerNext() {
 		Case cActuelle = getPlateau().getTabRobots()[0].getCaseActuelle();
 		getGrille().getGrille()[cActuelle.getCaseNextGauche().getPosX()][cActuelle.getCaseNextGauche().getPosY()]
