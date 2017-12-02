@@ -564,19 +564,27 @@ public class Plateau {
 					ajouterCoinBG(i, j);
 			}
 		}
-		
-
-		
+		//System.out.println(tabCases[objectifPos[0]][objectifPos[1]].getCaseNextDroite().getCaseNextGauche().getPosX());
 	}
 
+	/**
+	 * TODO CORRIGER, les cases voisines ne le considerent pas comme un voisin
+	 * @param i
+	 * @param j
+	 */
 	public void ajouterObjectif(int i, int j) {
 		CaseObjectif c = new CaseObjectif();
-		c.setCaseNext(tabCases[i][j].getCaseNext());
-
+		c.setCaseNextGauche(tabCases[i][j].getCaseNextGauche());
+		c.setCaseNextHaut(tabCases[i][j].getCaseNextHaut());
+		c.setCaseNextDroite(tabCases[i][j].getCaseNextDroite());
+		c.setCaseNextBas(tabCases[i][j].getCaseNextBas());
 		
 		tabCases[i][j] = c;
+		
+		
 		objectifPos[0] = i;
 		objectifPos[1] = j;
+		
 	}
 	
 
