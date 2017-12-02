@@ -82,6 +82,15 @@ public class Plateau {
 	public void setTabRobots(Robot[] tabRobots) {
 		this.tabRobots = tabRobots;
 	}
+	
+
+	public int[] getObjectifPos() {
+		return objectifPos;
+	}
+
+	public void setObjectifPos(int[] objectifPos) {
+		this.objectifPos = objectifPos;
+	}
 
 	public CaseObjectif getObjectif() {
 		return (CaseObjectif) tabCases[objectifPos[0]][objectifPos[1]];
