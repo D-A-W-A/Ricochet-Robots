@@ -279,14 +279,15 @@ public abstract class Partie extends FlecheClavierListener {
 		} else {
 			StringBuilder s = new StringBuilder("La solution est : ");
 			while (!solution.isEmpty()) {
-				switch (solution.peek()) {
-				case 0 : s.append("gauche, ");
-				case 1 : s.append("haut, ");
-				case 2 : s.append("droite, ");
-				case 3 : s.append("bas, ");
+				switch (solution.remove()) {
+				case 0 : s.append("gauche, "); break;
+				case 1 : s.append("haut, "); break;
+				case 2 : s.append("droite, "); break;
+				case 3 : s.append("bas, "); break;
 				}
 			}
-		}		
+			System.out.println(s);
+		}
 	}
 
 	/**
@@ -316,24 +317,28 @@ public abstract class Partie extends FlecheClavierListener {
 			Case current = marked.getFirst(); // On s'intéresse à la première case marquée
 			for (int i = 0; i < 4; i++) { // Et à ses cases suivantes
 				Case nextI = current.getCaseNext(i);
-				if (nextI.equals(objectif)) { // Si on l'objectif est une case suivante de la case courrante...
-					found = true; // On l'a trouvé
-					LinkedList<Integer> nextPath = new LinkedList<Integer>(path.peek()); //On initialise le chemin jusqu'à l'objectif en utilisant le chemin jusqu'à courant
-					nextPath.add(i); // On ajoute à ce chemin le coup pour passer de courant à l'objectif 
-					path.add(nextPath); // On place ce chemin à la fin de la liste des chemins
-					nbSteps = counter.get(marked.indexOf(current)) + 1; // On peut l'atteindre en autant de coup que
-					// pour atteindre la case courrante +1
+				if(nextI.estVide()) {
+					
 				} else {
-					if (!marked.contains(nextI) && !checked.contains(nextI)) { // Sinon, si la case suivante regarnée
-						// n'est ni "verte" ni "rouge"
-						marked.add(nextI); // On l'ajoute à la liste des cases marquées
-						counter.add(counter.peek() + 1); // Et on lui attribue le nombre de coup pour atteindre la
-						// case courante +1
-						LinkedList<Integer> nextPath = new LinkedList<Integer>(path.peek()); //On initialise le chemin jusqu'à cette case suivante en utilisant le chemin jusqu'à courant
-						nextPath.add(i); // On ajoute à ce chemin le coup pour passer de courant à cette case suivante 
+					if (nextI.equals(objectif)) { // Si on l'objectif est une case suivante de la case courrante...
+						found = true; // On l'a trouvé
+						LinkedList<Integer> nextPath = new LinkedList<Integer>(path.peek()); //On initialise le chemin jusqu'à l'objectif en utilisant le chemin jusqu'à courant
+						nextPath.add(i); // On ajoute à ce chemin le coup pour passer de courant à l'objectif 
 						path.add(nextPath); // On place ce chemin à la fin de la liste des chemins
+						nbSteps = counter.get(marked.indexOf(current)) + 1; // On peut l'atteindre en autant de coup que
+						// pour atteindre la case courrante +1
+					} else {
+						if (!marked.contains(nextI) && !checked.contains(nextI)) { // Sinon, si la case suivante regarnée
+							// n'est ni "verte" ni "rouge"
+							marked.add(nextI); // On l'ajoute à la liste des cases marquées
+							counter.add(counter.peek() + 1); // Et on lui attribue le nombre de coup pour atteindre la
+							// case courante +1
+							LinkedList<Integer> nextPath = new LinkedList<Integer>(path.peek()); //On initialise le chemin jusqu'à cette case suivante en utilisant le chemin jusqu'à courant
+							nextPath.add(i); // On ajoute à ce chemin le coup pour passer de courant à cette case suivante 
+							path.add(nextPath); // On place ce chemin à la fin de la liste des chemins
+						}
+	
 					}
-
 				}
 			}
 			checked.add(marked.remove()); // La case courante n'est plus verte, mais rouge

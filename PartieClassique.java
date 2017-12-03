@@ -240,8 +240,9 @@ public class PartieClassique extends Partie {
 				"Le jeu se joue avec les feches directionnelles.\nPour mettre en pause, appuyez sur P. Une fois le jeu en pause, vous pouvez appuyer sur R pour reccomencer sur un autre Plateau\nPour arreter la partie, appuyez sur ECHAP\n");
 		creerPartie();
 		lancerPartie();
-		this.displaySolution();
 		System.out.println(toString());
+		this.displaySolution();
+
 		
 	}
 

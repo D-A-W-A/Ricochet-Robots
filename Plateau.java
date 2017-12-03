@@ -557,7 +557,7 @@ public class Plateau {
 		CaseObjectif c = new CaseObjectif();
 		c.setCaseNext(tabCases[i][j].getCaseNext());
 
-		
+	    c.setPos(i, j); 
 		tabCases[i][j] = c;
 		objectifPos[0] = i;
 		objectifPos[1] = j;
