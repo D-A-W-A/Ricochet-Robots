@@ -564,7 +564,7 @@ public class Plateau {
 					ajouterCoinBG(i, j);
 			}
 		}
-		//System.out.println(tabCases[objectifPos[0]][objectifPos[1]].getCaseNextDroite().getCaseNextGauche().getPosX());
+		System.out.println(tabCases[objectifPos[0]][objectifPos[1]].getCaseNextDroite().getCaseNextGauche().getPosX());
 	}
 
 	/**

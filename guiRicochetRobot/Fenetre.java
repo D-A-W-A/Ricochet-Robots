@@ -5,15 +5,14 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import observer.Observable;
 import observer.Observateur;
 
 
@@ -31,7 +30,7 @@ import observer.Observateur;
  *
  *	
  */
-public class Fenetre extends JFrame implements Observateur {
+public class Fenetre extends JFrame implements Observateur, KeyListener{
 
 	Grille grille;
 	JLabel titreLabel;
@@ -136,6 +135,24 @@ public class Fenetre extends JFrame implements Observateur {
 	@Override
 	public void update(String ob) {
 		System.out.println("Clic de la souris aux coordonnées : " + grille.getCoordCaseClic()[0] + " " + grille.getCoordCaseClic()[1]);
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
 		
 	}
 
