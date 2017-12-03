@@ -244,22 +244,6 @@ public abstract class Partie extends FlecheClavierListener {
 
 	/////// RESOLUTION DU JEU ///////
 
-	/**
-	 * @param regardee
-	 *            : Case
-	 * @return True si l'une des voisine de regardee est de type CaseObjectif
-	 */
-	protected boolean objectifVoisin(Case regardee) {
-		boolean check = false;
-		for (int i = 0; i < 4; i++) {
-//			if (regardee.getCaseNext(i) instanceof CaseObjectif) {
-			if (regardee.getCaseNext(i).equals(plateau.getObjectif())) {
-				check = true;
-			}
-		}
-		return check;
-	}
-
 	// SERT A RIEN JE PENSE. Et surtout, très complexe.
 	// /**
 	// * Donne la matrice correspondant au graphe du plateau avec 1 si la case est
