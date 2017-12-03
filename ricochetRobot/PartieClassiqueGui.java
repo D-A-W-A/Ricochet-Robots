@@ -1,6 +1,7 @@
 package ricochetRobot;
 
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JLabel;
 
@@ -35,54 +36,84 @@ public class PartieClassiqueGui extends PartieClassique {
 	}
 
 	/**
-	 * Cette fonction est appelee lorsque l'utilisateur clique sur n'importe quelle case <br>
-	 * Si il a clique sur une CaseNext, alors le robot se deplace, sinon, il ne se passe rien.
-	 * <br> Lorsque le robot atteint la case objectif, alors c'est la victoire.
+	 * Cette fonction est appelee lorsque l'utilisateur clique sur n'importe quelle
+	 * case <br>
+	 * Si il a clique sur une CaseNext, alors le robot se deplace, sinon, il ne se
+	 * passe rien. <br>
+	 * Lorsque le robot atteint la case objectif, alors c'est la victoire.
 	 */
 	public void update(String ob) {
 		// On reccupere la case cliquee
-		int next = this.getGrille().getGrille()[getGrille().getCoordCaseClic()[0]][getGrille().getCoordCaseClic()[1]]
-				.isNext();
-		
-		// On deplace le robot s'il s'agit d'une caseNext
-		if (next != 0) {
-			supprimerNext();
-			supprimerRobot();
-			int deplacement;
-			if (next == 1) {
-				deplacement = getPlateau().getTabRobots()[getRobotSelectionne()].deplacerRobotGauche();
-			} else if (next == 2) {
-				deplacement = getPlateau().getTabRobots()[getRobotSelectionne()].deplacerRobotHaut();
-			} else if (next == 3) {
-				deplacement = getPlateau().getTabRobots()[getRobotSelectionne()].deplacerRobotDroite();
-			} else if (next == 4) {
-				deplacement = getPlateau().getTabRobots()[getRobotSelectionne()].deplacerRobotBas();
+		if (getEtatPartie() == 1) {
+			int next = this.getGrille().getGrille()[getGrille().getCoordCaseClic()[0]][getGrille()
+					.getCoordCaseClic()[1]].isNext();
+
+			// On deplace le robot s'il s'agit d'une caseNext
+			if (next != 0) {
+				supprimerNext();
+				supprimerRobot();
+				int deplacement;
+				if (next == 1) {
+					deplacement = getPlateau().getTabRobots()[getRobotSelectionne()].deplacerRobotGauche();
+				} else if (next == 2) {
+					deplacement = getPlateau().getTabRobots()[getRobotSelectionne()].deplacerRobotHaut();
+				} else if (next == 3) {
+					deplacement = getPlateau().getTabRobots()[getRobotSelectionne()].deplacerRobotDroite();
+				} else if (next == 4) {
+					deplacement = getPlateau().getTabRobots()[getRobotSelectionne()].deplacerRobotBas();
+				}
+				definirNext();
+				placerRobot();
 			}
-			definirNext();
-			placerRobot();
+
+			// En cas de victoire
+			if (getPlateau().getObjectif().reussite()) {
+				JLabel j = new JLabel("Gagné !!!");
+				j.setForeground(Color.red);
+				setTitreLabel(j);
+				getGrille().repaint();
+				this.repaint();
+				victoire();
+			}
 		}
-		
-		// En cas de victoire
-		if (getPlateau().getObjectif().reussite()) {
-			System.out.println("YAY");
-			JLabel j = new JLabel ("Gagné !!!");
-			j.setForeground(Color.red);
-			setTitreLabel(j);
-			victoire();
-		}
-		
+
 		// On redessine tout pour eviter les bugs visuels
 		getGrille().repaint();
 		this.repaint();
 	}
-	
+
+	public void keyPressed(KeyEvent e) {
+		int code = e.getKeyCode();
+		System.out.println("BLEH");
+		int deplacement;
+		if (code == KeyEvent.VK_DOWN || code == KeyEvent.VK_UP || code == KeyEvent.VK_LEFT
+				|| code == KeyEvent.VK_RIGHT) {
+			supprimerNext();
+			supprimerRobot();
+			if (code == KeyEvent.VK_DOWN) {
+				System.out.println("BLEH");
+				deplacement = getPlateau().getTabRobots()[getRobotSelectionne()].deplacerRobotBas();
+			} else if (code == KeyEvent.VK_UP) {
+				deplacement = getPlateau().getTabRobots()[getRobotSelectionne()].deplacerRobotHaut();
+			} else if (code == KeyEvent.VK_LEFT) {
+				deplacement = getPlateau().getTabRobots()[getRobotSelectionne()].deplacerRobotGauche();
+			} else if (code == KeyEvent.VK_RIGHT) {
+				deplacement = getPlateau().getTabRobots()[getRobotSelectionne()].deplacerRobotDroite();
+			}
+			definirNext();
+			placerRobot();
+		}
+		getGrille().repaint();
+		this.repaint();
+	}
+
 	/**
 	 * Victoire
 	 */
 	public void victoire() {
-		setNbVictoire(getNbVictoire()+1);
+		setNbVictoire(getNbVictoire() + 1);
 		setEtatPartie(0);
-		
+
 	}
 
 	/**
@@ -101,7 +132,7 @@ public class PartieClassiqueGui extends PartieClassique {
 		getGrille().getGrille()[coord[0]][coord[1]].setHasRobot(false);
 	}
 
-	/** 
+	/**
 	 * Replace le robot sur l'interface graphique
 	 */
 	public void placerRobot() {

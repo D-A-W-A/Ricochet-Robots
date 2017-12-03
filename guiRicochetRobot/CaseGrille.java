@@ -134,7 +134,7 @@ public class CaseGrille extends JButton implements MouseListener {
 		}
 
 		// Dessine l'objectif
-		if (this.isObjective) {
+		if (this.isObjective && !hasRobot) {
 			g.setColor(Color.red);
 			g.fillOval(this.getWidth() / 4, this.getHeight() / 4, this.getWidth() / 2, this.getHeight() / 2);
 			g.setColor(Color.white);
