@@ -20,8 +20,8 @@ public class Case {
 
 	// 0 => Gauche --- 1 => Haut --- 2 => Droite --- 3 => Bas
 	private Case[] caseNext = new Case[4];
-	private int posX;
-	private int posY;
+	private int posX = -1;
+	private int posY = -1;
 	private Robot robot;
 
 	//////// CONSTRUCTEURS ////////
