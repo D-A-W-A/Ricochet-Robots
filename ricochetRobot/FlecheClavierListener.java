@@ -17,20 +17,18 @@ import guiRicochetRobot.Fenetre;
  */
 public class FlecheClavierListener extends Fenetre implements KeyListener {
 
-	JFrame fenetreListener;
 
 	public FlecheClavierListener() {
 		super();
-		fenetreListener = new JFrame();
-		fenetreListener.addKeyListener(this);
+		this.addKeyListener(this);
 	}
 	
 	public void lancer() {
-		fenetreListener.setVisible(true);
+		this.setVisible(true);
 	}
 	
 	public void pause () {
-		fenetreListener.setVisible(false);
+		this.setVisible(false);
 	}
 	
 	public void stop () {
