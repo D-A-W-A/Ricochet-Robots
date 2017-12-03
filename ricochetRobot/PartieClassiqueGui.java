@@ -146,27 +146,39 @@ public class PartieClassiqueGui extends PartieClassique {
 	 */
 	public void supprimerNext() {
 		Case cActuelle = getPlateau().getTabRobots()[0].getCaseActuelle();
-		getGrille().getGrille()[cActuelle.getCaseNextGauche().getPosX()][cActuelle.getCaseNextGauche().getPosY()]
-				.setNext(0);
-		getGrille().getGrille()[cActuelle.getCaseNextHaut().getPosX()][cActuelle.getCaseNextHaut().getPosY()]
-				.setNext(0);
-		getGrille().getGrille()[cActuelle.getCaseNextDroite().getPosX()][cActuelle.getCaseNextDroite().getPosY()]
-				.setNext(0);
-		getGrille().getGrille()[cActuelle.getCaseNextBas().getPosX()][cActuelle.getCaseNextBas().getPosY()].setNext(0);
+		if (!cActuelle.getCaseNextGauche().estVide())
+			getGrille().getGrille()[cActuelle.getCaseNextGauche().getPosX()][cActuelle.getCaseNextGauche().getPosY()]
+					.setNext(0);
+		if (!cActuelle.getCaseNextHaut().estVide())
+			getGrille().getGrille()[cActuelle.getCaseNextHaut().getPosX()][cActuelle.getCaseNextHaut().getPosY()]
+					.setNext(0);
+		if (!cActuelle.getCaseNextDroite().estVide())
+			getGrille().getGrille()[cActuelle.getCaseNextDroite().getPosX()][cActuelle.getCaseNextDroite().getPosY()]
+					.setNext(0);
+		if (!cActuelle.getCaseNextBas().estVide())
+			getGrille().getGrille()[cActuelle.getCaseNextBas().getPosX()][cActuelle.getCaseNextBas().getPosY()]
+					.setNext(0);
 	}
 
 	/**
 	 * Permet de definir les caseNext pour l'interface graphique
+	 * 
+	 * TODO : DEBUG : getCaseNext : Vérifier les murs
 	 */
 	public void definirNext() {
 		Case cActuelle = getPlateau().getTabRobots()[0].getCaseActuelle();
-		getGrille().getGrille()[cActuelle.getCaseNextGauche().getPosX()][cActuelle.getCaseNextGauche().getPosY()]
-				.setNext(1);
-		getGrille().getGrille()[cActuelle.getCaseNextHaut().getPosX()][cActuelle.getCaseNextHaut().getPosY()]
-				.setNext(2);
-		getGrille().getGrille()[cActuelle.getCaseNextDroite().getPosX()][cActuelle.getCaseNextDroite().getPosY()]
-				.setNext(3);
-		getGrille().getGrille()[cActuelle.getCaseNextBas().getPosX()][cActuelle.getCaseNextBas().getPosY()].setNext(4);
+		if (!cActuelle.getCaseNextGauche().estVide())
+			getGrille().getGrille()[cActuelle.getCaseNextGauche().getPosX()][cActuelle.getCaseNextGauche().getPosY()]
+					.setNext(1);
+		if (!cActuelle.getCaseNextHaut().estVide())
+			getGrille().getGrille()[cActuelle.getCaseNextHaut().getPosX()][cActuelle.getCaseNextHaut().getPosY()]
+					.setNext(2);
+		if (!cActuelle.getCaseNextDroite().estVide())
+			getGrille().getGrille()[cActuelle.getCaseNextDroite().getPosX()][cActuelle.getCaseNextDroite().getPosY()]
+					.setNext(3);
+		if (!cActuelle.getCaseNextBas().estVide())
+			getGrille().getGrille()[cActuelle.getCaseNextBas().getPosX()][cActuelle.getCaseNextBas().getPosY()]
+					.setNext(4);
 	}
 
 	@Override
