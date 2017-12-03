@@ -67,7 +67,6 @@ public class PartieClassiqueGui extends PartieClassique {
 
 		// En cas de victoire
 		if (getPlateau().getObjectif().reussite()) {
-			System.out.println("YAY");
 			JLabel j = new JLabel("Gagné !!!");
 			j.setForeground(Color.red);
 			setTitreLabel(j);
