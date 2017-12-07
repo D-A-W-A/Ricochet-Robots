@@ -94,7 +94,7 @@ public abstract class Partie extends FlecheClavierListener {
 	public void setEtatPartie(int etatPartie) {
 		this.etatPartie = etatPartie;
 	}
-	
+
 	public int getRobotSelectionne() {
 		return robotSelectionne;
 	}
@@ -110,8 +110,8 @@ public abstract class Partie extends FlecheClavierListener {
 		return plateau.toString();
 	}
 
-	
-	
+
+
 	///////// GESTION DE LA PARTIE ////////
 	/**
 	 * Lance la partie
@@ -214,10 +214,10 @@ public abstract class Partie extends FlecheClavierListener {
 		}
 
 	}
-	
-	
+
+
 	//////////// CREATION ET MAJ DE LA PARTIE ///////////
-	
+
 	/**
 	 * Cree une partie en generant un plateau, met le compteur de coups et l'etat de
 	 * la partie a 0
@@ -249,9 +249,26 @@ public abstract class Partie extends FlecheClavierListener {
 	 */
 	public static void mainPartie() {
 	}
-	
+
 	/////// RESOLUTION DU JEU ///////
-	
+
+	/**
+	 * Prend la solution sous forme de LinkedList et la retourne sous forme de tableau.
+	 * ATTENTION : La méthode est non destructrice de la liste en parametre mais pourra être lourde pour les longues solutions. 
+	 * @return La solution sous forme de tableau
+	 */
+	protected int[] solveToTab(LinkedList<Integer> solution) {
+		if (solution.isEmpty()) {
+			return new int[0];
+		} else {
+			int[] pathArray = new int[solution.size()];
+			for(int i=0; i<solution.size(); i++) {
+				pathArray[i] = solution.get(i); 
+			}
+			return pathArray;
+		}
+	}
+
 	protected void displaySolution() {
 		LinkedList<Integer> solution = new LinkedList<Integer>(this.solve1());
 		if (solution.isEmpty()) {
@@ -319,19 +336,19 @@ public abstract class Partie extends FlecheClavierListener {
 			finalPath.remove(); // On retire le premier coups qui était faux
 			return finalPath;
 		}
-//		int[] pathArray;
-//		if (!found) {
-//			pathArray = new int[1]; 
-//			pathArray[0] = 1;
-//		} else {
-//			LinkedList<Integer> finalPath = new LinkedList<Integer>(path.getLast()); // Pour l'optimisation, on stocke la liste des coups.
-//			finalPath.remove(); // On retire le premier coups qui était faux
-//			pathArray = new int[finalPath.size()]; // On initialise le tableau des coups
-//			for(int i=0; i<finalPath.size(); i++) { // Et on le remplit
-//				pathArray[i] = finalPath.remove(); 
-//			}
-//		}
-//		return pathArray;
+		//		int[] pathArray;
+		//		if (!found) {
+		//			pathArray = new int[1]; 
+		//			pathArray[0] = 1;
+		//		} else {
+		//			LinkedList<Integer> finalPath = new LinkedList<Integer>(path.getLast()); // Pour l'optimisation, on stocke la liste des coups.
+		//			finalPath.remove(); // On retire le premier coups qui était faux
+		//			pathArray = new int[finalPath.size()]; // On initialise le tableau des coups
+		//			for(int i=0; i<finalPath.size(); i++) { // Et on le remplit
+		//				pathArray[i] = finalPath.remove(); 
+		//			}
+		//		}
+		//		return pathArray;
 	}
 
 }
