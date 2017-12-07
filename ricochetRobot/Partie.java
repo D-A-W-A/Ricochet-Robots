@@ -269,19 +269,29 @@ public abstract class Partie extends FlecheClavierListener {
 		}
 	}
 
+	
+	/**
+	 * Appelle solve et affiche la solution textuellement.
+	 */
 	protected void displaySolution() {
 		int[] solution = solveToTab(solve1());
 		if (solution.length==0) {
 			System.out.println("L'objectif n'est pas atteignable");
 		}else {
 			StringBuilder s = new StringBuilder("La solution est : ");
-			for (int i=0; i< solution.length; i++) {
+			for (int i=0; i< solution.length-1; i++) {
 				switch (solution[i]) {
 				case 0 : s.append("gauche, "); break;
 				case 1 : s.append("haut, "); break;
 				case 2 : s.append("droite, "); break;
 				case 3 : s.append("bas, "); break;
 				}
+			}
+			switch (solution[solution.length-1]) { //Pour le dernier coup, on finit la phrase par un point.
+			case 0 : s.append("gauche. "); break;
+			case 1 : s.append("haut. "); break;
+			case 2 : s.append("droite. "); break;
+			case 3 : s.append("bas. "); break;
 			}
 			System.out.println(s);
 		}
@@ -300,28 +310,28 @@ public abstract class Partie extends FlecheClavierListener {
 		// marked et path sont "liées" par l'index, c'est à dire qu'il faut réaliser les coups de
 		// path[i] pour atteindre marked[i] depuis la case d'origine du robot
 		marked.add(plateau.getTabRobots()[0].getCaseActuelle()); // La 1ere case marquée est celle où se trouve le robot
-		path.add(new LinkedList<Integer>());
+		path.add(new LinkedList<Integer>());//Le premier chemin de la liste est celui de la seule case marquée. Ce chemin est vide !
 		Case objectif = plateau.getObjectif();
-		LinkedList<Integer> finalPath = new LinkedList<Integer>();
+		LinkedList<Integer> finalPath = new LinkedList<Integer>(); //On stockera le chemin vers l'objectif là dedans s'il y en a un
 		boolean found = false;
-		while(!found && !marked.isEmpty()) {
-			Case current = marked.getFirst(); // On s'intéresse à la première case marquée
-			if (current.estVide()) {}
-			else if (current.equals(objectif)){
-				found = true;
-				finalPath.addAll(path.peek());
+		while(!found && !marked.isEmpty()) { //Tant qu'on a pas trouvé l'objectif et qu'il y a des cases marquées
+			Case current = marked.getFirst(); // On s'intéresse à la première case de la FIFO marquée
+			if (current.estVide()) {} //Si elle est vide, elle ne nous intéresse pas
+			else if (current.equals(objectif)){ //Si c'est l'objectif
+				found = true; //On l'a trouvé
+				finalPath.addAll(path.peek()); //On récupère le chemin jusqu'à lui
 			}
-			else {
-				for (int i=0; i<4; i++) {
-					marked.add(current.getCaseNext(i));
+			else { //Si c'est pas l'objectif et qu'elle est pas vide
+				for (int i=0; i<4; i++) { //Pour chacune de ses voisines
+					marked.add(current.getCaseNext(i)); //On la marque
 					LinkedList<Integer> nextPath = new LinkedList<Integer>(path.peek()); //On initialise le chemin jusqu'à cette case suivante en utilisant le chemin jusqu'à courant
 					nextPath.add(i); // On ajoute à ce chemin le coup pour passer de courant à cette case suivante 
 					path.add(nextPath); // On place ce chemin à la fin de la liste des chemins
 				}
 			}
-			checked.add(current);
-			marked.remove();
-			path.remove();
+			checked.add(current); //Une fois tou ça fait, on "marque en rouge" la case courante
+			marked.remove(); //On la retire des "cases en vert"
+			path.remove(); //On n'a plus besoin du chemin jusqu'à la case courrante
 		}
 		return finalPath;
 	}
