@@ -1,6 +1,7 @@
 package ricochetRobot;
 
 import java.awt.event.KeyEvent;
+import java.util.LinkedList;
 
 /**
  * Une Partie de Ricochet-Robots.<br>
@@ -93,7 +94,7 @@ public abstract class Partie extends FlecheClavierListener {
 	public void setEtatPartie(int etatPartie) {
 		this.etatPartie = etatPartie;
 	}
-	
+
 	public int getRobotSelectionne() {
 		return robotSelectionne;
 	}
@@ -109,8 +110,8 @@ public abstract class Partie extends FlecheClavierListener {
 		return plateau.toString();
 	}
 
-	
-	
+
+
 	///////// GESTION DE LA PARTIE ////////
 	/**
 	 * Lance la partie
@@ -213,10 +214,10 @@ public abstract class Partie extends FlecheClavierListener {
 		}
 
 	}
-	
-	
+
+
 	//////////// CREATION ET MAJ DE LA PARTIE ///////////
-	
+
 	/**
 	 * Cree une partie en generant un plateau, met le compteur de coups et l'etat de
 	 * la partie a 0
@@ -248,28 +249,90 @@ public abstract class Partie extends FlecheClavierListener {
 	 */
 	public static void mainPartie() {
 	}
-	
+
 	/////// RESOLUTION DU JEU ///////
-	
+
 	/**
-	 * @param regardee : Case
-	 * @return True si l'une des voisine de regardee est de type CaseObjectif
+	 * Prend la solution sous forme de LinkedList et la retourne sous forme de tableau.
+	 * ATTENTION : La méthode est non destructrice de la liste en parametre mais pourra être lourde pour les longues solutions. 
+	 * @return La solution sous forme de tableau
 	 */
-	protected static boolean objectifVoisin(Case regardee) {
-		boolean check = false;
-		for (int i=0; i<4; i++) {
-			if (regardee.getCaseNext(i) instanceof CaseObjectif) {
-				check = true;
+	protected int[] solveToTab(LinkedList<Integer> solution) {
+		if (solution.isEmpty()) {
+			return new int[0];
+		} else {
+			int[] pathArray = new int[solution.size()];
+			for(int i=0; i<solution.size(); i++) {
+				pathArray[i] = solution.get(i); 
 			}
+			return pathArray;
 		}
-		return check;
-	}
-	
-	/**
-	 *  
-	 */
-	protected static void solve1() {
-		
 	}
 
+	
+	/**
+	 * Appelle solve et affiche la solution textuellement.
+	 */
+	protected void displaySolution() {
+		int[] solution = solveToTab(solve1());
+		if (solution.length==0) {
+			System.out.println("L'objectif n'est pas atteignable");
+		}else {
+			StringBuilder s = new StringBuilder("La solution est : ");
+			for (int i=0; i< solution.length-1; i++) {
+				switch (solution[i]) {
+				case 0 : s.append("gauche, "); break;
+				case 1 : s.append("haut, "); break;
+				case 2 : s.append("droite, "); break;
+				case 3 : s.append("bas, "); break;
+				}
+			}
+			switch (solution[solution.length-1]) { //Pour le dernier coup, on finit la phrase par un point.
+			case 0 : s.append("gauche. "); break;
+			case 1 : s.append("haut. "); break;
+			case 2 : s.append("droite. "); break;
+			case 3 : s.append("bas. "); break;
+			}
+			System.out.println(s);
+		}
+	}
+
+	/**
+	 * Les coups retournés sont des entiers sous la forme : 0 = gauche, 1 = haut, 2 = droite et 3 = bas
+	 * Si la liste est vide, l'objectif n'est pas atteignable
+	 * @return La liste des coups
+	 */
+	protected LinkedList<Integer> solve1() {
+		LinkedList<Case> marked = new LinkedList<Case>(); // Création de la liste des cases "marquées en vert"
+		LinkedList<Case> checked = new LinkedList<Case>(); // Création de la liste des cases "marquées en rouge"
+		LinkedList<LinkedList<Integer>> path = new LinkedList<LinkedList<Integer>>(); // Contient les coups pour atteindre les cases de marked.
+		// Les coups sont des entiers : 0 = gauche, 1 = haut, 2 = droite et 3 = bas
+		// marked et path sont "liées" par l'index, c'est à dire qu'il faut réaliser les coups de
+		// path[i] pour atteindre marked[i] depuis la case d'origine du robot
+		marked.add(plateau.getTabRobots()[0].getCaseActuelle()); // La 1ere case marquée est celle où se trouve le robot
+		path.add(new LinkedList<Integer>());//Le premier chemin de la liste est celui de la seule case marquée. Ce chemin est vide !
+		Case objectif = plateau.getObjectif();
+		LinkedList<Integer> finalPath = new LinkedList<Integer>(); //On stockera le chemin vers l'objectif là dedans s'il y en a un
+		boolean found = false;
+		while(!found && !marked.isEmpty()) { //Tant qu'on a pas trouvé l'objectif et qu'il y a des cases marquées
+			Case current = marked.getFirst(); // On s'intéresse à la première case de la FIFO marquée
+			if (current.estVide()) {} //Si elle est vide, elle ne nous intéresse pas
+			else if (current.equals(objectif)){ //Si c'est l'objectif
+				found = true; //On l'a trouvé
+				finalPath.addAll(path.peek()); //On récupère le chemin jusqu'à lui
+			}
+			else { //Si c'est pas l'objectif et qu'elle est pas vide
+				for (int i=0; i<4; i++) { //Pour chacune de ses voisines
+					marked.add(current.getCaseNext(i)); //On la marque
+					LinkedList<Integer> nextPath = new LinkedList<Integer>(path.peek()); //On initialise le chemin jusqu'à cette case suivante en utilisant le chemin jusqu'à courant
+					nextPath.add(i); // On ajoute à ce chemin le coup pour passer de courant à cette case suivante 
+					path.add(nextPath); // On place ce chemin à la fin de la liste des chemins
+				}
+			}
+			checked.add(current); //Une fois tou ça fait, on "marque en rouge" la case courante
+			marked.remove(); //On la retire des "cases en vert"
+			path.remove(); //On n'a plus besoin du chemin jusqu'à la case courrante
+		}
+		return finalPath;
+	}
 }

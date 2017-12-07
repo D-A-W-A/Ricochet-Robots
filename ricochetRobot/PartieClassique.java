@@ -241,6 +241,7 @@ public class PartieClassique extends Partie {
 		creerPartie();
 		lancerPartie();
 		System.out.println(toString());
+		this.displaySolution();
 	}
 
 	public static void mainPartie() {
