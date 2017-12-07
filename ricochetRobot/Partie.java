@@ -270,7 +270,7 @@ public abstract class Partie extends FlecheClavierListener {
 	}
 
 	protected void displaySolution() {
-		int[] solution = solveToTab(solve1());
+		int[] solution = solveToTab(solve2());
 		if (solution.length==0) {
 			System.out.println("L'objectif n'est pas atteignable");
 		}else {
@@ -383,7 +383,7 @@ public abstract class Partie extends FlecheClavierListener {
 			}
 			else {
 				for (int i=0; i<4; i++) {
-					Case nextI = current.getCaseNext(i);
+					marked.add(current.getCaseNext(i));
 					LinkedList<Integer> nextPath = new LinkedList<Integer>(path.peek()); //On initialise le chemin jusqu'à cette case suivante en utilisant le chemin jusqu'à courant
 					nextPath.add(i); // On ajoute à ce chemin le coup pour passer de courant à cette case suivante 
 					path.add(nextPath); // On place ce chemin à la fin de la liste des chemins
