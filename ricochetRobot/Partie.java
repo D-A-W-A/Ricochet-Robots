@@ -270,7 +270,7 @@ public abstract class Partie extends FlecheClavierListener {
 	}
 
 	protected void displaySolution() {
-		int[] solution = solveToTab(solve2());
+		int[] solution = solveToTab(solve1());
 		if (solution.length==0) {
 			System.out.println("L'objectif n'est pas atteignable");
 		}else {
@@ -287,82 +287,12 @@ public abstract class Partie extends FlecheClavierListener {
 		}
 	}
 
-	//	protected void displaySolution() {
-	//		LinkedList<Integer> solution = new LinkedList<Integer>(this.solve1());
-	//		if (solution.isEmpty()) {
-	//			System.out.println("L'objectif n'est pas atteignable");
-	//		} else {
-	//			StringBuilder s = new StringBuilder("La solution est : ");
-	//			while (!solution.isEmpty()) {
-	//				switch (solution.remove()) {
-	//				case 0 : s.append("gauche, "); break;
-	//				case 1 : s.append("haut, "); break;
-	//				case 2 : s.append("droite, "); break;
-	//				case 3 : s.append("bas, "); break;
-	//				}
-	//			}
-	//			System.out.println(s);
-	//		}
-	//	}
-
 	/**
 	 * Les coups retournés sont des entiers sous la forme : 0 = gauche, 1 = haut, 2 = droite et 3 = bas
 	 * Si la liste est vide, l'objectif n'est pas atteignable
 	 * @return La liste des coups
 	 */
 	protected LinkedList<Integer> solve1() {
-		LinkedList<Case> marked = new LinkedList<Case>(); // Création de la liste des cases "marquées en vert"
-		LinkedList<Case> checked = new LinkedList<Case>(); // Création de la liste des cases "marquées en rouge"
-		LinkedList<LinkedList<Integer>> path = new LinkedList<LinkedList<Integer>>(); // Contient les coups pour atteindre les cases de marked.
-		// Les coups sont des entiers : 0 = gauche, 1 = haut, 2 = droite et 3 = bas
-		// marked et path sont "liées" par l'index, c'est à dire qu'il faut réaliser les coups de
-		// path[i] pour atteindre marked[i] depuis la case d'origine du robot
-		marked.add(plateau.getTabRobots()[0].getCaseActuelle()); // La 1ere case marquée est celle où se trouve le robot
-		LinkedList<Integer> tmp = new LinkedList<Integer>(); // Liste temporaire pour créer path
-		tmp.add(-1); // Initialisation de tmp qui ajoute un coup faux qu'il faudra supprimer
-		path.add(tmp); // Initialisation de la liste
-		//path.add(new LinkedList<Integer>());
-		Case objectif = plateau.getObjectif();
-		boolean found = false;
-		while (!found && !marked.isEmpty()) { // Tant qu'on a des cases marquées et qu'on n'a pas trouvé l'objectif...
-			Case current = marked.getFirst(); // On s'intéresse à la première case marquée
-			for (int i = 0; i < 4; i++) { // Et à ses cases suivantes
-				Case nextI = current.getCaseNext(i);
-				if(nextI.estVide()) {} 
-				else {
-					if (nextI.equals(objectif)) { // Si l'objectif est une case suivante de la case courrante...
-						found = true; // On l'a trouvé
-					} else {
-						if (!marked.contains(nextI) && !checked.contains(nextI)) { // Sinon, si la case suivante regarnée
-							// n'est ni "verte" ni "rouge"
-							marked.add(nextI); // On l'ajoute à la liste des cases marquées
-						}
-						LinkedList<Integer> nextPath = new LinkedList<Integer>(path.peek()); //On initialise le chemin jusqu'à cette case suivante en utilisant le chemin jusqu'à courant
-						nextPath.add(i); // On ajoute à ce chemin le coup pour passer de courant à cette case suivante 
-						path.add(nextPath); // On place ce chemin à la fin de la liste des chemins
-					}
-				}
-			}
-			checked.add(marked.remove()); // La case courante n'est plus verte, mais rouge
-			path.remove(); // On retire le chemin jusqu'à la case courante de la liste des chemins.
-		}
-		if(!found) {
-			return (new LinkedList<Integer>()); 
-		}
-		else {
-			LinkedList<Integer> finalPath = new LinkedList<Integer>(path.getLast()); // Pour l'optimisation, on stocke la liste des coups.
-			finalPath.remove(); // On retire le premier coups qui était faux
-			return finalPath;
-		}
-	}
-
-
-	/**
-	 * Les coups retournés sont des entiers sous la forme : 0 = gauche, 1 = haut, 2 = droite et 3 = bas
-	 * Si la liste est vide, l'objectif n'est pas atteignable
-	 * @return La liste des coups
-	 */
-	protected LinkedList<Integer> solve2() {
 		LinkedList<Case> marked = new LinkedList<Case>(); // Création de la liste des cases "marquées en vert"
 		LinkedList<Case> checked = new LinkedList<Case>(); // Création de la liste des cases "marquées en rouge"
 		LinkedList<LinkedList<Integer>> path = new LinkedList<LinkedList<Integer>>(); // Contient les coups pour atteindre les cases de marked.
