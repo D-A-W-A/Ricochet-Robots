@@ -270,7 +270,7 @@ public abstract class Partie extends FlecheClavierListener {
 	}
 
 	protected void displaySolution() {
-		int[] solution = solveToTab(solve2());
+		int[] solution = solveToTab(solve1());
 		if (solution.length==0) {
 			System.out.println("L'objectif n'est pas atteignable");
 		}else {
