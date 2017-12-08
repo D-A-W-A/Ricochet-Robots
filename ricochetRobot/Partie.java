@@ -323,10 +323,13 @@ public abstract class Partie extends FlecheClavierListener {
 			}
 			else { //Si c'est pas l'objectif et qu'elle est pas vide
 				for (int i=0; i<4; i++) { //Pour chacune de ses voisines
-					marked.add(current.getCaseNext(i)); //On la marque
-					LinkedList<Integer> nextPath = new LinkedList<Integer>(path.peek()); //On initialise le chemin jusqu'à cette case suivante en utilisant le chemin jusqu'à courant
-					nextPath.add(i); // On ajoute à ce chemin le coup pour passer de courant à cette case suivante 
-					path.add(nextPath); // On place ce chemin à la fin de la liste des chemins
+					Case nextI = current.getCaseNext(i);
+					if(!checked.contains(nextI)&&!marked.contains(nextI)) {
+						marked.add(nextI); //On la marque
+						LinkedList<Integer> nextPath = new LinkedList<Integer>(path.peek()); //On initialise le chemin jusqu'à cette case suivante en utilisant le chemin jusqu'à courant
+						nextPath.add(i); // On ajoute à ce chemin le coup pour passer de courant à cette case suivante 
+						path.add(nextPath); // On place ce chemin à la fin de la liste des chemins
+					}
 				}
 			}
 			checked.add(current); //Une fois tou ça fait, on "marque en rouge" la case courante
