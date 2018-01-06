@@ -1,9 +1,10 @@
 package ricochetRobot;
 
-import java.awt.Color;
+import java.awt.BorderLayout;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import guiRicochetRobot.Grille;
 
@@ -68,11 +69,6 @@ public class PartieClassiqueGui extends PartieClassique {
 
 			// En cas de victoire
 			if (getPlateau().getObjectif().reussite()) {
-				JLabel j = new JLabel("Gagn� !!!");
-				j.setForeground(Color.red);
-				setTitreLabel(j);
-				getGrille().repaint();
-				this.repaint();
 				victoire();
 			}
 		}
