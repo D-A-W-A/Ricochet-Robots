@@ -76,7 +76,6 @@ public class Robot {
 	 * 
 	 * Deplace le robot vers le haut<br> Ne fait rien si le robot se deplace vers un mur
 	 * 
-	 * @param direction
 	 * @return 1 si le robot s'est deplace
 	 */
 	public int deplacerRobotHaut() {
@@ -94,7 +93,6 @@ public class Robot {
 	/**
 	 * Deplace le robot vers le bas<br> Ne fait rien si le robot se deplace vers un mur
 	 * 
-	 * @param direction
 	 * @return 1 si le robot s'est deplace
 	 */
 	public int deplacerRobotBas() {
@@ -113,7 +111,6 @@ public class Robot {
 	 * Deplace le robot vers la gauche <br>Ne fait rien si le robot se deplace vers un
 	 * mur
 	 * 
-	 * @param direction
 	 * @return 1 si le robot s'est deplace
 	 */
 	public int deplacerRobotGauche() {
@@ -132,7 +129,6 @@ public class Robot {
 	 * Deplace le robot vers la droite <br>Ne fait rien si le robot se deplace vers un
 	 * mur
 	 * 
-	 * @param direction
 	 * @return 1 si le robot s'est deplace
 	 */
 	public int deplacerRobotDroite() {

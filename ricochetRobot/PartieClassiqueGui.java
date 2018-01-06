@@ -1,6 +1,7 @@
 package ricochetRobot;
 
 import java.awt.BorderLayout;
+
 import java.awt.event.KeyEvent;
 
 import javax.swing.JLabel;
@@ -8,6 +9,17 @@ import javax.swing.JPanel;
 
 import guiRicochetRobot.Grille;
 
+/**
+ * Partie classque avec inteface graphique<br><br>
+ * 
+ * Toutes les autres parties devront extends celle-ci et redefinir :
+ * <br><ul><li>Le constructeur, ou nous redefinissont les murs et objectifs</li>
+ * <li>placerRobotPartie, pour definir les zones où un robot ne doit pas apparaître</li>
+ * <li>mainPartie</li>
+ * <li>main (String[] args)</li></ul>
+ * @author Dorian
+ *
+ */
 public class PartieClassiqueGui extends PartieClassique {
 
 	public PartieClassiqueGui() {

@@ -45,6 +45,8 @@ public class Plateau {
 	/**
 	 * Cree un plateau de taille n et alloue la memoire pour tabCases et
 	 * tabRobots
+	 * 
+	 * @param n
 	 */
 	public Plateau(int n) {
 		taille = n;
@@ -195,8 +197,8 @@ public class Plateau {
 	 * <br>
 	 * <br>
 	 * 
-	 * @param i
-	 * @param j
+	 * @param ligne la ligne
+	 * @param colone la colone
 	 */
 	public void redefinirLignes(int ligne, int colone) {
 		int k;
@@ -244,7 +246,8 @@ public class Plateau {
 	/**
 	 * Place le robot numero num de facon random et retourne ses coordonees
 	 * 
-	 * @param num
+	 * @param num le nombre de cases
+	 * @return le tableau de Robots
 	 */
 	public int [] placerRobotRandom(int num) {
 		Random r = new Random();
@@ -541,7 +544,7 @@ public class Plateau {
 	 * <br>
 	 * Prereq : Le tableau doit etre de la meme taille que le plateau
 	 * 
-	 * @param murs
+	 * @param murs le tableau des murs
 	 * @param posXObjectif
 	 *            : La position x de l'objectif
 	 * @param posYObjectif
@@ -569,8 +572,8 @@ public class Plateau {
 
 	/**
 	 * TODO CORRIGER, les cases voisines ne le considerent pas comme un voisin
-	 * @param i
-	 * @param j
+	 * @param i la ligne
+	 * @param j la colone
 	 */
 	public void ajouterObjectif(int i, int j) {
 		CaseObjectif c = new CaseObjectif();
@@ -593,12 +596,9 @@ public class Plateau {
 	 * qu'une case ait au moins un mur (donc 3 % par cote)<br>
 	 * Utilise :<br>
 	 * 
-	 * @see initLigne
-	 * @see determinerMurRandom
-	 * @see murDesDeuxCotes
 	 * 
 	 * @param n
-	 * @return
+	 * @return le plateau genere
 	 */
 	public static Plateau genererPlateauRandom(int n) {
 		// Generation d'un Plateau de taille n

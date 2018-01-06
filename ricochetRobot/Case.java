@@ -36,6 +36,7 @@ public class Case {
 
 	/**
 	 * Constructeur par recopie
+	 * @param c la case a copier
 	 */
 	public Case(Case c) {
 		if (c.estVide()) {
@@ -51,8 +52,8 @@ public class Case {
 
 	/**
 	 * Constructeur a partir des positions
-	 * @param x
-	 * @param y
+	 * @param x la coordonnee x
+	 * @param y la coord y
 	 */
 	public Case(int x, int y) {
 		Case caseVide = new Case();
@@ -75,7 +76,7 @@ public class Case {
 
 	/**
 	 * Getter de la caseNext en fonction de son numero
-	 * 
+	 * @param i l'indice de la caseNext (de 0 a 3)
 	 * @return la prochaine caseNext[i]
 	 */
 	public Case getCaseNext(int i) {
@@ -133,10 +134,10 @@ public class Case {
 	/**
 	 * Setter de toutes les caseNext
 	 * 
-	 * @param gauche
-	 * @param haut
-	 * @param droite
-	 * @param bas
+	 * @param gauche la CaseNext de gauche
+	 * @param haut la CaseNext du haut
+	 * @param droite la CaseNext de droite
+	 * @param bas la CaseNext du bas
 	 */
 	public void setCaseNext(Case gauche, Case haut, Case droite, Case bas) {
 		caseNext[0] = gauche;
@@ -270,8 +271,8 @@ public class Case {
 	 * |*|<br>
 	 * _ : Si la case est entouree de murs</li>
 	 * <li>etc.</li>
-	 * 
-	 * @return
+	 * </ul>
+	 * @return la Chaine de caracteres
 	 */
 	public String toStringMur() {
 		if (!this.estVide()) {
@@ -305,7 +306,7 @@ public class Case {
 	/**
 	 * Genere une Case entouree de Cases Vides (donc une case non vide)
 	 * 
-	 * @return
+	 * @return la case
 	 */
 	public static Case creerCase() {
 		Case c = new Case();

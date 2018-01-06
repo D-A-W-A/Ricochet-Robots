@@ -160,16 +160,16 @@ public abstract class Partie extends FlecheClavierListener {
 	 * Si le joueur appuie sur ECHAP, la partie s'arrete immediatement. <br>
 	 * <br>
 	 * Lors d'une Partie : <br>
-	 * ==> Si le joueur appuie sur une fleche directionelle, Le Robot est deplacee
+	 * == Si le joueur appuie sur une fleche directionelle, Le Robot est deplacee
 	 * dans la direction indiquee <br>
-	 * ==> Si le joueur Appuie sur P : la partie est mise en pause <br>
+	 * == Si le joueur Appuie sur P : la partie est mise en pause <br>
 	 * <br>
 	 * Lors d'une Pause : <br>
-	 * ==> Si le joueur appuie sur P, la partie reprend <br>
-	 * ==> Si le joueur appuie sur R, une nouvelle manche est lancee<br>
+	 * == Si le joueur appuie sur P, la partie reprend <br>
+	 * == Si le joueur appuie sur R, une nouvelle manche est lancee<br>
 	 * <br>
 	 * Lorsque la partie est arrettee :<br>
-	 * ==> Si le joueur appuie sur O, une nouvelle manche est lancee ==> Si le
+	 * == Si le joueur appuie sur O, une nouvelle manche est lancee == Si le
 	 * joueur appuie sur N, La partie se termine et se ferme.
 	 */
 	@Override
