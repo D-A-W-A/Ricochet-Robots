@@ -48,7 +48,7 @@ public class Case {
 			caseNext[3] = new Case(c.getCaseNextBas());
 		}
 	}
-	
+
 	/**
 	 * Constructeur a partir des positions
 	 * @param x
@@ -72,7 +72,7 @@ public class Case {
 	public Case[] getCaseNext() {
 		return caseNext;
 	}
-	
+
 	/**
 	 * Getter de la caseNext en fonction de son numero
 	 * 
@@ -81,7 +81,7 @@ public class Case {
 	public Case getCaseNext(int i) {
 		return caseNext[i];
 	}
-	
+
 	/**
 	 * Getter de la caseNext de gauche
 	 * 
@@ -194,7 +194,7 @@ public class Case {
 		return robot != null;
 	}
 
-	
+
 	public Robot getRobot() {
 		return robot;
 	}
@@ -203,7 +203,7 @@ public class Case {
 		this.robot = robot;
 	}
 
-	
+
 	public int getPosX() {
 		return posX;
 	}
@@ -219,12 +219,12 @@ public class Case {
 	public void setPosY(int posY) {
 		this.posY = posY;
 	}
-	
+
 	public void setPos(int x, int y) {
 		this.posX = x;
 		this.posY = y;
 	}
-	
+
 
 	/////// METHODES //////////
 
@@ -236,6 +236,15 @@ public class Case {
 	 */
 	public boolean estVide() {
 		return caseNext[0] == null || caseNext[1] == null || caseNext[2] == null || caseNext[3] == null;
+	}
+
+	/**
+	 * Compare les coordonnées de deux cases.
+	 * @param case2 : Case comparee.
+	 * @return True si les positions des deux cases sont egales.
+	 */
+	public boolean equals(Case case2) {
+		return ((case2.getPosX()==this.getPosX()) && (case2.getPosY()==this.getPosY()));
 	}
 
 	public String toString() {
@@ -307,12 +316,12 @@ public class Case {
 		c.setCaseNext(tabCase);
 		return c;
 	}
-	
+
 	public void affecterRobot (Robot r) {
 		this.robot = r;
 		r.setCaseActuelle(this);
 	}
-	
+
 	public void supprimerRobot () {
 		robot.setCaseActuelle(null);
 		this.robot = null;
