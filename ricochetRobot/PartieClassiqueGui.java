@@ -182,7 +182,7 @@ public class PartieClassiqueGui extends PartieClassique {
 		creerPartie();
 		int[] posRobots = { this.getPlateau().getTabRobots()[0].getCaseActuelle().getPosX(),
 				this.getPlateau().getTabRobots()[0].getCaseActuelle().getPosY() };
-		Grille g = new Grille(16, this.getDispositionMursPlateau(), posRobots, this.getPlateau().getObjectifPos());
+		Grille g = new Grille(this.getPlateau().getTaille(), this.getDispositionMursPlateau(), posRobots, this.getPlateau().getObjectifPos());
 		this.setGrille(g);
 		g.addObservateur(this);
 		definirNext();

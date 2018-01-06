@@ -191,8 +191,8 @@ public class PartieClassique extends Partie {
 		// Creer un plateau : met les murs, un objectif aleatoire parmi les 17
 		// possibles, et place un robot
 		Random r = new Random();
-		int obj = r.nextInt(17);
-		Plateau p = new Plateau();
+		int obj = r.nextInt(posXObjectifs.length);
+		Plateau p = new Plateau(this.getDispositionMursPlateau().length);
 		p.genererPlateau(dispositionMursPlateau, posXObjectifs[obj], posYObjectifs[obj]);
 		placerRobotPartie(p);
 		setPlateau(p);
