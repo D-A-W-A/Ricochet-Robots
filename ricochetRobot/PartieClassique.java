@@ -177,6 +177,14 @@ public class PartieClassique extends Partie {
 		this.posYObjectifs = posYObjectifs;
 	}
 
+	public void placerRobotPartie(Plateau p) {
+		int posRobot[] = p.placerRobotRandom(0);
+		while ((posRobot[0] == 7 && posRobot[1] == 7) || (posRobot[0] == 7 && posRobot[1] == 8)
+				|| (posRobot[0] == 8 && posRobot[1] == 7) || (posRobot[0] == 8 && posRobot[1] == 8)) {
+			p.supprimerRobot(0);
+			posRobot = p.placerRobotRandom(0);
+		}
+	}
 	@Override
 	public void creerPartie() {
 
@@ -186,12 +194,7 @@ public class PartieClassique extends Partie {
 		int obj = r.nextInt(17);
 		Plateau p = new Plateau();
 		p.genererPlateau(dispositionMursPlateau, posXObjectifs[obj], posYObjectifs[obj]);
-		int posRobot[] = p.placerRobotRandom(0);
-		while ((posRobot[0] == 7 && posRobot[1] == 7) || (posRobot[0] == 7 && posRobot[1] == 8)
-				|| (posRobot[0] == 8 && posRobot[1] == 7) || (posRobot[0] == 8 && posRobot[1] == 8)) {
-			p.supprimerRobot(0);
-			posRobot = p.placerRobotRandom(0);
-		}
+		placerRobotPartie(p);
 		setPlateau(p);
 
 		// Initialise le compteur de coup
@@ -230,6 +233,7 @@ public class PartieClassique extends Partie {
 		System.out
 				.println("\n\n=====================================================================\nNombre de Coups : "
 						+ getNbCoups() + "\n" + toString());
+		this.displaySolution();
 
 	}
 
