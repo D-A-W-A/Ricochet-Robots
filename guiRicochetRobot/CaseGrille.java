@@ -12,7 +12,8 @@ import javax.imageio.ImageIO;
 import javax.swing.JButton;
 
 /**
- * Partie graphique d'une case 
+ * Partie graphique d'une case
+ * 
  * @author Dorian
  *
  * 
@@ -22,12 +23,13 @@ public class CaseGrille extends JButton implements MouseListener {
 	private int posY;
 
 	/**
-	 *  1 : Gauche, 2 : Haut, 3 : Droite, 4 : Bas
+	 * 1 : Gauche, 2 : Haut, 3 : Droite, 4 : Bas
 	 */
 	private int isNext = 0;
-	
+
 	/**
-	 *  La case s'affichera differement si elle possede un robot ou si c'est l'objectif
+	 * La case s'affichera differement si elle possede un robot ou si c'est
+	 * l'objectif
 	 */
 	private boolean hasRobot = false;
 	private boolean isObjective = false;
@@ -43,7 +45,7 @@ public class CaseGrille extends JButton implements MouseListener {
 	private int murs = 0;
 
 	/**
-	 *  Change lorsque la souris passe au dessus
+	 * Change lorsque la souris passe au dessus
 	 */
 	int hover = 0;
 
@@ -110,47 +112,90 @@ public class CaseGrille extends JButton implements MouseListener {
 		this.hasRobot = hasRobot;
 	}
 
-	
 	/**
 	 * Affiche la case avec les bonnes formes, couleurs, etc.
 	 */
 	public void paintComponent(Graphics g) {
-		
-		// Reset la case en la coloriant en blanc
+		// Reset la case
+		resetCase(g);
+
+		// Applique la couleur du hover
+		hoverCase(g);
+
+		// Dessine les bords de la case
+		bordCase(g);
+
+		// Dessine le Robot si il est sur la case
+		dessineRobot(g);
+
+		// Dessine l'objectif
+		dessineObjectif(g);
+
+		// Dessine les murs s'il y en a
+		dessineMurs(g);
+	}
+
+	/**
+	 * Reset la case en la coloriant en blanc
+	 * 
+	 * @param g
+	 */
+	private void resetCase(Graphics g) {
 		g.setColor(Color.white);
 		g.fillRect(0, 0, this.getWidth(), this.getHeight());
+	}
 
-		// Si la souris est au dessus, la case est coloriee
-		// En rouge si elle est next
-		if (hover == 1 && isNext !=0) {
+	/**
+	 * Si la souris est au dessus, la case est coloriee<br>
+	 * - En rouge si elle est next <br>
+	 * - En gris sinon
+	 * 
+	 * @param g
+	 */
+	private void hoverCase(Graphics g) {
+		if (hover == 1 && isNext != 0) {
 			g.setColor(Color.decode("#4d0000"));
 			g.fillRect(0, 0, this.getWidth(), this.getHeight());
 
-		// En gris sinon
 		} else if (hover == 1) {
 			g.setColor(Color.LIGHT_GRAY);
 			g.fillRect(0, 0, this.getWidth(), this.getHeight());
 		}
+	}
 
-		// Dessine les bords de la case
-		g.setColor(Color.black);
-		g.drawRect(0, 0, this.getWidth(), this.getHeight());
-
-		// Dessine le Robot si il est sur la case
+	/**
+	 * Dessine le robot si il est sur la case
+	 * 
+	 * @param g
+	 */
+	private void dessineRobot(Graphics g) {
 		if (this.hasRobot) {
 			g.setColor(Color.blue);
 			g.fillOval(this.getWidth() / 4, this.getHeight() / 4, this.getWidth() / 2, this.getHeight() / 2);
 		}
+	}
 
-		// Dessine l'objectif
+	/**
+	 * Dessine l'objectif
+	 * 
+	 * @param g
+	 */
+	private void dessineObjectif(Graphics g) {
 		if (this.isObjective && !hasRobot) {
 			g.setColor(Color.red);
 			g.fillOval(this.getWidth() / 4, this.getHeight() / 4, this.getWidth() / 2, this.getHeight() / 2);
 			g.setColor(Color.white);
-			g.fillOval((this.getWidth() / 4)+this.getWidth()/10, (this.getHeight() / 4)+this.getWidth()/10, (this.getWidth() / 2)-this.getHeight()/5,( this.getHeight() / 2)-this.getHeight()/5);
+			g.fillOval((this.getWidth() / 4) + this.getWidth() / 10, (this.getHeight() / 4) + this.getWidth() / 10,
+					(this.getWidth() / 2) - this.getHeight() / 5, (this.getHeight() / 2) - this.getHeight() / 5);
 		}
-		
-		// Dessine les murs s'il y en a
+	}
+
+	/**
+	 * Dessine les murs s'il y en a
+	 * 
+	 * @param g
+	 */
+	private void dessineMurs(Graphics g) {
 		g.setColor(Color.black);
 		if (this.murs == 1) {
 			g.fillRect(0, 0, 5, this.getHeight());
@@ -168,7 +213,16 @@ public class CaseGrille extends JButton implements MouseListener {
 			g.fillRect(0, this.getHeight() - 5, this.getWidth(), this.getHeight());
 			g.fillRect(0, 0, 5, this.getHeight());
 		}
+	}
 
+	/**
+	 * Dessine les bords de la case
+	 * 
+	 * @param g
+	 */
+	private void bordCase(Graphics g) {
+		g.setColor(Color.black);
+		g.drawRect(0, 0, this.getWidth(), this.getHeight());
 	}
 
 	@Override
@@ -210,7 +264,7 @@ public class CaseGrille extends JButton implements MouseListener {
 	}
 
 	@Override
-	/** 
+	/**
 	 * Clic lache
 	 */
 	public void mouseReleased(MouseEvent e) {
