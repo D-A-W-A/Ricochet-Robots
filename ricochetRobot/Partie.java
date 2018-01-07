@@ -262,6 +262,7 @@ public abstract class Partie extends FlecheClavierListener {
 	public static void mainPartie() {
 	}
 
+
 	/////// RESOLUTION DU JEU ///////
 
 	/**
