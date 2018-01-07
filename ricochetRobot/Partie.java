@@ -1,7 +1,10 @@
 package ricochetRobot;
 
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.util.LinkedList;
+
+import javax.swing.JButton;
 
 /**
  * Une Partie de Ricochet-Robots.<br>
@@ -214,6 +217,15 @@ public abstract class Partie extends FlecheClavierListener {
 		}
 
 	}
+	
+	/**
+	 * Gestion des boutons du menu de gauche
+	 */
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		JButton b = (JButton) (e.getSource());
+		System.out.println("Clic de : " + b.getText());
+	}
 
 
 	//////////// CREATION ET MAJ DE LA PARTIE ///////////
@@ -250,6 +262,7 @@ public abstract class Partie extends FlecheClavierListener {
 	public static void mainPartie() {
 	}
 
+
 	/////// RESOLUTION DU JEU ///////
 
 	/**
@@ -274,9 +287,14 @@ public abstract class Partie extends FlecheClavierListener {
 	 * Appelle solve et affiche la solution textuellement.
 	 */
 	protected void displaySolution() {
+			System.out.println(toStringSolution());
+
+	}
+	
+	public String toStringSolution() {
 		int[] solution = solveToTab(solve1());
 		if (solution.length==0) {
-			System.out.println("L'objectif n'est pas atteignable");
+			return("L'objectif n'est pas atteignable");
 		}else {
 			StringBuilder s = new StringBuilder("La solution est : ");
 			for (int i=0; i< solution.length-1; i++) {
@@ -293,7 +311,7 @@ public abstract class Partie extends FlecheClavierListener {
 			case 2 : s.append("droite. "); break;
 			case 3 : s.append("bas. "); break;
 			}
-			System.out.println(s);
+			return s.toString();
 		}
 	}
 

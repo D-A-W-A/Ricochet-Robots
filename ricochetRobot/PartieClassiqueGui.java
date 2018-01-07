@@ -3,7 +3,9 @@ package ricochetRobot;
 import java.awt.BorderLayout;
 
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -15,6 +17,7 @@ import guiRicochetRobot.Grille;
  * Toutes les autres parties devront extends celle-ci et redefinir :
  * <br><ul><li>Le constructeur, ou nous redefinissont les murs et objectifs</li>
  * <li>placerRobotPartie, pour definir les zones où un robot ne doit pas apparaître</li>
+ * <li>ActionRecommencer</li>
  * <li>mainPartie</li>
  * <li>main (String[] args)</li></ul>
  * @author Dorian
@@ -90,35 +93,12 @@ public class PartieClassiqueGui extends PartieClassique {
 		this.repaint();
 	}
 
-	public void keyPressed(KeyEvent e) {
-		int code = e.getKeyCode();
-		System.out.println("BLEH");
-		int deplacement;
-		if (code == KeyEvent.VK_DOWN || code == KeyEvent.VK_UP || code == KeyEvent.VK_LEFT
-				|| code == KeyEvent.VK_RIGHT) {
-			supprimerNext();
-			supprimerRobot();
-			if (code == KeyEvent.VK_DOWN) {
-				System.out.println("BLEH");
-				deplacement = getPlateau().getTabRobots()[getRobotSelectionne()].deplacerRobotBas();
-			} else if (code == KeyEvent.VK_UP) {
-				deplacement = getPlateau().getTabRobots()[getRobotSelectionne()].deplacerRobotHaut();
-			} else if (code == KeyEvent.VK_LEFT) {
-				deplacement = getPlateau().getTabRobots()[getRobotSelectionne()].deplacerRobotGauche();
-			} else if (code == KeyEvent.VK_RIGHT) {
-				deplacement = getPlateau().getTabRobots()[getRobotSelectionne()].deplacerRobotDroite();
-			}
-			definirNext();
-			placerRobot();
-		}
-		getGrille().repaint();
-		this.repaint();
-	}
 
 	/**
 	 * Victoire
 	 */
 	public void victoire() {
+		this.changerTexte("VICTOIRE");
 		setNbVictoire(getNbVictoire() + 1);
 		setEtatPartie(0);
 
@@ -188,6 +168,25 @@ public class PartieClassiqueGui extends PartieClassique {
 			getGrille().getGrille()[cActuelle.getCaseNextBas().getPosX()][cActuelle.getCaseNextBas().getPosY()]
 					.setNext(4);
 	}
+	
+	/**
+	 * Gestion des boutons du menu de gauche
+	 */
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		JButton b = (JButton) (e.getSource());
+		if (b.getText().equals("Solution"))
+			changerTexte(toStringSolution());
+		else if (b.getText().equals("Recommencer"))
+			actionRecommencer();
+	}
+	
+	public void actionRecommencer() {
+		dispose();
+		mainPartie();
+	}
+
+
 
 	@Override
 	protected void mainPartieAux() {

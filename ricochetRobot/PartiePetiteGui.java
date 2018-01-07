@@ -73,6 +73,13 @@ public class PartiePetiteGui extends PartieClassiqueGui {
 		}
 	}
 	
+	public void actionRecommencer() {
+		dispose();
+		PartiePetiteGui p = new PartiePetiteGui();
+		p.mainPartieAux();
+	}
+
+	
 	public static void mainPartie() {
 		PartiePetiteGui p = new PartiePetiteGui();
 		p.mainPartieAux();

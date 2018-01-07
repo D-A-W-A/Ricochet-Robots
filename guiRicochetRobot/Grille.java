@@ -105,11 +105,11 @@ public class Grille extends JPanel implements ActionListener, Observable {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		CaseGrille c = (CaseGrille) (e.getSource());
-		System.out.println("X : " + c.getPosX() + "\tY : " + c.getPosY());
-		System.out.println("Mur ? " + c.getMurs());
-		System.out.println("Next ? " + c.isNext());
-		System.out.println("obj ? " + c.isObjective());
-		System.out.println("Robot ? " + c.HasRobot() + "\n");
+//		System.out.println("X : " + c.getPosX() + "\tY : " + c.getPosY());
+//		System.out.println("Mur ? " + c.getMurs());
+//		System.out.println("Next ? " + c.isNext());
+//		System.out.println("obj ? " + c.isObjective());
+//		System.out.println("Robot ? " + c.HasRobot() + "\n");
 		coordCaseClic[0] = c.getPosX();
 		coordCaseClic[1] = c.getPosY();
 		this.updateObservateur();
