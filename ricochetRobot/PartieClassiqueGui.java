@@ -12,14 +12,19 @@ import javax.swing.JPanel;
 import guiRicochetRobot.Grille;
 
 /**
- * Partie classque avec inteface graphique<br><br>
+ * Partie classque avec inteface graphique<br>
+ * <br>
  * 
- * Toutes les autres parties devront extends celle-ci et redefinir :
- * <br><ul><li>Le constructeur, ou nous redefinissont les murs et objectifs</li>
- * <li>placerRobotPartie, pour definir les zones où un robot ne doit pas apparaître</li>
+ * Toutes les autres parties devront extends celle-ci et redefinir : <br>
+ * <ul>
+ * <li>Le constructeur, ou nous redefinissont les murs et objectifs</li>
+ * <li>placerRobotPartie, pour definir les zones où un robot ne doit pas
+ * apparaître</li>
  * <li>ActionRecommencer</li>
  * <li>mainPartie</li>
- * <li>main (String[] args)</li></ul>
+ * <li>main (String[] args)</li>
+ * </ul>
+ * 
  * @author Dorian
  *
  */
@@ -67,7 +72,7 @@ public class PartieClassiqueGui extends PartieClassique {
 			// On deplace le robot s'il s'agit d'une caseNext
 			if (next != 0) {
 				supprimerNext();
-				supprimerRobot();
+				supprimerRobot(this.getRobotSelectionne());
 				int deplacement;
 				if (next == 1) {
 					deplacement = getPlateau().getTabRobots()[getRobotSelectionne()].deplacerRobotGauche();
@@ -79,7 +84,7 @@ public class PartieClassiqueGui extends PartieClassique {
 					deplacement = getPlateau().getTabRobots()[getRobotSelectionne()].deplacerRobotBas();
 				}
 				definirNext();
-				placerRobot();
+				placerRobot(this.getRobotSelectionne());
 			}
 
 			// En cas de victoire
@@ -92,7 +97,6 @@ public class PartieClassiqueGui extends PartieClassique {
 		getGrille().repaint();
 		this.repaint();
 	}
-
 
 	/**
 	 * Victoire
@@ -114,18 +118,18 @@ public class PartieClassiqueGui extends PartieClassique {
 	/**
 	 * Supprime le robot de l'interface graphique
 	 */
-	public void supprimerRobot() {
-		int[] coord = { getPlateau().getTabRobots()[0].getCaseActuelle().getPosX(),
-				getPlateau().getTabRobots()[0].getCaseActuelle().getPosY() };
+	public void supprimerRobot(int num) {
+		int[] coord = { getPlateau().getTabRobots()[num].getCaseActuelle().getPosX(),
+				getPlateau().getTabRobots()[num].getCaseActuelle().getPosY() };
 		getGrille().getGrille()[coord[0]][coord[1]].setHasRobot(false);
 	}
 
 	/**
 	 * Replace le robot sur l'interface graphique
 	 */
-	public void placerRobot() {
-		int[] coord = { getPlateau().getTabRobots()[0].getCaseActuelle().getPosX(),
-				getPlateau().getTabRobots()[0].getCaseActuelle().getPosY() };
+	public void placerRobot(int num) {
+		int[] coord = { getPlateau().getTabRobots()[num].getCaseActuelle().getPosX(),
+				getPlateau().getTabRobots()[num].getCaseActuelle().getPosY() };
 		getGrille().getGrille()[coord[0]][coord[1]].setHasRobot(true);
 	}
 
@@ -133,7 +137,7 @@ public class PartieClassiqueGui extends PartieClassique {
 	 * Supprime les caseNext de l'interface graphique
 	 */
 	public void supprimerNext() {
-		Case cActuelle = getPlateau().getTabRobots()[0].getCaseActuelle();
+		Case cActuelle = getPlateau().getTabRobots()[this.getRobotSelectionne()].getCaseActuelle();
 		if (!cActuelle.getCaseNextGauche().estVide())
 			getGrille().getGrille()[cActuelle.getCaseNextGauche().getPosX()][cActuelle.getCaseNextGauche().getPosY()]
 					.setNext(0);
@@ -154,7 +158,7 @@ public class PartieClassiqueGui extends PartieClassique {
 	 * TODO : DEBUG : getCaseNext : Vérifier les murs
 	 */
 	public void definirNext() {
-		Case cActuelle = getPlateau().getTabRobots()[0].getCaseActuelle();
+		Case cActuelle = getPlateau().getTabRobots()[this.getRobotSelectionne()].getCaseActuelle();
 		if (!cActuelle.getCaseNextGauche().estVide())
 			getGrille().getGrille()[cActuelle.getCaseNextGauche().getPosX()][cActuelle.getCaseNextGauche().getPosY()]
 					.setNext(1);
@@ -168,7 +172,7 @@ public class PartieClassiqueGui extends PartieClassique {
 			getGrille().getGrille()[cActuelle.getCaseNextBas().getPosX()][cActuelle.getCaseNextBas().getPosY()]
 					.setNext(4);
 	}
-	
+
 	/**
 	 * Gestion des boutons du menu de gauche
 	 */
@@ -180,20 +184,27 @@ public class PartieClassiqueGui extends PartieClassique {
 		else if (b.getText().equals("Recommencer"))
 			actionRecommencer();
 	}
-	
+
 	public void actionRecommencer() {
 		dispose();
 		mainPartie();
 	}
-
-
+	
+	public int[][] placerRobotGui () {
+		int[][] posRobots = new int[this.getPlateau().getTabRobots().length][2];
+		for (int i = 0; i < this.getPlateau().getTabRobots().length; i++) {
+			posRobots[i][0] = this.getPlateau().getTabRobots()[i].getCaseActuelle().getPosX();
+			posRobots[i][1] = this.getPlateau().getTabRobots()[i].getCaseActuelle().getPosY();
+		}
+		return posRobots;
+	}
 
 	@Override
 	protected void mainPartieAux() {
 		creerPartie();
-		int[] posRobots = { this.getPlateau().getTabRobots()[0].getCaseActuelle().getPosX(),
-				this.getPlateau().getTabRobots()[0].getCaseActuelle().getPosY() };
-		Grille g = new Grille(this.getPlateau().getTaille(), this.getDispositionMursPlateau(), posRobots, this.getPlateau().getObjectifPos());
+		int[][] posRobots = placerRobotGui();
+		Grille g = new Grille(this.getPlateau().getTaille(), this.getDispositionMursPlateau(), posRobots,
+				this.getPlateau().getObjectifPos());
 		this.setGrille(g);
 		g.addObservateur(this);
 		definirNext();

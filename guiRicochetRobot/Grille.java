@@ -43,7 +43,7 @@ public class Grille extends JPanel implements ActionListener, Observable {
 
 	}
 
-	public Grille(int taille, int[][] murs, int[] posRobot, int[] posObjectif) {
+	public Grille(int taille, int[][] murs, int[][] posRobot, int[] posObjectif) {
 		this.taille = taille;
 		grille = new CaseGrille[taille][taille];
 		// On definit le layout qu'on adoptera
@@ -57,9 +57,12 @@ public class Grille extends JPanel implements ActionListener, Observable {
 				// On y definit les murs
 				grille[i][j].setMurs(murs[i][j]);
 				
-				// On place le robot
-				if (posRobot[0] == i && posRobot[1] == j)
-					grille[i][j].setHasRobot(true);
+				// On place le robot s'il y en a un
+				for (int x = 0; x<posRobot.length; x++) {
+					if (posRobot[x][0] == i && posRobot[x][1] == j)
+						grille[i][j].setHasRobot(true);
+				}
+
 				
 				// On place l'objectif
 				if (posObjectif[0] == i && posObjectif[1] == j)

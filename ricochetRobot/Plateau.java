@@ -32,27 +32,30 @@ public class Plateau {
 	// ///// CONSTRUCTEURS /////////
 
 	/**
-	 * Constructeur Vide : Cree un plateau de taille 16 et alloue la memoire
-	 * pour tabCases et tabRobots
+	 * Constructeur Vide : Cree un plateau de taille 16 et alloue la memoire pour
+	 * tabCases et tabRobots
 	 */
 	public Plateau() {
 		taille = 16;
 		tabCases = new Case[16][16];
-		tabRobots = new Robot[1];
-		tabRobots[0] = new Robot();
+		tabRobots = new Robot[4];
+		for (int i = 0; i < 4; i++) {
+			tabRobots[i] = new Robot();
+		}
 	}
 
 	/**
-	 * Cree un plateau de taille n et alloue la memoire pour tabCases et
-	 * tabRobots
+	 * Cree un plateau de taille n et alloue la memoire pour tabCases et tabRobots
 	 * 
 	 * @param n
 	 */
 	public Plateau(int n) {
 		taille = n;
 		tabCases = new Case[n][n];
-		tabRobots = new Robot[1];
-		tabRobots[0] = new Robot();
+		tabRobots = new Robot[4];
+		for (int i = 0; i < 4; i++) {
+			tabRobots[i] = new Robot();
+		}
 	}
 
 	// ///// GETTERS AND SETTERS ////////
@@ -84,7 +87,6 @@ public class Plateau {
 	public void setTabRobots(Robot[] tabRobots) {
 		this.tabRobots = tabRobots;
 	}
-	
 
 	public int[] getObjectifPos() {
 		return objectifPos;
@@ -156,8 +158,8 @@ public class Plateau {
 	}
 
 	/**
-	 * Genere une String du Plateau, * Pour une case, _ Pour mur du haut ou bas,
-	 * | pour mur de gauche ou droite
+	 * Genere une String du Plateau, * Pour une case, _ Pour mur du haut ou bas, |
+	 * pour mur de gauche ou droite
 	 */
 	public String toString() {
 		StringBuilder s = new StringBuilder("");
@@ -197,8 +199,10 @@ public class Plateau {
 	 * <br>
 	 * <br>
 	 * 
-	 * @param ligne la ligne
-	 * @param colone la colone
+	 * @param ligne
+	 *            la ligne
+	 * @param colone
+	 *            la colone
 	 */
 	public void redefinirLignes(int ligne, int colone) {
 		int k;
@@ -246,22 +250,24 @@ public class Plateau {
 	/**
 	 * Place le robot numero num de facon random et retourne ses coordonees
 	 * 
-	 * @param num le nombre de cases
+	 * @param num
+	 *            le numero du Robots
 	 * @return le tableau de Robots
 	 */
-	public int [] placerRobotRandom(int num) {
+	public int[] placerRobotRandom(int num) {
 		Random r = new Random();
 		int i = r.nextInt(taille);
 		int j = r.nextInt(taille);
 		this.tabRobots[num].setCaseActuelle(tabCases[i][j]);
 		this.tabCases[i][j].affecterRobot(tabRobots[num]);
-		int [] tab = {i,j};
+		int[] tab = { i, j };
 		return tab;
 	}
-	
+
 	public void supprimerRobot(int num) {
 		tabRobots[num].getCaseActuelle().supprimerRobot();
 	}
+
 	/**
 	 * Insere les coordonees de chaque Case dans Case.posX et Case.posY
 	 */
@@ -274,9 +280,9 @@ public class Plateau {
 	}
 
 	/**
-	 * Ajoute un mur sur le plateau aux coordonnes (i,j) et sur le haut de la
-	 * case et redefinie toutes les autres cases pour pouvoir interagir avec ce
-	 * nouveau mur <br>
+	 * Ajoute un mur sur le plateau aux coordonnes (i,j) et sur le haut de la case
+	 * et redefinie toutes les autres cases pour pouvoir interagir avec ce nouveau
+	 * mur <br>
 	 * 
 	 * @param i
 	 *            la ligne
@@ -312,9 +318,9 @@ public class Plateau {
 	}
 
 	/**
-	 * Ajoute un mur sur le plateau aux coordonnees (i,j) et sur le bas de la
-	 * case et redefinie toutes les autres cases pour pouvoir interagir avec ce
-	 * nouveau mur <br>
+	 * Ajoute un mur sur le plateau aux coordonnees (i,j) et sur le bas de la case
+	 * et redefinie toutes les autres cases pour pouvoir interagir avec ce nouveau
+	 * mur <br>
 	 * 
 	 * @param i
 	 *            la ligne
@@ -360,8 +366,8 @@ public class Plateau {
 	 *            la ligne
 	 * @param j
 	 *            la colone
-	 *            
-	 *            
+	 * 
+	 * 
 	 */
 	public void ajouterMurGauche(int i, int j) {
 		tabCases[i][j].setCaseNextGauche(new Case());
@@ -394,15 +400,14 @@ public class Plateau {
 	/**
 	 * Ajoute un mur sur le plateau aux coordonnees (i,j) et sur la droite de la
 	 * case et redefinie toutes les autres cases pour pouvoir interagir avec ce
-	 * nouveau mur
-	 * TODO : DEBUGGING !!!
+	 * nouveau mur TODO : DEBUGGING !!!
 	 * 
 	 * @param i
 	 *            la ligne
 	 * @param j
 	 *            la colone
-	 *            
-	 *            
+	 * 
+	 * 
 	 */
 	public void ajouterMurDroite(int i, int j) {
 		tabCases[i][j].setCaseNextDroite(new Case());
@@ -421,23 +426,23 @@ public class Plateau {
 		}
 
 		if (j < taille - 2) {
-//			if (!tabCases[i][j].getCaseNextDroite().estVide()) {
-//				int k = 1;
-//				while (!tabCases[i][j + k].getCaseNextDroite().estVide()) {
-//					tabCases[i][j + k].setCaseNextGauche(tabCases[i][j + 1]);
-//					k++;
-//				}
-//				tabCases[i][j + k].setCaseNextGauche(tabCases[i][j + 1]);
-//			}
-			ajouterMurGauche(i, j+1);
+			// if (!tabCases[i][j].getCaseNextDroite().estVide()) {
+			// int k = 1;
+			// while (!tabCases[i][j + k].getCaseNextDroite().estVide()) {
+			// tabCases[i][j + k].setCaseNextGauche(tabCases[i][j + 1]);
+			// k++;
+			// }
+			// tabCases[i][j + k].setCaseNextGauche(tabCases[i][j + 1]);
+			// }
+			ajouterMurGauche(i, j + 1);
 		}
 
 	}
 
 	/**
 	 * Configure les casesNext du plateau <br>
-	 * Prereq : Le plateau doit contenir des cases qui ont comme caseNext soit
-	 * une case Vide, soit une Case valide
+	 * Prereq : Le plateau doit contenir des cases qui ont comme caseNext soit une
+	 * case Vide, soit une Case valide
 	 */
 	public void configureCaseNextPlateau() {
 		int k;
@@ -544,7 +549,8 @@ public class Plateau {
 	 * <br>
 	 * Prereq : Le tableau doit etre de la meme taille que le plateau
 	 * 
-	 * @param murs le tableau des murs
+	 * @param murs
+	 *            le tableau des murs
 	 * @param posXObjectif
 	 *            : La position x de l'objectif
 	 * @param posYObjectif
@@ -567,13 +573,16 @@ public class Plateau {
 					ajouterCoinBG(i, j);
 			}
 		}
-		//System.out.println(tabCases[objectifPos[0]][objectifPos[1]].getCaseNextDroite().getCaseNextGauche().getPosX());
+		// System.out.println(tabCases[objectifPos[0]][objectifPos[1]].getCaseNextDroite().getCaseNextGauche().getPosX());
 	}
 
 	/**
 	 * TODO CORRIGER, les cases voisines ne le considerent pas comme un voisin
-	 * @param i la ligne
-	 * @param j la colone
+	 * 
+	 * @param i
+	 *            la ligne
+	 * @param j
+	 *            la colone
 	 */
 	public void ajouterObjectif(int i, int j) {
 		CaseObjectif c = new CaseObjectif();
@@ -585,15 +594,14 @@ public class Plateau {
 		tabCases[i][j] = c;
 		objectifPos[0] = i;
 		objectifPos[1] = j;
-		
+
 	}
-	
 
 	// ////// METHODES POUR LA GENERATION D'UN PLATEAU RANDOM /////////
 
 	/**
-	 * Genere un plateau de taille n de maniere Aleatoire : 12% de chances
-	 * qu'une case ait au moins un mur (donc 3 % par cote)<br>
+	 * Genere un plateau de taille n de maniere Aleatoire : 12% de chances qu'une
+	 * case ait au moins un mur (donc 3 % par cote)<br>
 	 * Utilise :<br>
 	 * 
 	 * 
@@ -679,19 +687,19 @@ public class Plateau {
 	}
 
 	/**
-	 * Reevalue les tableaux de murs pour qu'un mur soit present sur les deux
-	 * cotes : <br>
+	 * Reevalue les tableaux de murs pour qu'un mur soit present sur les deux cotes
+	 * : <br>
 	 * ex : Un murDroite sur une Case est un murGauche sur la case de Droite
 	 * 
 	 * @param murHaut
 	 * @param murBas
 	 * @param murGauche
 	 * @param murDroite
-	 * <br>
+	 *            <br>
 	 *            prereq : tous les tableaux doivent �tre de m�me taille
 	 */
-	private static void murDesDeuxCotes(boolean[][] murHaut,
-			boolean[][] murBas, boolean[][] murGauche, boolean[][] murDroite) {
+	private static void murDesDeuxCotes(boolean[][] murHaut, boolean[][] murBas, boolean[][] murGauche,
+			boolean[][] murDroite) {
 		for (int i = 0; i < murHaut[0].length; i++) {
 			for (int j = 0; j < murHaut[0].length; j++) {
 				if (i > 0 && murHaut[i][j])
@@ -779,8 +787,8 @@ public class Plateau {
 	}
 
 	/**
-	 * Ajoute de facon aleatoire un objectif sur le plateau Note : L'objectif
-	 * doit se trouver a cote d'un mur sinon la partie est impossible
+	 * Ajoute de facon aleatoire un objectif sur le plateau Note : L'objectif doit
+	 * se trouver a cote d'un mur sinon la partie est impossible
 	 */
 	public void ajouterObjectifRandom() {
 		Random r = new Random();
