@@ -17,6 +17,7 @@ import guiRicochetRobot.Grille;
  * Toutes les autres parties devront extends celle-ci et redefinir :
  * <br><ul><li>Le constructeur, ou nous redefinissont les murs et objectifs</li>
  * <li>placerRobotPartie, pour definir les zones où un robot ne doit pas apparaître</li>
+ * <li>ActionRecommencer</li>
  * <li>mainPartie</li>
  * <li>main (String[] args)</li></ul>
  * @author Dorian
