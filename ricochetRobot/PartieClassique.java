@@ -8,7 +8,6 @@ import java.util.Random;
  * 
  * @author Dorian
  * 
- * ATTENTIONS : MURS INVISIBLES, MAIS BIEN LA, PAS LE TEMPS DE BOSSER DESSUS
  *
  */
 public class PartieClassique extends Partie {
