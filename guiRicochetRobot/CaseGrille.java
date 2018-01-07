@@ -214,7 +214,7 @@ public class CaseGrille extends JButton implements MouseListener {
 			g.fillRect(0, 0, 5, this.getHeight());
 		}
 	}
-
+	
 	/**
 	 * Dessine les bords de la case
 	 * 
