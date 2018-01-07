@@ -177,14 +177,7 @@ public class PartieClassique extends Partie {
 		this.posYObjectifs = posYObjectifs;
 	}
 
-	public void placerRobotPartie(Plateau p) {
-		int posRobot[] = p.placerRobotRandom(0);
-		while ((posRobot[0] == 7 && posRobot[1] == 7) || (posRobot[0] == 7 && posRobot[1] == 8)
-				|| (posRobot[0] == 8 && posRobot[1] == 7) || (posRobot[0] == 8 && posRobot[1] == 8)) {
-			p.supprimerRobot(0);
-			posRobot = p.placerRobotRandom(0);
-		}
-	}
+
 	@Override
 	public void creerPartie() {
 
@@ -227,6 +220,19 @@ public class PartieClassique extends Partie {
 		System.exit(0);
 		stop();
 	}
+	
+	/**
+	 * Place aleatoirement les Robots en prenant compte des cases impossible d'acces  
+	 * @param p
+	 */
+	public void placerRobotPartie(Plateau p) {
+		int posRobot[] = p.placerRobotRandom(0);
+		while ((posRobot[0] == 7 && posRobot[1] == 7) || (posRobot[0] == 7 && posRobot[1] == 8)
+				|| (posRobot[0] == 8 && posRobot[1] == 7) || (posRobot[0] == 8 && posRobot[1] == 8)) {
+			p.supprimerRobot(0);
+			posRobot = p.placerRobotRandom(0);
+		}
+	}
 
 	@Override
 	public void update() {
@@ -236,6 +242,8 @@ public class PartieClassique extends Partie {
 		this.displaySolution();
 
 	}
+	
+	
 
 	@Override
 	protected void mainPartieAux() {

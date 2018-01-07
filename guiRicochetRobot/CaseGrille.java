@@ -21,10 +21,14 @@ public class CaseGrille extends JButton implements MouseListener {
 	private int posX;
 	private int posY;
 
-	// 1 : Gauche, 2 : Haut, 3 : Droite, 4 : Bas
+	/**
+	 *  1 : Gauche, 2 : Haut, 3 : Droite, 4 : Bas
+	 */
 	private int isNext = 0;
 	
-	// La case s'affichera differement si elle possede un robot ou si c'est l'objectif
+	/**
+	 *  La case s'affichera differement si elle possede un robot ou si c'est l'objectif
+	 */
 	private boolean hasRobot = false;
 	private boolean isObjective = false;
 
@@ -38,7 +42,9 @@ public class CaseGrille extends JButton implements MouseListener {
 	 */
 	private int murs = 0;
 
-	// Change lorsque la souris passe au dessus
+	/**
+	 *  Change lorsque la souris passe au dessus
+	 */
 	int hover = 0;
 
 	public CaseGrille() {
@@ -105,6 +111,9 @@ public class CaseGrille extends JButton implements MouseListener {
 	}
 
 	
+	/**
+	 * Affiche la case avec les bonnes formes, couleurs, etc.
+	 */
 	public void paintComponent(Graphics g) {
 		
 		// Reset la case en la coloriant en blanc
@@ -163,12 +172,18 @@ public class CaseGrille extends JButton implements MouseListener {
 	}
 
 	@Override
+	/**
+	 * Case cliquee
+	 */
 	public void mouseClicked(MouseEvent e) {
 		// System.out.println("COUCOU");
 
 	}
 
 	@Override
+	/**
+	 * Case survolee
+	 */
 	public void mouseEntered(MouseEvent e) {
 		hover = 1;
 		this.repaint();
@@ -176,6 +191,9 @@ public class CaseGrille extends JButton implements MouseListener {
 	}
 
 	@Override
+	/**
+	 * Case quitee
+	 */
 	public void mouseExited(MouseEvent e) {
 		hover = 0;
 		this.repaint();
@@ -183,12 +201,18 @@ public class CaseGrille extends JButton implements MouseListener {
 	}
 
 	@Override
+	/**
+	 * Clic prolonge
+	 */
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
+	/** 
+	 * Clic lache
+	 */
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
 
