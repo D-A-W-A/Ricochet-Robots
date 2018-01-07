@@ -181,7 +181,7 @@ public class PartieClassique extends Partie {
 	@Override
 	public void creerPartie() {
 
-		// Creer un plateau : met les murs, un objectif aleatoire parmi les 17
+		// Creer un plateau : met les murs, un objectif aleatoire parmi ceux
 		// possibles, et place un robot
 		Random r = new Random();
 		int obj = r.nextInt(posXObjectifs.length);

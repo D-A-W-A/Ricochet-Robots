@@ -176,7 +176,16 @@ public class PartieClassiqueGui extends PartieClassique {
 		JButton b = (JButton) (e.getSource());
 		if (b.getText().equals("Solution"))
 			changerTexte(toStringSolution());
+		else if (b.getText().equals("Recommencer"))
+			actionRecommencer();
 	}
+	
+	public void actionRecommencer() {
+		dispose();
+		mainPartie();
+	}
+
+
 
 	@Override
 	protected void mainPartieAux() {

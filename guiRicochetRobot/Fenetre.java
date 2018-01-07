@@ -36,7 +36,6 @@ import observer.Observateur;
 public class Fenetre extends JFrame implements Observateur, MouseListener{	
 
 	Grille grille;
-	JLabel titreLabel = new JLabel ("Ricochet-Robot");
 	int tailleGrille = 10;
 	
 
@@ -71,11 +70,6 @@ public class Fenetre extends JFrame implements Observateur, MouseListener{
 		this.getContentPane().add(grille, BorderLayout.CENTER);
 
 		// Creation des boutons
-		JButton pause = new JButton("Pause");
-		pause.addMouseListener(this);
-		
-		JButton reprendre = new JButton("Reprendre");
-		reprendre.addMouseListener(this);
 		
 		JButton recommencer = new JButton("Recommencer");
 		recommencer.addMouseListener(this);
@@ -85,10 +79,8 @@ public class Fenetre extends JFrame implements Observateur, MouseListener{
 
 		// Creation du menu de gauche (Compose des boutons crees precedemment)
 		JPanel menuGauche = new JPanel();
-		for (int i = 0; i < 2; i++)
+		for (int i = 0; i < 3; i++)
 			menuGauche.add(new JPanel());
-		menuGauche.add(pause);
-		menuGauche.add(reprendre);
 		menuGauche.add(recommencer);
 		menuGauche.add(solution);
 		GridLayout menulayout = new GridLayout(9, 1);
@@ -97,15 +89,14 @@ public class Fenetre extends JFrame implements Observateur, MouseListener{
 		// Ajout du menuGauche a gauche
 		this.getContentPane().add(menuGauche, BorderLayout.WEST);
 
-		// Creation du Titre + Nombre de coups
+		// Creation du Titre
+		JLabel titreLabel = new JLabel ("Ricochet-Robot");
 		Font police = new Font("Tahoma", Font.BOLD, 24);
 		titreLabel.setFont(police);
 		titreLabel.setHorizontalAlignment(JLabel.CENTER);
 
-		// Place les labels en haut de la fenetre
-		JPanel hautFenetre = new JPanel();
-		hautFenetre.add(titreLabel);
-		this.getContentPane().add(hautFenetre, BorderLayout.NORTH);
+
+		this.getContentPane().add(titreLabel, BorderLayout.NORTH);
 
 		// Affiche la fenetre (Pas de pack : pas besoin + fait bugger)
 		this.setVisible(true);
@@ -119,13 +110,6 @@ public class Fenetre extends JFrame implements Observateur, MouseListener{
 		this.grille = grille;
 	}
 
-	public JLabel getTitreLabel() {
-		return titreLabel;
-	}
-
-	public void setTitreLabel(JLabel j) {
-		this.titreLabel = j;
-	}
 
 	public int getTailleGrille() {
 		return tailleGrille;
@@ -187,9 +171,16 @@ public class Fenetre extends JFrame implements Observateur, MouseListener{
 	 * @param s la chaine de caractere qui remplacera
 	 */
 	public void changerTexte (String s) {
-		JLabel titre = (JLabel) ((JPanel) (this.getContentPane().getComponents()[2])).getComponent(0);
-		titre.setText(s);
-		this.repaint();
+		JLabel l = (JLabel) this.getContentPane().getComponents()[2];
+		l.setText(s);
 	}
+	
+	/**
+	 * Action effectuee lorsque le bouton recommencer est clique
+	 */
+	public void actionRecommencer() {
+		
+	}
+
 
 }
