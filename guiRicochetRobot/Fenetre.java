@@ -7,6 +7,9 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.Arrays;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -30,7 +33,7 @@ import observer.Observateur;
  *
  *	
  */
-public class Fenetre extends JFrame implements Observateur, KeyListener{
+public class Fenetre extends JFrame implements Observateur, MouseListener{	
 
 	Grille grille;
 	JLabel titreLabel = new JLabel ("Ricochet-Robot");
@@ -69,8 +72,16 @@ public class Fenetre extends JFrame implements Observateur, KeyListener{
 
 		// Creation des boutons
 		JButton pause = new JButton("Pause");
+		pause.addMouseListener(this);
+		
 		JButton reprendre = new JButton("Reprendre");
-		JButton restart = new JButton("Recommencer");
+		reprendre.addMouseListener(this);
+		
+		JButton recommencer = new JButton("Recommencer");
+		recommencer.addMouseListener(this);
+		
+		JButton solution = new JButton ("Solution");
+		solution.addMouseListener(this);
 
 		// Creation du menu de gauche (Compose des boutons crees precedemment)
 		JPanel menuGauche = new JPanel();
@@ -78,7 +89,8 @@ public class Fenetre extends JFrame implements Observateur, KeyListener{
 			menuGauche.add(new JPanel());
 		menuGauche.add(pause);
 		menuGauche.add(reprendre);
-		menuGauche.add(restart);
+		menuGauche.add(recommencer);
+		menuGauche.add(solution);
 		GridLayout menulayout = new GridLayout(9, 1);
 		menuGauche.setLayout(menulayout);
 
@@ -134,25 +146,50 @@ public class Fenetre extends JFrame implements Observateur, KeyListener{
 	@Override
 	public void update(String ob) {
 		System.out.println("Clic de la souris aux coordonnées : " + grille.getCoordCaseClic()[0] + " " + grille.getCoordCaseClic()[1]);
+	
 		
 	}
 
 	@Override
-	public void keyPressed(KeyEvent e) {
+	public void mouseClicked(MouseEvent e) {
+		JButton b = (JButton) (e.getSource());
+		System.out.println("Clic de : " + b.getText());		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void keyReleased(KeyEvent e) {
+	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void keyTyped(KeyEvent e) {
+	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	// ------- Changement des elements graphiques ------
+	
+	/**
+	 * Change le texte en haut de la fenetre
+	 * @param s la chaine de caractere qui remplacera
+	 */
+	public void changerTexte (String s) {
+		JLabel titre = (JLabel) ((JPanel) (this.getContentPane().getComponents()[2])).getComponent(0);
+		titre.setText(s);
+		this.repaint();
 	}
 
 }
