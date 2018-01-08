@@ -224,19 +224,6 @@ public class Plateau {
 		// -------------------- Ligne
 		if (!tabCases[x1][y1].getCaseNextGauche().estVide() && !tabCases[x1][y1].getCaseNextDroite().estVide()) {
 
-//			// Si il y a un robot juste a cote
-//			if (tabCases[x1][y1].getCaseNextDroite().estVide() && y1 != taille - 1
-//					&& tabCases[x1][y1 + 1].estOccupe()) {
-//				tabCases[x1][y1 + 1].setCaseNextGauche(tabCases[x1][y1].getCaseNextGauche());
-//				System.out.println("PLOOOOOP");
-//			}
-//
-//			// Si il y a un robot juste a cote
-//			if (tabCases[x1][y1].getCaseNextGauche().estVide() && y1 != 0 && tabCases[x1][y1 - 1].estOccupe()) {
-//				tabCases[x1][y1 - 1].setCaseNextDroite(tabCases[x1][y1].getCaseNextDroite());
-//				System.out.println("PLOOOOOP");
-//			}
-
 			// Cases de droites
 			k = 0;
 			while (!tabCases[x1][y1 + k].getCaseNextDroite().estVide()) {
@@ -272,7 +259,7 @@ public class Plateau {
 			// Si il y a un robot au cac
 			if (y1 != 0 && tabCases[x1][y1 - 1].estOccupe()) {
 				tabCases[x1][y1 - 1].setCaseNextDroite(tabCases[x1][y1].getCaseNextDroite());
-				System.out.println("PLOOOOOP");
+				System.out.println("gauche");
 			}
 
 			k = 1;
@@ -291,9 +278,9 @@ public class Plateau {
 			// S'il y a un mur : Uniquement les cases de droites
 		} else if (tabCases[x1][y1].getCaseNextDroite().estVide() && !tabCases[x1][y1].getCaseNextGauche().estVide()) {
 			// Si il y a un robot au cac
-			if (y1 != taille-1 && tabCases[x1][y1 + 1].estOccupe()) {
+			if (y1 != taille - 1 && tabCases[x1][y1 + 1].estOccupe()) {
 				tabCases[x1][y1 + 1].setCaseNextGauche(tabCases[x1][y1].getCaseNextGauche());
-				System.out.println("PLOOOOOP");
+				System.out.println("Droite");
 			}
 			k = 1;
 			while (!tabCases[x1][y1 - k].getCaseNextGauche().estVide()) {
@@ -307,22 +294,25 @@ public class Plateau {
 				}
 			}
 			tabCases[x1][y1 - k].setCaseNextDroite(tabCases[x1][y1]);
+		} else if (tabCases[x1][y1].getCaseNextDroite().estVide() && tabCases[x1][y1].getCaseNextGauche().estVide()) {
+
+			if (y1 != taille - 1 && tabCases[x1][y1 + 1].estOccupe() && y1 != 0 && tabCases[x1][y1 - 1].estOccupe()) {
+				tabCases[x1][y1 - 1].setCaseNextDroite(tabCases[x1][y1]);
+				System.out.println("DOUBLE");
+				tabCases[x1][y1 + 1].setCaseNextGauche(tabCases[x1][y1]);
+			} else if (y1 != 0 && tabCases[x1][y1 - 1].estOccupe()) {
+				tabCases[x1][y1 - 1].setCaseNextDroite(tabCases[x1][y1]);
+				System.out.println("gauche 2");
+			} else if (y1 != taille - 1 && tabCases[x1][y1 + 1].estOccupe()) {
+				tabCases[x1][y1 + 1].setCaseNextGauche(tabCases[x1][y1]);
+				System.out.println("Droite 2");
+			}
 
 		}
 
 		// --------------------- Colonne
 		if (!tabCases[x1][y1].getCaseNextHaut().estVide() && !tabCases[x1][y1].getCaseNextBas().estVide()) {
-//			// Si il y a un Robot au cac
-//			if (tabCases[x1][y1].getCaseNextBas().estVide() && x1 != taille - 1 && tabCases[x1 + 1][y1].estOccupe()) {
-//				tabCases[x1 + 1][y1].setCaseNextHaut(tabCases[x1][y1].getCaseNextHaut());
-//				System.out.println("PLOOOOOP");
-//			}
-//
-//			// Si il y a un robot au cac
-//			if (tabCases[x1][y1].getCaseNextHaut().estVide() && x1 != 0 && tabCases[x1 - 1][y1].estOccupe()) {
-//				tabCases[x1 - 1][y1].setCaseNextBas(tabCases[x1][y1].getCaseNextBas());
-//				System.out.println("PLOOOOOP");
-//			}
+
 			// Cases du bas
 			k = 0;
 			while (!tabCases[x1 + k][y1].getCaseNextBas().estVide()) {
@@ -355,12 +345,11 @@ public class Plateau {
 
 		// Si il y a un mur, uniquement les cases du bas
 		else if (tabCases[x1][y1].getCaseNextHaut().estVide() && !tabCases[x1][y1].getCaseNextBas().estVide()) {
-			
 
 			// Si il y a un Robot au cac
 			if (x1 != 0 && tabCases[x1 - 1][y1].estOccupe()) {
 				tabCases[x1 - 1][y1].setCaseNextBas(tabCases[x1][y1].getCaseNextBas());
-				System.out.println("PLOOOOOP");
+				System.out.println("bas");
 			}
 
 			k = 1;
@@ -378,13 +367,12 @@ public class Plateau {
 
 			// Si il y a un mur : uniquement les cases du haut
 		} else if (tabCases[x1][y1].getCaseNextBas().estVide() && !tabCases[x1][y1].getCaseNextHaut().estVide()) {
-			
-			// Si il y a un Robot au cac
-			if (x1 != taille-1 && tabCases[x1 + 1][y1].estOccupe()) {
-				tabCases[x1 + 1][y1].setCaseNextHaut(tabCases[x1][y1].getCaseNextHaut());
-				System.out.println("PLOOOOOP");
-			}
 
+			// Si il y a un Robot au cac
+			if (x1 != taille - 1 && tabCases[x1 + 1][y1].estOccupe()) {
+				tabCases[x1 + 1][y1].setCaseNextHaut(tabCases[x1][y1].getCaseNextHaut());
+				System.out.println("haut");
+			}
 
 			k = 1;
 			while (!tabCases[x1 - k][y1].getCaseNextHaut().estVide()) {
@@ -399,6 +387,22 @@ public class Plateau {
 			}
 			tabCases[x1 - k][y1].setCaseNextBas(tabCases[x1][y1]);
 
+		}
+
+		else if (tabCases[x1][y1].getCaseNextBas().estVide() && tabCases[x1][y1].getCaseNextHaut().estVide()) {
+			// Si il y a un Robot au cac
+			if (x1 != taille - 1 && tabCases[x1 + 1][y1].estOccupe() && x1 != 0 && tabCases[x1 - 1][y1].estOccupe()) {
+				tabCases[x1 + 1][y1].setCaseNextHaut(tabCases[x1][y1]);
+				System.out.println("hautbas");
+				tabCases[x1 - 1][y1].setCaseNextBas(tabCases[x1][y1]);
+			}
+			if (x1 != taille - 1 && tabCases[x1 + 1][y1].estOccupe()) {
+				tabCases[x1 + 1][y1].setCaseNextHaut(tabCases[x1][y1]);
+				System.out.println("haut 2 ");
+			} else if (x1 != 0 && tabCases[x1 - 1][y1].estOccupe()) {
+				tabCases[x1 - 1][y1].setCaseNextBas(tabCases[x1][y1]);
+				System.out.println("bas 2");
+			}
 		}
 
 	}
