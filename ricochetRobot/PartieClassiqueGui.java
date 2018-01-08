@@ -65,14 +65,15 @@ public class PartieClassiqueGui extends PartieClassique {
 		if (getEtatPartie() == 1) {
 			CaseGrille c = this.getGrille().getGrille()[getGrille().getCoordCaseClic()[0]][getGrille()
 					.getCoordCaseClic()[1]];
+			// On reccupere la case actuelle
+			int[] coordCaseActuelle = { getPlateau().getTabRobots()[getRobotSelectionne()].getCaseActuelle().getPosX(),
+					getPlateau().getTabRobots()[getRobotSelectionne()].getCaseActuelle().getPosY() };
+			
 			int hasRobot = c.getHasRobot();
 			int next = c.isNext();
 
 			// On modifie la selection du robot
 			if (hasRobot != 0) {
-				// On reccupere la case actuelle
-				int[] coordCaseActuelle = { getPlateau().getTabRobots()[getRobotSelectionne()].getCaseActuelle().getPosX(),
-						getPlateau().getTabRobots()[getRobotSelectionne()].getCaseActuelle().getPosY() };
 				// On reset cette case
 				supprimerNext();
 				getGrille().getGrille()[coordCaseActuelle[0]][coordCaseActuelle[1]].setSelected(false);;
@@ -86,6 +87,7 @@ public class PartieClassiqueGui extends PartieClassique {
 			}
 			// On deplace le robot s'il s'agit d'une caseNext
 			if (next != 0) {
+				getPlateau().supprimerMursRobot(coordCaseActuelle[0], coordCaseActuelle[1]);
 				supprimerNext();
 				supprimerRobot(this.getRobotSelectionne());
 				int deplacement;
@@ -98,6 +100,7 @@ public class PartieClassiqueGui extends PartieClassique {
 				} else if (next == 4) {
 					deplacement = getPlateau().getTabRobots()[getRobotSelectionne()].deplacerRobotBas();
 				}
+				getPlateau().ajouterMursRobot(getGrille().getCoordCaseClic()[0], getGrille().getCoordCaseClic()[1]);
 				definirNext();
 				placerRobot(this.getRobotSelectionne());
 			}
