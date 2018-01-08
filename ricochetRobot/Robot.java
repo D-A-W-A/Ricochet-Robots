@@ -20,18 +20,29 @@ package ricochetRobot;
 public class Robot {
 
 	/////////// ATTRIBUTS ///////////
-	private char couleur = 'R';
+	private char couleur;
+	private static int nbr = 0;
 	private boolean selectione;
 	private Case caseActuelle;
 
 	/////////// CONSTRUCTEURS /////////////
 	public Robot() {
 		selectione = false;
+		if (nbr == 0) 
+			couleur = 'B';
+		else 
+			couleur = 'R';
+		nbr++;
 	}
 
 	public Robot(Case c) {
 		selectione = false;
 		caseActuelle = c;
+		if (nbr == 0) 
+			couleur = 'B';
+		else 
+			couleur = 'R';
+		nbr++;
 	}
 
 	////////// GETTERS AND SETTERS ////////

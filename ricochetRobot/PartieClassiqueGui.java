@@ -55,8 +55,9 @@ public class PartieClassiqueGui extends PartieClassique {
 	/**
 	 * Cette fonction est appelee lorsque l'utilisateur clique sur n'importe quelle
 	 * case <br>
+	 * <br> Si le joueur clique sur un case comprenant un robot, alors cette case est selectionnee, ce qui signifie qu'il devra deplacer ce robot-la<br><br>
 	 * Si il a clique sur une CaseNext, alors le robot se deplace, sinon, il ne se
-	 * passe rien. <br>
+	 * passe rien. <br><br>
 	 * Lorsque le robot atteint la case objectif, alors c'est la victoire.
 	 */
 	public void update(String ob) {
@@ -68,14 +69,18 @@ public class PartieClassiqueGui extends PartieClassique {
 			int next = c.isNext();
 
 			// On modifie la selection du robot
-			if (hasRobot != 0 && hasRobot != 1) {
+			if (hasRobot != 0) {
+				System.out.println("Clic robot");
 				// On reccupere la case actuelle
 				int[] coordCaseActuelle = { getPlateau().getTabRobots()[getRobotSelectionne()].getCaseActuelle().getPosX(),
 						getPlateau().getTabRobots()[getRobotSelectionne()].getCaseActuelle().getPosY() };
+				supprimerNext();
 				getGrille().getGrille()[coordCaseActuelle[0]][coordCaseActuelle[1]].setSelected(false);;
 				
 				c.setSelected(true);
 				setRobotSelectionne(hasRobot-1);
+
+				definirNext();
 
 			}
 			// On deplace le robot s'il s'agit d'une caseNext
@@ -166,7 +171,6 @@ public class PartieClassiqueGui extends PartieClassique {
 	/**
 	 * Permet de definir les caseNext pour l'interface graphique
 	 * 
-	 * TODO : DEBUG : getCaseNext : Vérifier les murs
 	 */
 	public void definirNext() {
 		Case cActuelle = getPlateau().getTabRobots()[this.getRobotSelectionne()].getCaseActuelle();
