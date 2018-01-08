@@ -71,7 +71,9 @@ public class PartiePetiteGui extends PartieClassiqueGui {
 				p.supprimerRobot(0);
 				posRobot = p.placerRobotRandom(0);
 			}
-		}
+			p.supprimerMursRobot (posRobot[0], posRobot[1]);
+			p.ajouterMursRobot (posRobot[0], posRobot[1]);
+		}	
 	}
 
 	public void actionRecommencer() {

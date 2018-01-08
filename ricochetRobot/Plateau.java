@@ -219,52 +219,62 @@ public class Plateau {
 	 *            L'ancienne PosY du robot
 	 */
 	public void supprimerMursRobot(int x1, int y1) {
-		System.out.println("Suppression des murs");
 		int k;
 
 		// -------------------- Ligne
 		if (!tabCases[x1][y1].getCaseNextGauche().estVide() && !tabCases[x1][y1].getCaseNextDroite().estVide()) {
 			k = 0;
-			System.out.println("BOUCLE 1");
 			while (!tabCases[x1][y1 + k].getCaseNextDroite().estVide()) {
 				tabCases[x1][y1 + k].setCaseNextGauche(tabCases[x1][y1].getCaseNextGauche());
-				System.out.println("Redefinition de Gauche de : " + x1 + ", " + (y1 + k));
 				k++;
+				if (tabCases[x1][y1 + k].getCaseNextDroite().estVide() && y1 + k != taille - 1
+						&& tabCases[x1][y1 + k + 1].estOccupe()) {
+					System.out.println("Suppression avec robot aligné DROITE");
+					tabCases[x1][y1 + k].setCaseNextGauche(tabCases[x1][y1].getCaseNextGauche());
+					k++;
+				}
 			}
 			tabCases[x1][y1 + k].setCaseNextGauche(tabCases[x1][y1].getCaseNextGauche());
-			System.out.println("Redefinition de Gauche de : " + x1 + ", " + (y1 + k));
-
 			k = 0;
 			while (!tabCases[x1][y1 - k].getCaseNextGauche().estVide()) {
 				tabCases[x1][y1 - k].setCaseNextDroite(tabCases[x1][y1].getCaseNextDroite());
-				System.out.println("Redefinition de Droite de : " + x1 + ", " + (y1 - k));
 				k++;
-
+				if (tabCases[x1][y1 - k].getCaseNextGauche().estVide() && y1 - k != 0
+						&& tabCases[x1][y1 - k - 1].estOccupe()) {
+					System.out.println("Suppression avec robot aligné GAUCHE");
+					tabCases[x1][y1 - k].setCaseNextDroite(tabCases[x1][y1].getCaseNextDroite());
+					k++;
+				}
 			}
 			tabCases[x1][y1 - k].setCaseNextDroite(tabCases[x1][y1].getCaseNextDroite());
-			System.out.println("Redefinition de Droite de: " + x1 + ", " + (y1 - k));
 		}
 		// Cases de gauche
-		else if (tabCases[x1][y1].getCaseNextGauche().estVide()) {
+		else if (tabCases[x1][y1].getCaseNextGauche().estVide() && !tabCases[x1][y1].getCaseNextDroite().estVide()) {
 			k = 1;
-			System.out.println("BOUCLE 2");
 			while (!tabCases[x1][y1 + k].getCaseNextDroite().estVide()) {
 				tabCases[x1][y1 + k].setCaseNextGauche(tabCases[x1][y1]);
-				System.out.println("Redefinition de Gauche de : " + x1 + ", " + (y1 + k));
 				k++;
+				if (tabCases[x1][y1 + k].getCaseNextDroite().estVide() && y1 + k != taille - 1
+						&& tabCases[x1][y1 + k + 1].estOccupe()) {
+					System.out.println("Suppression avec robot aligné DROITE");
+					tabCases[x1][y1 + k].setCaseNextGauche(tabCases[x1][y1]);
+					k++;
+				}
 			}
 			tabCases[x1][y1 + k].setCaseNextGauche(tabCases[x1][y1]);
-			System.out.println("Redefinition de Gauche de: " + x1 + ", " + (y1 + k));
-		} else if (tabCases[x1][y1].getCaseNextDroite().estVide()) {
+		} else if (tabCases[x1][y1].getCaseNextDroite().estVide() && !tabCases[x1][y1].getCaseNextGauche().estVide()) {
 			k = 1;
-			System.out.println("BOUCLE 3");
 			while (!tabCases[x1][y1 - k].getCaseNextGauche().estVide()) {
 				tabCases[x1][y1 - k].setCaseNextDroite(tabCases[x1][y1]);
-				System.out.println("Redefinition de Droite de: " + x1 + ", " + (y1 - k));
 				k++;
+				if (tabCases[x1][y1 - k].getCaseNextGauche().estVide() && y1 - k != 0
+						&& tabCases[x1][y1 - k - 1].estOccupe()) {
+					System.out.println("Suppression avec robot aligné GAUCHE");
+					tabCases[x1][y1 - k].setCaseNextDroite(tabCases[x1][y1]);
+					k++;
+				}
 			}
 			tabCases[x1][y1 - k].setCaseNextDroite(tabCases[x1][y1]);
-			System.out.println("Redefinition de Droite de: " + x1 + ", " + (y1 - k));
 		}
 
 		// --------------------- Colonne
@@ -274,6 +284,12 @@ public class Plateau {
 			while (!tabCases[x1 + k][y1].getCaseNextBas().estVide()) {
 				tabCases[x1 + k][y1].setCaseNextHaut(tabCases[x1][y1].getCaseNextHaut());
 				k++;
+				if (tabCases[x1 + k][y1].getCaseNextBas().estVide() && x1 + k != taille - 1
+						&& tabCases[x1 + k + 1][y1].estOccupe()) {
+					System.out.println("Suppression avec robot aligné BAS");
+					tabCases[x1 + k][y1].setCaseNextHaut(tabCases[x1][y1].getCaseNextHaut());
+					k++;
+				}
 			}
 			tabCases[x1 + k][y1].setCaseNextHaut(tabCases[x1][y1].getCaseNextHaut());
 
@@ -281,22 +297,40 @@ public class Plateau {
 			while (!tabCases[x1 - k][y1].getCaseNextHaut().estVide()) {
 				tabCases[x1 - k][y1].setCaseNextBas(tabCases[x1][y1].getCaseNextBas());
 				k++;
+				if (tabCases[x1 - k][y1].getCaseNextHaut().estVide() && x1 - k != 0
+						&& tabCases[x1 - k - 1][y1].estOccupe()) {
+					System.out.println("Suppression avec robot aligné HAUT");
+					tabCases[x1 - k][y1].setCaseNextBas(tabCases[x1][y1].getCaseNextBas());
+					k++;
+				}
 			}
 			tabCases[x1 - k][y1].setCaseNextBas(tabCases[x1][y1].getCaseNextBas());
 		}
 		// Cases de gauche
-		else if (tabCases[x1][y1].getCaseNextHaut().estVide()) {
+		else if (tabCases[x1][y1].getCaseNextHaut().estVide() && !tabCases[x1][y1].getCaseNextBas().estVide()) {
 			k = 1;
 			while (!tabCases[x1 + k][y1].getCaseNextBas().estVide()) {
 				tabCases[x1 + k][y1].setCaseNextHaut(tabCases[x1][y1]);
 				k++;
+				if (tabCases[x1 + k][y1].getCaseNextBas().estVide() && x1 + k != taille - 1
+						&& tabCases[x1 + k + 1][y1].estOccupe()) {
+					System.out.println("Suppression avec robot aligné BAS");
+					tabCases[x1 + k][y1].setCaseNextHaut(tabCases[x1][y1]);
+					k++;
+				}
 			}
 			tabCases[x1 + k][y1].setCaseNextHaut(tabCases[x1][y1]);
-		} else if (tabCases[x1][y1].getCaseNextBas().estVide()) {
+		} else if (tabCases[x1][y1].getCaseNextBas().estVide() && !tabCases[x1][y1].getCaseNextHaut().estVide()) {
 			k = 1;
 			while (!tabCases[x1 - k][y1].getCaseNextHaut().estVide()) {
 				tabCases[x1 - k][y1].setCaseNextBas(tabCases[x1][y1]);
 				k++;
+				if (tabCases[x1 - k][y1].getCaseNextHaut().estVide() && x1 - k != 0
+						&& tabCases[x1 - k - 1][y1].estOccupe()) {
+					System.out.println("Suppression avec robot aligné HAUT");
+					tabCases[x1 - k][y1].setCaseNextBas(tabCases[x1][y1]);
+					k++;
+				}
 			}
 			tabCases[x1 - k][y1].setCaseNextBas(tabCases[x1][y1]);
 		}
@@ -312,56 +346,67 @@ public class Plateau {
 	 *            la posY du robot
 	 */
 	public void ajouterMursRobot(int x, int y) {
-		System.out.println("Ajout des murs");
 		int k;
 		// Gauche
 		if (y != 0) {
-			tabCases[x][y-1].setCaseNextDroite(new Case());
+			tabCases[x][y - 1].setCaseNextDroite(new Case());
 			if (y - 1 > 0) {
 				k = 2;
-				while (!tabCases[x][y-k].getCaseNextGauche().estVide()) {
-					tabCases[x][y-k].setCaseNextDroite(tabCases[x][y-1]);
+				while (!tabCases[x][y - k].getCaseNextGauche().estVide()) {
+					tabCases[x][y - k].setCaseNextDroite(tabCases[x][y - 1]);
 					k++;
 				}
-				tabCases[x][y-k].setCaseNextDroite(tabCases[x][y-1]);
+				tabCases[x][y - k].setCaseNextDroite(tabCases[x][y - 1]);
+				if (y - k > 0 && tabCases[x][y - k - 1].estOccupe()) {
+					tabCases[x][y - k - 1].setCaseNextDroite(tabCases[x][y - 1]);
+				}
 			}
 		}
-		
+
 		// Droite
-		if (y != taille-1) {
-			tabCases[x][y+1].setCaseNextGauche(new Case());
-			if (y+1 < taille-1) {
+		if (y != taille - 1) {
+			tabCases[x][y + 1].setCaseNextGauche(new Case());
+			if (y + 1 < taille - 1) {
 				k = 2;
-				while (!tabCases[x][y+k].getCaseNextDroite().estVide()) {
-					tabCases[x][y+k].setCaseNextGauche(tabCases[x][y+1]);
+				while (!tabCases[x][y + k].getCaseNextDroite().estVide()) {
+					tabCases[x][y + k].setCaseNextGauche(tabCases[x][y + 1]);
 					k++;
 				}
-				tabCases[x][y+k].setCaseNextGauche(tabCases[x][y+1]);
+				tabCases[x][y + k].setCaseNextGauche(tabCases[x][y + 1]);
+				if ((y + k < (taille - 1)) && tabCases[x][y + k + 1].estOccupe()) {
+					tabCases[x][y + k + 1].setCaseNextGauche(tabCases[x][y + 1]);
+				}
 			}
 		}
-		
+
 		// Haut
 		if (x != 0) {
-			tabCases[x-1][y].setCaseNextBas(new Case());
-			if (x-1 > 0) {
+			tabCases[x - 1][y].setCaseNextBas(new Case());
+			if (x - 1 > 0) {
 				k = 2;
-				while (!tabCases[x-k][y].getCaseNextHaut().estVide()) {
-					tabCases[x-k][y].setCaseNextBas(tabCases[x-1][y]);
+				while (!tabCases[x - k][y].getCaseNextHaut().estVide()) {
+					tabCases[x - k][y].setCaseNextBas(tabCases[x - 1][y]);
 					k++;
 				}
-				tabCases[x-k][y].setCaseNextBas(tabCases[x-1][y]);
+				tabCases[x - k][y].setCaseNextBas(tabCases[x - 1][y]);
+				if (x - k > 0 && tabCases[x - k - 1][y].estOccupe()) {
+					tabCases[x - k - 1][y].setCaseNextBas(tabCases[x - 1][y]);
+				}
 			}
 		}
-		
-		if (x != taille-1) {
-			tabCases[x+1][y].setCaseNextHaut(new Case());
-			if (x+1 < taille-1) {
+
+		if (x != taille - 1) {
+			tabCases[x + 1][y].setCaseNextHaut(new Case());
+			if (x + 1 < taille - 1) {
 				k = 2;
-				while (!tabCases[x+k][y].getCaseNextBas().estVide()) {
-					tabCases[x+k][y].setCaseNextHaut(tabCases[x+1][y]);
+				while (!tabCases[x + k][y].getCaseNextBas().estVide()) {
+					tabCases[x + k][y].setCaseNextHaut(tabCases[x + 1][y]);
 					k++;
 				}
-				tabCases[x+k][y].setCaseNextHaut(tabCases[x+1][y]);
+				tabCases[x + k][y].setCaseNextHaut(tabCases[x + 1][y]);
+				if (x + k < taille - 1 && tabCases[x + k + 1][y].estOccupe()) {
+					tabCases[x + k + 1][y].setCaseNextHaut(tabCases[x + 1][y]);
+				}
 			}
 		}
 	}
