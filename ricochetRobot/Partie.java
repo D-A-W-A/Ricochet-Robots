@@ -108,12 +108,9 @@ public abstract class Partie extends FlecheClavierListener {
 
 	////////// METHODES /////////
 
-
 	public String toString() {
 		return plateau.toString();
 	}
-
-
 
 	///////// GESTION DE LA PARTIE ////////
 	/**
@@ -172,8 +169,8 @@ public abstract class Partie extends FlecheClavierListener {
 	 * == Si le joueur appuie sur R, une nouvelle manche est lancee<br>
 	 * <br>
 	 * Lorsque la partie est arrettee :<br>
-	 * == Si le joueur appuie sur O, une nouvelle manche est lancee == Si le
-	 * joueur appuie sur N, La partie se termine et se ferme.
+	 * == Si le joueur appuie sur O, une nouvelle manche est lancee == Si le joueur
+	 * appuie sur N, La partie se termine et se ferme.
 	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -217,7 +214,7 @@ public abstract class Partie extends FlecheClavierListener {
 		}
 
 	}
-	
+
 	/**
 	 * Gestion des boutons du menu de gauche
 	 */
@@ -227,18 +224,13 @@ public abstract class Partie extends FlecheClavierListener {
 		System.out.println("Clic de : " + b.getText());
 	}
 
-
 	//////////// CREATION ET MAJ DE LA PARTIE ///////////
 
 	/**
 	 * Cree une partie en generant un plateau, met le compteur de coups et l'etat de
-	 * la partie a 0
-	 * Place les robots;
-	 * Place un objectif;
-	 * Appelle lancerPartie();
+	 * la partie a 0 Place les robots; Place un objectif; Appelle lancerPartie();
 	 */
 	public abstract void creerPartie();
-
 
 	/**
 	 * Met a jour l'interface graphique / terminal pour montrer la nouvelle
@@ -249,25 +241,25 @@ public abstract class Partie extends FlecheClavierListener {
 	/**
 	 * 
 	 * Permet de lancer une partie avec toute les fonctionnalites necessaires:
-	 * Appelle creerPartie();
-	 * Appelle lancerPartie();
+	 * Appelle creerPartie(); Appelle lancerPartie();
 	 *
 	 */
 	protected abstract void mainPartieAux();
 
 	/**
-	 * Fonction appelee dans le main(String[] args)
-	 * Instancie une nouvelle partie puis appelle mainPartieAux():
+	 * Fonction appelee dans le main(String[] args) Instancie une nouvelle partie
+	 * puis appelle mainPartieAux():
 	 */
 	public static void mainPartie() {
 	}
 
-
 	/////// RESOLUTION DU JEU ///////
 
 	/**
-	 * Prend la solution sous forme de LinkedList et la retourne sous forme de tableau.
-	 * ATTENTION : La méthode est non destructrice de la liste en parametre mais pourra être lourde pour les longues solutions. 
+	 * Prend la solution sous forme de LinkedList et la retourne sous forme de
+	 * tableau. ATTENTION : La méthode est non destructrice de la liste en parametre
+	 * mais pourra être lourde pour les longues solutions.
+	 * 
 	 * @return La solution sous forme de tableau
 	 */
 	protected int[] solveToTab(LinkedList<Integer> solution) {
@@ -275,87 +267,108 @@ public abstract class Partie extends FlecheClavierListener {
 			return new int[0];
 		} else {
 			int[] pathArray = new int[solution.size()];
-			for(int i=0; i<solution.size(); i++) {
-				pathArray[i] = solution.get(i); 
+			for (int i = 0; i < solution.size(); i++) {
+				pathArray[i] = solution.get(i);
 			}
 			return pathArray;
 		}
 	}
 
-	
 	/**
 	 * Affiche la solution textuellement.
 	 */
 	protected void displaySolution() {
-			System.out.println(toStringSolution());
+		System.out.println(toStringSolution());
 
 	}
-	
+
 	/**
 	 * Appelle solve et affiche renvoie une chaine de caractere de la solution
 	 */
 	public String toStringSolution() {
 		int[] solution = solveToTab(solve1());
-		if (solution.length==0) {
-			return("L'objectif n'est pas atteignable");
-		}else {
+		if (solution.length == 0) {
+			return ("L'objectif n'est pas atteignable");
+		} else {
 			StringBuilder s = new StringBuilder("La solution est : ");
-			for (int i=0; i< solution.length-1; i++) {
+			for (int i = 0; i < solution.length - 1; i++) {
 				switch (solution[i]) {
-				case 0 : s.append("gauche, "); break;
-				case 1 : s.append("haut, "); break;
-				case 2 : s.append("droite, "); break;
-				case 3 : s.append("bas, "); break;
+				case 0:
+					s.append("gauche, ");
+					break;
+				case 1:
+					s.append("haut, ");
+					break;
+				case 2:
+					s.append("droite, ");
+					break;
+				case 3:
+					s.append("bas, ");
+					break;
 				}
 			}
-			switch (solution[solution.length-1]) { //Pour le dernier coup, on finit la phrase par un point.
-			case 0 : s.append("gauche. "); break;
-			case 1 : s.append("haut. "); break;
-			case 2 : s.append("droite. "); break;
-			case 3 : s.append("bas. "); break;
+			switch (solution[solution.length - 1]) { // Pour le dernier coup, on finit la phrase par un point.
+			case 0:
+				s.append("gauche. ");
+				break;
+			case 1:
+				s.append("haut. ");
+				break;
+			case 2:
+				s.append("droite. ");
+				break;
+			case 3:
+				s.append("bas. ");
+				break;
 			}
 			return s.toString();
 		}
 	}
 
 	/**
-	 * Les coups retournés sont des entiers sous la forme : 0 = gauche, 1 = haut, 2 = droite et 3 = bas
-	 * Si la liste est vide, l'objectif n'est pas atteignable
+	 * Les coups retournés sont des entiers sous la forme : 0 = gauche, 1 = haut, 2
+	 * = droite et 3 = bas Si la liste est vide, l'objectif n'est pas atteignable
+	 * 
 	 * @return La liste des coups
 	 */
 	protected LinkedList<Integer> solve1() {
-		LinkedList<Case> marked = new LinkedList<Case>(); // Création de la liste des cases "marquées en vert"
-		LinkedList<Case> checked = new LinkedList<Case>(); // Création de la liste des cases "marquées en rouge"
-		LinkedList<LinkedList<Integer>> path = new LinkedList<LinkedList<Integer>>(); // Contient les coups pour atteindre les cases de marked.
-		// Les coups sont des entiers : 0 = gauche, 1 = haut, 2 = droite et 3 = bas
-		// marked et path sont "liées" par l'index, c'est à dire qu'il faut réaliser les coups de
-		// path[i] pour atteindre marked[i] depuis la case d'origine du robot
-		marked.add(plateau.getTabRobots()[0].getCaseActuelle()); // La 1ere case marquée est celle où se trouve le robot
-		path.add(new LinkedList<Integer>());//Le premier chemin de la liste est celui de la seule case marquée. Ce chemin est vide !
+		LinkedList<Case> marked = new LinkedList<Case>();
+		LinkedList<Case> checked = new LinkedList<Case>();
+		LinkedList<LinkedList<Integer>> path = new LinkedList<LinkedList<Integer>>();
+
+		marked.add(plateau.getTabRobots()[0].getCaseActuelle());
+		path.add(new LinkedList<Integer>());
+
 		Case objectif = plateau.getObjectif();
-		LinkedList<Integer> finalPath = new LinkedList<Integer>(); //On stockera le chemin vers l'objectif là dedans s'il y en a un
+		LinkedList<Integer> finalPath = new LinkedList<Integer>();
+
 		boolean found = false;
-		while(!found && !marked.isEmpty()) { //Tant qu'on a pas trouvé l'objectif et qu'il y a des cases marquées
-			Case current = marked.getFirst(); // On s'intéresse à la première case de la FIFO marquée
-			if (current.estVide()) {} //Si elle est vide, elle ne nous intéresse pas
-			else if (current.equals(objectif)){ //Si c'est l'objectif
-				found = true; //On l'a trouvé
-				finalPath.addAll(path.peek()); //On récupère le chemin jusqu'à lui
-			}
-			else { //Si c'est pas l'objectif et qu'elle est pas vide
-				for (int i=0; i<4; i++) { //Pour chacune de ses voisines
+
+		while (!found && !marked.isEmpty()) {
+			Case current = marked.getFirst();
+			
+			if (current.estVide()) {}
+			
+			else if (current.equals(objectif)) {
+				found = true;
+				finalPath.addAll(path.peek());
+			} 
+			
+			else {
+				for (int i = 0; i < 4; i++) {
 					Case nextI = current.getCaseNext(i);
-					if(!checked.contains(nextI)&&!marked.contains(nextI)) {
-						marked.add(nextI); //On la marque
-						LinkedList<Integer> nextPath = new LinkedList<Integer>(path.peek()); //On initialise le chemin jusqu'à cette case suivante en utilisant le chemin jusqu'à courant
-						nextPath.add(i); // On ajoute à ce chemin le coup pour passer de courant à cette case suivante 
-						path.add(nextPath); // On place ce chemin à la fin de la liste des chemins
+					if (!checked.contains(nextI) && !marked.contains(nextI)) {
+						marked.add(nextI);
+						LinkedList<Integer> nextPath = new LinkedList<Integer>(path.peek());
+						nextPath.add(i);
+						path.add(nextPath);
 					}
 				}
 			}
-			checked.add(current); //Une fois tou ça fait, on "marque en rouge" la case courante
-			marked.remove(); //On la retire des "cases en vert"
-			path.remove(); //On n'a plus besoin du chemin jusqu'à la case courrante
+			
+			checked.add(current);
+			marked.remove();
+			path.remove();
 		}
 		return finalPath;
 	}

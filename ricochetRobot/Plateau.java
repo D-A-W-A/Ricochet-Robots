@@ -109,30 +109,29 @@ public class Plateau {
 	// ///// METHODES /////////
 
 	/**
-	 * Genere un plateau sans aucun murs
+	 * Genere un plateau sans aucun murs sauf les bords du plateau
+	 * Attribue les CaseNext et initialise les coordonnees de chaque case
 	 */
 	public void genererPlateauSansMur() {
 		Case caseNonVide = Case.creerCase();
 		Case caseVide = new Case();
 
-		Case[] tVide = new Case[4];
-		for (int i = 0; i < 4; i++) {
-			tVide[i] = caseVide;
-		}
-
+		// Tableau de cases non vides qui sera attribuee
+		// temporairement a toutes les cases
 		Case[] tNonVide = new Case[4];
 		for (int i = 0; i < 4; i++) {
 			tNonVide[i] = caseNonVide;
 		}
 
+		// Initialisation du tableau de Cases
 		tabCases = new Case[taille][taille];
 
-		// Ajout du plateau global
+		// Ajout du plateau global, on remplit toutes les cases du tableau
+		// par des variables de type Case
 		for (int i = 0; i < taille; i++) {
 			for (int j = 0; j < taille; j++) {
 				tabCases[i][j] = new Case();
 				tabCases[i][j].setCaseNext(tNonVide);
-
 			}
 		}
 
@@ -155,7 +154,10 @@ public class Plateau {
 		for (int j = 0; j < taille; j++) {
 			tabCases[taille - 1][j].setCaseNextBas(caseVide);
 		}
+		
+		// On remplit les attributs de chaque Case
 		insererCoordonees();
+		// Attribue les bonnes CaseNext
 		configureCaseNextPlateau();
 	}
 
@@ -515,19 +517,24 @@ public class Plateau {
 
 	/**
 	 * Ajoute un mur sur le plateau aux coordonnes (i,j) et sur le haut de la case
-	 * et redefinie toutes les autres cases pour pouvoir interagir avec ce nouveau
+	 * et redefinit toutes les autres cases pour pouvoir interagir avec ce nouveau
 	 * mur <br>
 	 * 
 	 * @param i
-	 *            la ligne
+	 *            la ligne de la case
 	 * @param j
-	 *            la colone
+	 *            la colonne de la case
 	 */
 	public void ajouterMurHaut(int i, int j) {
+		// Remplacement de la case suivante par une Case vide
 		tabCases[i][j].setCaseNextHaut(new Case());
+		
+		// Si on ne se trouve pas sur la premiere ligne, alors on remplace la
+		// CaseNext de la case au dessus par une case vide
 		if (i > 0)
 			tabCases[i - 1][j].setCaseNextBas(new Case());
 
+		// On redefinis la caseNextBas de toutes les cases au dessus du mur
 		if (i > 1) {
 			if (!tabCases[i - 1][j].getCaseNextHaut().estVide()) {
 				int k = 2;
@@ -539,6 +546,7 @@ public class Plateau {
 			}
 		}
 
+		// On redefinis la caseNextHaut de toutes les cases en dessous du mur
 		if (i < taille - 1) {
 			if (!tabCases[i][j].getCaseNextBas().estVide()) {
 				int k = 1;
@@ -774,17 +782,17 @@ public class Plateau {
 	}
 
 	/**
-	 * Genere un plateau grace a un tableau d'int qui definie les murs :<br>
+	 * Genere un plateau grace a un tableau d'entiers qui definit les murs :<br>
 	 * - 1 : Un angle Gauche-Haut<br>
 	 * - 2 : Un angle Haut-Droite<br>
 	 * - 3 : Un angle Droite-Bas<br>
 	 * - 4 : Un angle Bas-Gauche<br>
-	 * - Autre : Une case normale, sans aucuns murs<br>
+	 * - Autre : Une Case normale, sans aucun mur<br>
 	 * <br>
-	 * Prereq : Le tableau doit etre de la meme taille que le plateau
+	 * Prereq : Le tableau murs doit etre de la meme taille que le plateau
 	 * 
-	 * @param murs
-	 *            le tableau des murs
+	 * @param murs 
+	 *            : le tableau des murs
 	 * @param posXObjectif
 	 *            : La position x de l'objectif
 	 * @param posYObjectif
@@ -793,21 +801,33 @@ public class Plateau {
 	 * 
 	 */
 	public void genererPlateau(int[][] murs, int posXObjectif, int posYObjectif) {
+		// Genere d'abord un plateau sans mur
 		genererPlateauSansMur();
+		
+		// Transforme une case du tableau en CaseObjectif
 		ajouterObjectif(posXObjectif, posYObjectif);
+		
+		// Ajoute les murs en fonction du tableau 'murs'
 		for (int i = 0; i < murs.length; i++) {
 			for (int j = 0; j < murs.length; j++) {
+				
+				// Ajoute un mur a gauche et en haut de la case [i,j]
 				if (murs[i][j] == 1)
 					ajouterCoinGH(i, j);
+				
+				// Ajoute un mur en haut et a droite de la case [i,j]
 				if (murs[i][j] == 2)
 					ajouterCoinHD(i, j);
+				
+				// Ajoute un mur a droite et en bas de la case [i,j]
 				if (murs[i][j] == 3)
 					ajouterCoinDB(i, j);
+				
+				// Ajoute un mur en bas et a gauche de la case [i,j]
 				if (murs[i][j] == 4)
 					ajouterCoinBG(i, j);
 			}
 		}
-		// System.out.println(tabCases[objectifPos[0]][objectifPos[1]].getCaseNextDroite().getCaseNextGauche().getPosX());
 	}
 
 	/**
