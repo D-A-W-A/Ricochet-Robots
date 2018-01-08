@@ -223,116 +223,182 @@ public class Plateau {
 
 		// -------------------- Ligne
 		if (!tabCases[x1][y1].getCaseNextGauche().estVide() && !tabCases[x1][y1].getCaseNextDroite().estVide()) {
+
+//			// Si il y a un robot juste a cote
+//			if (tabCases[x1][y1].getCaseNextDroite().estVide() && y1 != taille - 1
+//					&& tabCases[x1][y1 + 1].estOccupe()) {
+//				tabCases[x1][y1 + 1].setCaseNextGauche(tabCases[x1][y1].getCaseNextGauche());
+//				System.out.println("PLOOOOOP");
+//			}
+//
+//			// Si il y a un robot juste a cote
+//			if (tabCases[x1][y1].getCaseNextGauche().estVide() && y1 != 0 && tabCases[x1][y1 - 1].estOccupe()) {
+//				tabCases[x1][y1 - 1].setCaseNextDroite(tabCases[x1][y1].getCaseNextDroite());
+//				System.out.println("PLOOOOOP");
+//			}
+
+			// Cases de droites
 			k = 0;
 			while (!tabCases[x1][y1 + k].getCaseNextDroite().estVide()) {
 				tabCases[x1][y1 + k].setCaseNextGauche(tabCases[x1][y1].getCaseNextGauche());
 				k++;
 				if (tabCases[x1][y1 + k].getCaseNextDroite().estVide() && y1 + k != taille - 1
 						&& tabCases[x1][y1 + k + 1].estOccupe()) {
-					System.out.println("Suppression avec robot aligné DROITE");
+					// System.out.println("Suppression avec robot aligné DROITE");
 					tabCases[x1][y1 + k].setCaseNextGauche(tabCases[x1][y1].getCaseNextGauche());
 					k++;
 				}
 			}
 			tabCases[x1][y1 + k].setCaseNextGauche(tabCases[x1][y1].getCaseNextGauche());
+
+			// Cases de gauches
 			k = 0;
 			while (!tabCases[x1][y1 - k].getCaseNextGauche().estVide()) {
 				tabCases[x1][y1 - k].setCaseNextDroite(tabCases[x1][y1].getCaseNextDroite());
 				k++;
 				if (tabCases[x1][y1 - k].getCaseNextGauche().estVide() && y1 - k != 0
 						&& tabCases[x1][y1 - k - 1].estOccupe()) {
-					System.out.println("Suppression avec robot aligné GAUCHE");
+					// System.out.println("Suppression avec robot aligné GAUCHE");
 					tabCases[x1][y1 - k].setCaseNextDroite(tabCases[x1][y1].getCaseNextDroite());
 					k++;
 				}
 			}
 			tabCases[x1][y1 - k].setCaseNextDroite(tabCases[x1][y1].getCaseNextDroite());
+
 		}
-		// Cases de gauche
+
+		// S'il y a un mur : uniquement les Cases de gauche
 		else if (tabCases[x1][y1].getCaseNextGauche().estVide() && !tabCases[x1][y1].getCaseNextDroite().estVide()) {
+			// Si il y a un robot au cac
+			if (y1 != 0 && tabCases[x1][y1 - 1].estOccupe()) {
+				tabCases[x1][y1 - 1].setCaseNextDroite(tabCases[x1][y1].getCaseNextDroite());
+				System.out.println("PLOOOOOP");
+			}
+
 			k = 1;
 			while (!tabCases[x1][y1 + k].getCaseNextDroite().estVide()) {
 				tabCases[x1][y1 + k].setCaseNextGauche(tabCases[x1][y1]);
 				k++;
 				if (tabCases[x1][y1 + k].getCaseNextDroite().estVide() && y1 + k != taille - 1
 						&& tabCases[x1][y1 + k + 1].estOccupe()) {
-					System.out.println("Suppression avec robot aligné DROITE");
+					// System.out.println("Suppression avec robot aligné DROITE");
 					tabCases[x1][y1 + k].setCaseNextGauche(tabCases[x1][y1]);
 					k++;
 				}
 			}
 			tabCases[x1][y1 + k].setCaseNextGauche(tabCases[x1][y1]);
+
+			// S'il y a un mur : Uniquement les cases de droites
 		} else if (tabCases[x1][y1].getCaseNextDroite().estVide() && !tabCases[x1][y1].getCaseNextGauche().estVide()) {
+			// Si il y a un robot au cac
+			if (y1 != taille-1 && tabCases[x1][y1 + 1].estOccupe()) {
+				tabCases[x1][y1 + 1].setCaseNextGauche(tabCases[x1][y1].getCaseNextGauche());
+				System.out.println("PLOOOOOP");
+			}
 			k = 1;
 			while (!tabCases[x1][y1 - k].getCaseNextGauche().estVide()) {
 				tabCases[x1][y1 - k].setCaseNextDroite(tabCases[x1][y1]);
 				k++;
 				if (tabCases[x1][y1 - k].getCaseNextGauche().estVide() && y1 - k != 0
 						&& tabCases[x1][y1 - k - 1].estOccupe()) {
-					System.out.println("Suppression avec robot aligné GAUCHE");
+					// System.out.println("Suppression avec robot aligné GAUCHE");
 					tabCases[x1][y1 - k].setCaseNextDroite(tabCases[x1][y1]);
 					k++;
 				}
 			}
 			tabCases[x1][y1 - k].setCaseNextDroite(tabCases[x1][y1]);
+
 		}
 
 		// --------------------- Colonne
 		if (!tabCases[x1][y1].getCaseNextHaut().estVide() && !tabCases[x1][y1].getCaseNextBas().estVide()) {
+//			// Si il y a un Robot au cac
+//			if (tabCases[x1][y1].getCaseNextBas().estVide() && x1 != taille - 1 && tabCases[x1 + 1][y1].estOccupe()) {
+//				tabCases[x1 + 1][y1].setCaseNextHaut(tabCases[x1][y1].getCaseNextHaut());
+//				System.out.println("PLOOOOOP");
+//			}
+//
+//			// Si il y a un robot au cac
+//			if (tabCases[x1][y1].getCaseNextHaut().estVide() && x1 != 0 && tabCases[x1 - 1][y1].estOccupe()) {
+//				tabCases[x1 - 1][y1].setCaseNextBas(tabCases[x1][y1].getCaseNextBas());
+//				System.out.println("PLOOOOOP");
+//			}
+			// Cases du bas
 			k = 0;
-
 			while (!tabCases[x1 + k][y1].getCaseNextBas().estVide()) {
 				tabCases[x1 + k][y1].setCaseNextHaut(tabCases[x1][y1].getCaseNextHaut());
 				k++;
 				if (tabCases[x1 + k][y1].getCaseNextBas().estVide() && x1 + k != taille - 1
 						&& tabCases[x1 + k + 1][y1].estOccupe()) {
-					System.out.println("Suppression avec robot aligné BAS");
+					// System.out.println("Suppression avec robot aligné BAS");
 					tabCases[x1 + k][y1].setCaseNextHaut(tabCases[x1][y1].getCaseNextHaut());
 					k++;
 				}
 			}
 			tabCases[x1 + k][y1].setCaseNextHaut(tabCases[x1][y1].getCaseNextHaut());
 
+			// Cases du bas
 			k = 0;
 			while (!tabCases[x1 - k][y1].getCaseNextHaut().estVide()) {
 				tabCases[x1 - k][y1].setCaseNextBas(tabCases[x1][y1].getCaseNextBas());
 				k++;
 				if (tabCases[x1 - k][y1].getCaseNextHaut().estVide() && x1 - k != 0
 						&& tabCases[x1 - k - 1][y1].estOccupe()) {
-					System.out.println("Suppression avec robot aligné HAUT");
+					// System.out.println("Suppression avec robot aligné HAUT");
 					tabCases[x1 - k][y1].setCaseNextBas(tabCases[x1][y1].getCaseNextBas());
 					k++;
 				}
 			}
 			tabCases[x1 - k][y1].setCaseNextBas(tabCases[x1][y1].getCaseNextBas());
+
 		}
-		// Cases de gauche
+
+		// Si il y a un mur, uniquement les cases du bas
 		else if (tabCases[x1][y1].getCaseNextHaut().estVide() && !tabCases[x1][y1].getCaseNextBas().estVide()) {
+			
+
+			// Si il y a un Robot au cac
+			if (x1 != 0 && tabCases[x1 - 1][y1].estOccupe()) {
+				tabCases[x1 - 1][y1].setCaseNextBas(tabCases[x1][y1].getCaseNextBas());
+				System.out.println("PLOOOOOP");
+			}
+
 			k = 1;
 			while (!tabCases[x1 + k][y1].getCaseNextBas().estVide()) {
 				tabCases[x1 + k][y1].setCaseNextHaut(tabCases[x1][y1]);
 				k++;
 				if (tabCases[x1 + k][y1].getCaseNextBas().estVide() && x1 + k != taille - 1
 						&& tabCases[x1 + k + 1][y1].estOccupe()) {
-					System.out.println("Suppression avec robot aligné BAS");
+					// System.out.println("Suppression avec robot aligné BAS");
 					tabCases[x1 + k][y1].setCaseNextHaut(tabCases[x1][y1]);
 					k++;
 				}
 			}
 			tabCases[x1 + k][y1].setCaseNextHaut(tabCases[x1][y1]);
+
+			// Si il y a un mur : uniquement les cases du haut
 		} else if (tabCases[x1][y1].getCaseNextBas().estVide() && !tabCases[x1][y1].getCaseNextHaut().estVide()) {
+			
+			// Si il y a un Robot au cac
+			if (x1 != taille-1 && tabCases[x1 + 1][y1].estOccupe()) {
+				tabCases[x1 + 1][y1].setCaseNextHaut(tabCases[x1][y1].getCaseNextHaut());
+				System.out.println("PLOOOOOP");
+			}
+
+
 			k = 1;
 			while (!tabCases[x1 - k][y1].getCaseNextHaut().estVide()) {
 				tabCases[x1 - k][y1].setCaseNextBas(tabCases[x1][y1]);
 				k++;
 				if (tabCases[x1 - k][y1].getCaseNextHaut().estVide() && x1 - k != 0
 						&& tabCases[x1 - k - 1][y1].estOccupe()) {
-					System.out.println("Suppression avec robot aligné HAUT");
+					// System.out.println("Suppression avec robot aligné HAUT");
 					tabCases[x1 - k][y1].setCaseNextBas(tabCases[x1][y1]);
 					k++;
 				}
 			}
 			tabCases[x1 - k][y1].setCaseNextBas(tabCases[x1][y1]);
+
 		}
 
 	}
