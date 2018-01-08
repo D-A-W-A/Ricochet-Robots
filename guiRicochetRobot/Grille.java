@@ -59,12 +59,10 @@ public class Grille extends JPanel implements ActionListener, Observable {
 
 				// On place le robot s'il y en a un
 				for (int x = 0; x < posRobot.length; x++) {
-					if (x == 0) {
-						if (posRobot[x][0] == i && posRobot[x][1] == j)
-							grille[i][j].setHasRobot(1);
-					} else {
-						if (posRobot[x][0] == i && posRobot[x][1] == j)
-							grille[i][j].setHasRobot(2);
+					if (posRobot[x][0] == i && posRobot[x][1] == j) {
+							grille[i][j].setHasRobot(x+1);
+							if (x == 0)
+								grille[i][j].setSelected(true);
 					}
 				}
 

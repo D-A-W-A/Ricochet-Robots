@@ -1,14 +1,10 @@
 package ricochetRobot;
 
-import java.awt.BorderLayout;
-
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
+import guiRicochetRobot.CaseGrille;
 import guiRicochetRobot.Grille;
 
 /**
@@ -66,9 +62,22 @@ public class PartieClassiqueGui extends PartieClassique {
 	public void update(String ob) {
 		// On reccupere la case cliquee
 		if (getEtatPartie() == 1) {
-			int next = this.getGrille().getGrille()[getGrille().getCoordCaseClic()[0]][getGrille()
-					.getCoordCaseClic()[1]].isNext();
+			CaseGrille c = this.getGrille().getGrille()[getGrille().getCoordCaseClic()[0]][getGrille()
+					.getCoordCaseClic()[1]];
+			int hasRobot = c.getHasRobot();
+			int next = c.isNext();
 
+			// On modifie la selection du robot
+			if (hasRobot != 0 && hasRobot != 1) {
+				// On reccupere la case actuelle
+				int[] coordCaseActuelle = { getPlateau().getTabRobots()[getRobotSelectionne()].getCaseActuelle().getPosX(),
+						getPlateau().getTabRobots()[getRobotSelectionne()].getCaseActuelle().getPosY() };
+				getGrille().getGrille()[coordCaseActuelle[0]][coordCaseActuelle[1]].setSelected(false);;
+				
+				c.setSelected(true);
+				setRobotSelectionne(hasRobot-1);
+
+			}
 			// On deplace le robot s'il s'agit d'une caseNext
 			if (next != 0) {
 				supprimerNext();
@@ -122,6 +131,7 @@ public class PartieClassiqueGui extends PartieClassique {
 		int[] coord = { getPlateau().getTabRobots()[num].getCaseActuelle().getPosX(),
 				getPlateau().getTabRobots()[num].getCaseActuelle().getPosY() };
 		getGrille().getGrille()[coord[0]][coord[1]].setHasRobot(0);
+		getGrille().getGrille()[coord[0]][coord[1]].setSelected(false);
 	}
 
 	/**
@@ -130,7 +140,8 @@ public class PartieClassiqueGui extends PartieClassique {
 	public void placerRobot(int num) {
 		int[] coord = { getPlateau().getTabRobots()[num].getCaseActuelle().getPosX(),
 				getPlateau().getTabRobots()[num].getCaseActuelle().getPosY() };
-		getGrille().getGrille()[coord[0]][coord[1]].setHasRobot(1);
+		getGrille().getGrille()[coord[0]][coord[1]].setHasRobot(getRobotSelectionne() + 1);
+		getGrille().getGrille()[coord[0]][coord[1]].setSelected(true);
 	}
 
 	/**
@@ -189,8 +200,8 @@ public class PartieClassiqueGui extends PartieClassique {
 		dispose();
 		mainPartie();
 	}
-	
-	public int[][] placerRobotGui () {
+
+	public int[][] placerRobotGui() {
 		int[][] posRobots = new int[this.getPlateau().getTabRobots().length][2];
 		for (int i = 0; i < this.getPlateau().getTabRobots().length; i++) {
 			posRobots[i][0] = this.getPlateau().getTabRobots()[i].getCaseActuelle().getPosX();
