@@ -53,24 +53,28 @@ public class Grille extends JPanel implements ActionListener, Observable {
 		for (int i = 0; i < taille; i++) {
 			for (int j = 0; j < taille; j++) {
 				grille[i][j] = new CaseGrille(i, j, murs[i][j]);
-				
+
 				// On y definit les murs
 				grille[i][j].setMurs(murs[i][j]);
-				
+
 				// On place le robot s'il y en a un
-				for (int x = 0; x<posRobot.length; x++) {
-					if (posRobot[x][0] == i && posRobot[x][1] == j)
-						grille[i][j].setHasRobot(true);
+				for (int x = 0; x < posRobot.length; x++) {
+					if (x == 0) {
+						if (posRobot[x][0] == i && posRobot[x][1] == j)
+							grille[i][j].setHasRobot(1);
+					} else {
+						if (posRobot[x][0] == i && posRobot[x][1] == j)
+							grille[i][j].setHasRobot(2);
+					}
 				}
 
-				
 				// On place l'objectif
 				if (posObjectif[0] == i && posObjectif[1] == j)
 					grille[i][j].setObjective(true);
-				
+
 				// La grille ecoute chacune des cases
 				grille[i][j].addActionListener(this);
-				
+
 				// On ajoute la nouvelle case au tableau
 				this.add(grille[i][j]);
 			}
@@ -108,32 +112,33 @@ public class Grille extends JPanel implements ActionListener, Observable {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		CaseGrille c = (CaseGrille) (e.getSource());
-//		System.out.println("X : " + c.getPosX() + "\tY : " + c.getPosY());
-//		System.out.println("Mur ? " + c.getMurs());
-//		System.out.println("Next ? " + c.isNext());
-//		System.out.println("obj ? " + c.isObjective());
-//		System.out.println("Robot ? " + c.HasRobot() + "\n");
+		// System.out.println("X : " + c.getPosX() + "\tY : " + c.getPosY());
+		// System.out.println("Mur ? " + c.getMurs());
+		// System.out.println("Next ? " + c.isNext());
+		// System.out.println("obj ? " + c.isObjective());
+		// System.out.println("Robot ? " + c.HasRobot() + "\n");
 		coordCaseClic[0] = c.getPosX();
 		coordCaseClic[1] = c.getPosY();
 		this.updateObservateur();
 	}
 
 	/**
-	 *  Ajoute un observateur a la liste
+	 * Ajoute un observateur a la liste
 	 */
 	public void addObservateur(Observateur obs) {
 		this.listObservateur.add(obs);
 	}
 
 	/**
-	 *  Retire tous les observateurs de la liste
+	 * Retire tous les observateurs de la liste
 	 */
 	public void delObservateur() {
 		this.listObservateur = new ArrayList<Observateur>();
 	}
 
 	/**
-	 *  Avertit les observateurs que l'objet observable a change et invoque la methode update() de chaque observateur
+	 * Avertit les observateurs que l'objet observable a change et invoque la
+	 * methode update() de chaque observateur
 	 */
 	public void updateObservateur() {
 		for (Observateur obs : this.listObservateur)

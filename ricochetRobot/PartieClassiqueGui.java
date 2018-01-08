@@ -121,7 +121,7 @@ public class PartieClassiqueGui extends PartieClassique {
 	public void supprimerRobot(int num) {
 		int[] coord = { getPlateau().getTabRobots()[num].getCaseActuelle().getPosX(),
 				getPlateau().getTabRobots()[num].getCaseActuelle().getPosY() };
-		getGrille().getGrille()[coord[0]][coord[1]].setHasRobot(false);
+		getGrille().getGrille()[coord[0]][coord[1]].setHasRobot(0);
 	}
 
 	/**
@@ -130,7 +130,7 @@ public class PartieClassiqueGui extends PartieClassique {
 	public void placerRobot(int num) {
 		int[] coord = { getPlateau().getTabRobots()[num].getCaseActuelle().getPosX(),
 				getPlateau().getTabRobots()[num].getCaseActuelle().getPosY() };
-		getGrille().getGrille()[coord[0]][coord[1]].setHasRobot(true);
+		getGrille().getGrille()[coord[0]][coord[1]].setHasRobot(1);
 	}
 
 	/**
