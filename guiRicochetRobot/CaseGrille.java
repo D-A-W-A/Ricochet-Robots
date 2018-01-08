@@ -156,15 +156,18 @@ public class CaseGrille extends JButton implements MouseListener {
 	}
 
 	/**
-	 * Met le fond de la case selectionnee en evidence
+	 * Met la case selectionnee en evidence
 	 * 
 	 * @param g
 	 */
 	private void backgroundSelected(Graphics g) {
 		if (selected) {
-			g.setColor(Color.decode("#6495ED"));
+			//g.setColor(Color.decode("#6495ED"));
 			g.setColor(Color.red);
-			g.fillRect(5, this.getHeight() - 10, this.getWidth()-10, this.getHeight());
+			g.fillRect(10, this.getHeight() - 5, this.getWidth()-20, 5);
+			g.fillRect(10, 0, this.getWidth()-20, 5);
+			g.fillRect(getWidth()-5, 10, 5, getHeight()-20);
+			g.fillRect(0, 10, 5, getHeight()-20);
 		}
 	}
 
