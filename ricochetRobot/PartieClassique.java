@@ -232,6 +232,7 @@ public class PartieClassique extends Partie {
 				p.supprimerRobot(i);
 				posRobot = p.placerRobotRandom(i);
 			}
+			p.ajouterMursRobot (posRobot[0], posRobot[1]);
 		}
 	}
 

@@ -284,13 +284,16 @@ public abstract class Partie extends FlecheClavierListener {
 
 	
 	/**
-	 * Appelle solve et affiche la solution textuellement.
+	 * Affiche la solution textuellement.
 	 */
 	protected void displaySolution() {
 			System.out.println(toStringSolution());
 
 	}
 	
+	/**
+	 * Appelle solve et affiche renvoie une chaine de caractere de la solution
+	 */
 	public String toStringSolution() {
 		int[] solution = solveToTab(solve1());
 		if (solution.length==0) {

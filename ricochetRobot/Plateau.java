@@ -192,59 +192,136 @@ public class Plateau {
 	}
 
 	/**
-	 * <h1>OBSOLETE NE PAS UTILISER</h1> Redefinis les lignes lors d'une
-	 * modification de case. <br>
-	 * ATTENTION : Ne prend pas en compte les murs :<br>
-	 * Pour inserer une case avec un mur, ajouter la case, utiliser les methodes
-	 * AjouterMur(), puis utiliser ensuite cette fonction
+	 * Redefinit les lignes en fonction du deplacement d'un robot <br>
+	 * Fonction appellee a chaque deplacement de robot
 	 * 
-	 * <br>
-	 * <br>
-	 * 
-	 * @param ligne
-	 *            la ligne
-	 * @param colone
-	 *            la colone
+	 * @param x1
+	 *            la ligne de depart du robot
+	 * @param y1
+	 *            la colonne de depart du robot
+	 * @param x2
+	 *            la ligne d'arrivee du robot
+	 * @param y2
+	 *            la colonne d'arrivee du robot
 	 */
-	public void redefinirLignes(int ligne, int colone) {
-		int k;
-		for (int m = 0; m < colone; m++) {
-			if (!tabCases[ligne][m].getCaseNextGauche().estVide()) {
-				// Ajout des CasesNext vers la gauche
-				k = 0;
-				while (!tabCases[ligne][m - k].getCaseNextGauche().estVide()) {
-					k++;
-				}
-				tabCases[ligne][m].setCaseNextGauche(tabCases[ligne][m - k]);
-			}
+	public void redefinirLignes(int x1, int y1, int x2, int y2) {
+		supprimerMursRobot(x1, y1);
+		ajouterMursRobot(x2, y2);
+	}
 
-			if (!tabCases[ligne][m].getCaseNextDroite().estVide()) {
-				// Ajout des CasesNext vers la Droite
-				k = 0;
-				while (!tabCases[ligne][m + k].getCaseNextDroite().estVide()) {
+	/**
+	 * Supprime les murs autours d'un robot (ancienne position du robot)
+	 * 
+	 * @param x1
+	 *            L'ancienne posX du robot
+	 * @param y1
+	 *            L'ancienne PosY du robot
+	 */
+	public void supprimerMursRobot(int x1, int y1) {
+		int k;
+		// --------- On retire le robot : redefinition des caseNext
+
+		// Cases de gauche
+		if (!tabCases[x1][y1].getCaseNextGauche().estVide()) {
+			k = 1;
+			while (!tabCases[x1][y1 - k].getCaseNextGauche().estVide()) {
+				tabCases[x1][y1 - k].setCaseNextDroite(tabCases[x1][y1]);
+				k++;
+			}
+			tabCases[x1][y1 - k].setCaseNextDroite(tabCases[x1][y1]);
+		}
+
+		// Cases de droite
+		if (!tabCases[x1][y1].getCaseNextDroite().estVide()) {
+			k = 1;
+			while (!tabCases[x1][y1 + k].getCaseNextDroite().estVide()) {
+				tabCases[x1][y1 + k].setCaseNextGauche(tabCases[x1][y1]);
+				k++;
+			}
+			tabCases[x1][y1 + k].setCaseNextGauche(tabCases[x1][y1]);
+		}
+
+		// Cases du haut
+		if (!tabCases[x1][y1].getCaseNextHaut().estVide()) {
+			k = 1;
+			while (!tabCases[x1 - k][y1].getCaseNextHaut().estVide()) {
+				tabCases[x1 - k][y1].setCaseNextBas(tabCases[x1][y1]);
+				k++;
+			}
+			tabCases[x1 - k][y1].setCaseNextBas(tabCases[x1][y1]);
+		}
+
+		// Cases du bas
+		if (!tabCases[x1][y1].getCaseNextBas().estVide()) {
+			k = 1;
+			while (!tabCases[x1 + k][y1].getCaseNextBas().estVide()) {
+				tabCases[x1 + k][y1].setCaseNextHaut(tabCases[x1][y1]);
+				k++;
+			}
+			tabCases[x1 + k][y1].setCaseNextHaut(tabCases[x1][y1]);
+		}
+	}
+
+	/**
+	 * Ajoute les murs autours d'un robot
+	 * 
+	 * @param x
+	 *            la posX du robot
+	 * @param y
+	 *            la posY du robot
+	 */
+	public void ajouterMursRobot(int x, int y) {
+		// -------- Definition des casesNext autours de la nouvelle position du Robot
+		int k;
+		// Cases de gauche
+		if (!tabCases[x][y].getCaseNextGauche().estVide() && y > 0) {
+			k = 2;
+			tabCases[x][y - 1].setCaseNextDroite(new Case());
+			if (y > 1) {
+				while (!tabCases[x][y - k].getCaseNextGauche().estVide()) {
+					tabCases[x][y - k].setCaseNextDroite(tabCases[x][y - 1]);
 					k++;
 				}
-				tabCases[ligne][m].setCaseNextDroite(tabCases[ligne][m + k]);
+				tabCases[x][y - k].setCaseNextDroite(tabCases[x][y - 1]);
 			}
 		}
 
-		for (int m = 0; m < ligne; m++) {
-			if (!tabCases[m][colone].getCaseNextHaut().estVide()) {
-				// Ajout des CasesNext vers le haut
-				k = 0;
-				while (!tabCases[m - k][colone].getCaseNextHaut().estVide()) {
+		// Cases de droite
+		if (!tabCases[1][y].getCaseNextDroite().estVide() && y < taille - 1) {
+			k = 2;
+			tabCases[x][y + 1].setCaseNextGauche(new Case());
+			if (y < taille - 2) {
+				while (!tabCases[x][y + k].getCaseNextDroite().estVide()) {
+					tabCases[x][y + k].setCaseNextGauche(tabCases[x][y + 1]);
 					k++;
 				}
-				tabCases[m][colone].setCaseNextHaut(tabCases[m - k][colone]);
+				tabCases[x][y + k].setCaseNextGauche(tabCases[x][y + 1]);
 			}
+		}
 
-			if (!tabCases[m][colone].getCaseNextBas().estVide()) {
-				// Ajout des CasesNext vers le bas
-				k = 0;
-				while (!tabCases[m + k][colone].getCaseNextBas().estVide()) {
+		// Cases du haut
+		if (!tabCases[x][y].getCaseNextHaut().estVide() && x > 0) {
+			k = 2;
+			tabCases[x - 1][y].setCaseNextBas(new Case());
+			if (x > 1) {
+				while (!tabCases[x - k][y].getCaseNextHaut().estVide()) {
+					tabCases[x - k][y].setCaseNextBas(tabCases[x - 1][y]);
 					k++;
 				}
-				tabCases[m][colone].setCaseNextBas(tabCases[m + k][colone]);
+				tabCases[x - k][y].setCaseNextBas(tabCases[x - 1][y]);
+			}
+		}
+
+		// Cases du bas
+		if (!tabCases[x][y].getCaseNextBas().estVide() && x < taille - 1) {
+			k = 2;
+			tabCases[x + 1][y].setCaseNextHaut(new Case());
+			if (x < taille - 2) {
+				while (!tabCases[x + k][y].getCaseNextBas().estVide()) {
+					tabCases[x + k][y].setCaseNextHaut(tabCases[x + 1][y]);
+					k++;
+				}
+				tabCases[x + k][y].setCaseNextHaut(tabCases[x + 1][y]);
 			}
 		}
 	}
@@ -558,7 +635,7 @@ public class Plateau {
 	 * @param posYObjectif
 	 *            : La position y de l'objectif
 	 * 
-	 *            TODO
+	 * 
 	 */
 	public void genererPlateau(int[][] murs, int posXObjectif, int posYObjectif) {
 		genererPlateauSansMur();
@@ -579,7 +656,7 @@ public class Plateau {
 	}
 
 	/**
-	 * TODO CORRIGER, les cases voisines ne le considerent pas comme un voisin
+	 * Ajoute l'objectif
 	 * 
 	 * @param i
 	 *            la ligne
@@ -596,7 +673,6 @@ public class Plateau {
 		tabCases[i][j] = c;
 		objectifPos[0] = i;
 		objectifPos[1] = j;
-
 	}
 
 	// ////// METHODES POUR LA GENERATION D'UN PLATEAU RANDOM /////////
