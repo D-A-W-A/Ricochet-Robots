@@ -70,13 +70,14 @@ public class PartieClassiqueGui extends PartieClassique {
 
 			// On modifie la selection du robot
 			if (hasRobot != 0) {
-				System.out.println("Clic robot");
 				// On reccupere la case actuelle
 				int[] coordCaseActuelle = { getPlateau().getTabRobots()[getRobotSelectionne()].getCaseActuelle().getPosX(),
 						getPlateau().getTabRobots()[getRobotSelectionne()].getCaseActuelle().getPosY() };
+				// On reset cette case
 				supprimerNext();
 				getGrille().getGrille()[coordCaseActuelle[0]][coordCaseActuelle[1]].setSelected(false);;
 				
+				// On init la nouvelle case
 				c.setSelected(true);
 				setRobotSelectionne(hasRobot-1);
 

@@ -42,6 +42,7 @@ public class Plateau {
 		for (int i = 0; i < 4; i++) {
 			tabRobots[i] = new Robot();
 		}
+		tabRobots[0].setCouleur('B');
 	}
 
 	/**
@@ -56,6 +57,7 @@ public class Plateau {
 		for (int i = 0; i < 4; i++) {
 			tabRobots[i] = new Robot();
 		}
+		tabRobots[0].setCouleur('B');
 	}
 
 	// ///// GETTERS AND SETTERS ////////
