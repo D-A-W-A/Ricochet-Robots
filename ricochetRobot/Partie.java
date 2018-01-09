@@ -334,15 +334,14 @@ public abstract class Partie extends FlecheClavierListener {
 		boolean found = false;
 		while(!found && !marked.isEmpty()) { //Tant qu'on a pas trouvé l'objectif et qu'il y a des cases marquées
 			Case current = marked.getFirst(); // On s'intéresse à la première case de la FIFO marquée
-			if (current.estVide()) {} //Si elle est vide, elle ne nous intéresse pas
-			else if (current.equals(objectif)){ //Si c'est l'objectif
+			if (current.equals(objectif)){ //Si c'est l'objectif
 				found = true; //On l'a trouvé
 				finalPath.addAll(path.peek()); //On récupère le chemin jusqu'à lui
 			}
 			else { //Si c'est pas l'objectif et qu'elle est pas vide
 				for (int i=0; i<4; i++) { //Pour chacune de ses voisines
 					Case nextI = current.getCaseNext(i);
-					if(!checked.contains(nextI)&&!marked.contains(nextI)) {
+					if(!nextI.estVide()&&!checked.contains(nextI)&&!marked.contains(nextI)) {
 						marked.add(nextI); //On la marque
 						LinkedList<Integer> nextPath = new LinkedList<Integer>(path.peek()); //On initialise le chemin jusqu'à cette case suivante en utilisant le chemin jusqu'à courant
 						nextPath.add(i); // On ajoute à ce chemin le coup pour passer de courant à cette case suivante 
