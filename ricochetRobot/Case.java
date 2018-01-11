@@ -23,6 +23,8 @@ public class Case {
 	private int posX = -1;
 	private int posY = -1;
 	private Robot robot;
+	// 1 -> GH, 2-> HD, 3 ->DB, 4 -> BG 
+	private int dispoMurs = 0;
 
 	//////// CONSTRUCTEURS ////////
 
@@ -65,6 +67,7 @@ public class Case {
 
 	//////// GETTERS AND SETTERS ////////
 
+	
 	/**
 	 * Getter de toutes les caseNext
 	 * 
@@ -72,6 +75,14 @@ public class Case {
 	 */
 	public Case[] getCaseNext() {
 		return caseNext;
+	}
+
+	public int getDispoMurs() {
+		return dispoMurs;
+	}
+
+	public void setDispoMurs(int dispoMurs) {
+		this.dispoMurs = dispoMurs;
 	}
 
 	/**
