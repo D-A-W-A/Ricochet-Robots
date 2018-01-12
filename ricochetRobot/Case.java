@@ -236,6 +236,22 @@ public class Case {
 		this.posX = x;
 		this.posY = y;
 	}
+	
+	public boolean murDroite() {
+		return dispoMurs == 2 || dispoMurs == 3;
+	}
+	
+	public boolean murGauche() {
+		return dispoMurs == 1 || dispoMurs == 4;
+	}
+	
+	public boolean murHaut() {
+		return dispoMurs == 1 || dispoMurs == 2;
+	}
+	
+	public boolean murBas() {
+		return dispoMurs == 3 || dispoMurs == 4;
+	}
 
 
 	/////// METHODES //////////

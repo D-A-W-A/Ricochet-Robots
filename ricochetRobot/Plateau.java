@@ -211,8 +211,144 @@ public class Plateau {
 		ajouterMursRobot(x2, y2);
 	}
 
-	public void supprimerMursRobotb(int x1, int y1) {
+	public void supprimerMursRobot(int x, int y) {
+		int k;
+		// ------ LIGNE -------
+		// Attribution des CaseNextDroite
+		
+		for (int j = 0; j<taille; j++) {
+			k = j;
+			while (k != taille-1 && !tabCases[x][k].murDroite() && !tabCases [x][k+1].murGauche() && !tabCases[x][k+1].estOccupe()) {
+				k++;
+			}
+			if (k != j) {
+				tabCases[x][j].setCaseNextDroite(tabCases[x][k]);
+			}
+		}
+		
+		// Attribution des CaseNextGauche
+		
+		for (int j = taille-1; j>0; j--) {
+			k = j;
+			while (k != 0 && !tabCases[x][k].murGauche() && !tabCases [x][k-1].murDroite() && !tabCases[x][k-1].estOccupe()) {
+				k--;
+			}
+			if (k != j) {
+				tabCases[x][j].setCaseNextGauche(tabCases[x][k]);
+			}
+		}
+		
+		// ------ COLONNE ------
+		
+		// Attribution des CaseNextBas 
+		
+		for (int i = 0; i<taille; i++) {
+			k = i;
+			while (k != taille-1 && (!tabCases[k][y].murBas() && !tabCases [k+1][y].murHaut() && !tabCases[k+1][y].estOccupe())) {
+				k++;
+			}
+			if (k != i) {
+				tabCases[i][y].setCaseNextBas(tabCases[k][y]);
+			}
+		}
+		
+		// Attribution des CaseNextHaut
+		
+		for (int i = taille-1; i>0; i--) {
+			k = i;
+			while (k != 0 && (!tabCases[k][y].murHaut() && !tabCases [k-1][y].murBas() && !tabCases[k-1][y].estOccupe())) {
+				k--;
+			}
+			if (k != i) {
+				tabCases[i][y].setCaseNextHaut(tabCases[k][y]);
+			}
+		}
+		
+	
+	}
+	public void supprimerMursRobota(int x, int y) {
+		int k;
+		// ------ LIGNE -------
+		// Attribution des CaseNextDroite
+		
+		for (int j = 0; j < taille; j++) {
+			k = j;
+			while (k != taille && !tabCases[x][k].getCaseNextDroite().estVide()) {
+				if (k != taille - 1 && k + 1 == y && !tabCases[x][k].murDroite()
+						&& !tabCases[x][k + 1].murGauche()) {
+					k++;
+				}
 
+				k++;
+			}
+			if (k != taille - 1 && k + 1 == y && !tabCases[x][k].murDroite()
+					&& !tabCases[x][k + 1].murGauche()) {
+				k++;
+			}
+			if (k != j) {
+				tabCases[x][j].setCaseNextDroite(tabCases[x][k]);
+			}
+		}
+		
+
+		// Attribution des CaseNextGauche
+		for (int j = taille - 1; j > 0; j--) {
+			k = j;
+			while (k != -1 && !tabCases[x][k].getCaseNextGauche().estVide()) {
+				if (k != 0 && k - 1 == y && !tabCases[x][k].murGauche()
+						&& !tabCases[x][k - 1].murDroite()) {
+					k--;
+				}
+				k--;
+			}
+			if (k != 0 && k - 1 == y && !tabCases[x][k].murGauche()
+					&& !tabCases[x][k - 1].murDroite()) {
+				k--;
+			}
+			if (k != j) {
+				tabCases[x][j].setCaseNextGauche(tabCases[x][k]);
+			}
+		}
+
+		// ------ COLONNE -------
+
+		// Attribution des CaseNextBas
+		for (int i = 0; i < taille; i++) {
+			k = i;
+			while (k != taille && !tabCases[k][y].getCaseNextBas().estVide()) {
+				if (k != taille - 1 && k + 1 == x && !tabCases[k][y].murBas()
+						&& !tabCases[k + 1][y].murHaut()) {
+					k++;
+				}
+				k++;
+			}
+			if (k != taille - 1 && k + 1 == x && !tabCases[k][y].murBas()
+					&& !tabCases[k + 1][y].murHaut()) {
+				k++;
+			}
+			if (k != i) {
+				tabCases[i][y].setCaseNextBas(tabCases[k][y]);
+			}
+		}
+
+		// Attribution des CaseNextHaut
+		for (int i = taille - 1; i > 0; i--) {
+			k = i;
+			while ( k != -1 && !tabCases[k][y].getCaseNextHaut().estVide()) {
+				if (k != 0 && k - 1 == x && !tabCases[k][y].murHaut()
+						&& !tabCases[k - 1][y].murBas()) {
+					k--;
+				}
+				k--;
+			}
+			if (k != 0 && k - 1 == x && !tabCases[k][y].murHaut()
+					&& !tabCases[k - 1][y].murBas()) {
+				k--;
+			}
+			if (k != i) {
+				tabCases[i][y].setCaseNextHaut(tabCases[k][y]);
+			}
+		}
 	}
 
 	/**
@@ -224,7 +360,7 @@ public class Plateau {
 	 * @param y1
 	 *            L'ancienne PosY du robot
 	 */
-	public void supprimerMursRobot(int x1, int y1) {
+	public void supprimerMursRobotb(int x1, int y1) {
 		System.out.println("\n ------------------------- \n");
 		int k;
 
@@ -237,16 +373,21 @@ public class Plateau {
 			k = 0;
 			while (!tabCases[x1][y1 + k].getCaseNextDroite().estVide()) {
 				System.out.println("2");
-				tabCases[x1][y1 + k].setCaseNextGauche(tabCases[x1][y1].getCaseNextGauche());
-				k++;
+
 				if (tabCases[x1][y1 + k].getCaseNextDroite().estVide() && y1 + k != taille - 1
 						&& tabCases[x1][y1 + k + 1].estOccupe() && tabCases[x1][y1 + k + 1].getDispoMurs() != 1
 						&& tabCases[x1][y1 + k + 1].getDispoMurs() != 4) {
 					System.out.println("3");
-					// System.out.println("Suppression avec robot aligné DROITE");
+					if (tabCases[x1][y1 + k].getDispoMurs() != 2 && tabCases[x1][y1 + k].getDispoMurs() != 3) {
+						System.out.println("3bis");
+						tabCases[x1][y1 + k + 1].setCaseNextGauche(tabCases[x1][y1].getCaseNextGauche());
+					}
+				} else {
+					System.out.println("2bis");
 					tabCases[x1][y1 + k].setCaseNextGauche(tabCases[x1][y1].getCaseNextGauche());
-					k++;
+
 				}
+				k++;
 			}
 			tabCases[x1][y1 + k].setCaseNextGauche(tabCases[x1][y1].getCaseNextGauche());
 
@@ -254,16 +395,22 @@ public class Plateau {
 			k = 0;
 			while (!tabCases[x1][y1 - k].getCaseNextGauche().estVide()) {
 				System.out.println("4");
-				tabCases[x1][y1 - k].setCaseNextDroite(tabCases[x1][y1].getCaseNextDroite());
-				k++;
+
 				if (tabCases[x1][y1 - k].getCaseNextGauche().estVide() && y1 - k != 0
 						&& tabCases[x1][y1 - k - 1].estOccupe() && tabCases[x1][y1 - k - 1].getDispoMurs() != 2
 						&& tabCases[x1][y1 - k - 1].getDispoMurs() != 3) {
 					System.out.println("5");
-					// System.out.println("Suppression avec robot aligné GAUCHE");
+
+					if (tabCases[x1][y1 - k].getDispoMurs() != 1 && tabCases[x1][y1 - k].getDispoMurs() != 4) {
+						System.out.println("5bis");
+						tabCases[x1][y1 - k - 1].setCaseNextDroite(tabCases[x1][y1].getCaseNextDroite());
+					}
+				} else {
+					System.out.println("4bis");
 					tabCases[x1][y1 - k].setCaseNextDroite(tabCases[x1][y1].getCaseNextDroite());
-					k++;
+
 				}
+				k++;
 			}
 			tabCases[x1][y1 - k].setCaseNextDroite(tabCases[x1][y1].getCaseNextDroite());
 
@@ -276,21 +423,30 @@ public class Plateau {
 			if (y1 != 0 && tabCases[x1][y1 - 1].estOccupe() && tabCases[x1][y1 - 1].getDispoMurs() != 2
 					&& tabCases[x1][y1 - 1].getDispoMurs() != 3) {
 				System.out.println("7");
-				tabCases[x1][y1 - 1].setCaseNextDroite(tabCases[x1][y1].getCaseNextDroite());
+				if (tabCases[x1][y1].getDispoMurs() != 1 && tabCases[x1][y1].getDispoMurs() != 4) {
+					System.out.println("7bis");
+					tabCases[x1][y1 - 1].setCaseNextDroite(tabCases[x1][y1].getCaseNextDroite());
+				}
+
 			}
 
 			k = 1;
 			while (!tabCases[x1][y1 + k].getCaseNextDroite().estVide()) {
 				System.out.println("8");
-				tabCases[x1][y1 + k].setCaseNextGauche(tabCases[x1][y1]);
-				k++;
+
 				if (tabCases[x1][y1 + k].getCaseNextDroite().estVide() && y1 + k != taille - 1
 						&& tabCases[x1][y1 + k + 1].estOccupe() && tabCases[x1][y1 + k + 1].getDispoMurs() != 1
 						&& tabCases[x1][y1 + k + 1].getDispoMurs() != 4) {
 					System.out.println("9");
+					if (tabCases[x1][y1 + k].getDispoMurs() != 3 && tabCases[x1][y1 + k].getDispoMurs() != 2) {
+						System.out.println("9bis");
+						tabCases[x1][y1 + k + 1].setCaseNextGauche(tabCases[x1][y1]);
+					}
+				} else {
+					System.out.println("8bis");
 					tabCases[x1][y1 + k].setCaseNextGauche(tabCases[x1][y1]);
-					k++;
 				}
+				k++;
 			}
 			tabCases[x1][y1 + k].setCaseNextGauche(tabCases[x1][y1]);
 
@@ -301,38 +457,56 @@ public class Plateau {
 			if (y1 != taille - 1 && tabCases[x1][y1 + 1].estOccupe() && tabCases[x1][y1 + 1].getDispoMurs() != 1
 					&& tabCases[x1][y1 + 1].getDispoMurs() != 4) {
 				System.out.println("11");
-				tabCases[x1][y1 + 1].setCaseNextGauche(tabCases[x1][y1].getCaseNextGauche());
+				if (tabCases[x1][y1].getDispoMurs() != 3 && tabCases[x1][y1].getDispoMurs() != 2) {
+					System.out.println("11Bis");
+					tabCases[x1][y1 + 1].setCaseNextGauche(tabCases[x1][y1].getCaseNextGauche());
+				}
 			}
 			k = 1;
 			while (!tabCases[x1][y1 - k].getCaseNextGauche().estVide()) {
 				System.out.println("12");
-				tabCases[x1][y1 - k].setCaseNextDroite(tabCases[x1][y1]);
-				k++;
 				if (tabCases[x1][y1 - k].getCaseNextGauche().estVide() && y1 - k != 0
 						&& tabCases[x1][y1 - k - 1].estOccupe() && tabCases[x1][y1 - k - 1].getDispoMurs() != 2
 						&& tabCases[x1][y1 - k - 1].getDispoMurs() != 3) {
 					System.out.println("13");
+					if (tabCases[x1][y1 - k].getDispoMurs() != 1 && tabCases[x1][y1 - k].getDispoMurs() != 4) {
+						tabCases[x1][y1 - k - 1].setCaseNextDroite(tabCases[x1][y1]);
+					}
+				} else {
+					System.out.println("12bis");
 					tabCases[x1][y1 - k].setCaseNextDroite(tabCases[x1][y1]);
-					k++;
 				}
+				k++;
 			}
 			tabCases[x1][y1 - k].setCaseNextDroite(tabCases[x1][y1]);
 		} else if (tabCases[x1][y1].getCaseNextDroite().estVide() && tabCases[x1][y1].getCaseNextGauche().estVide()) {
 			System.out.println("14");
 			if (y1 != taille - 1 && tabCases[x1][y1 + 1].estOccupe() && y1 != 0 && tabCases[x1][y1 - 1].estOccupe()
-					&& tabCases[x1][y1 + 1].getDispoMurs() != 1 && tabCases[x1][y1 + 1].getDispoMurs() != 2
-					&& tabCases[x1][y1 + 1].getDispoMurs() != 3 && tabCases[x1][y1 + 1].getDispoMurs() != 4) {
+					&& tabCases[x1][y1 + 1].getDispoMurs() != 1 && tabCases[x1][y1 + 1].getDispoMurs() != 4
+					&& tabCases[x1][y1 - 1].getDispoMurs() != 2 && tabCases[x1][y1 - 1].getDispoMurs() != 3) {
 				System.out.println("15");
-				tabCases[x1][y1 - 1].setCaseNextDroite(tabCases[x1][y1]);
-				tabCases[x1][y1 + 1].setCaseNextGauche(tabCases[x1][y1]);
-			} else if (y1 != 0 && tabCases[x1][y1 - 1].estOccupe() && tabCases[x1][y1 + 1].getDispoMurs() != 2
-					&& tabCases[x1][y1 + 1].getDispoMurs() != 3) {
+				if (tabCases[x1][y1].getDispoMurs() != 1 && tabCases[x1][y1].getDispoMurs() != 4) {
+					System.out.println("15a");
+					tabCases[x1][y1 - 1].setCaseNextDroite(tabCases[x1][y1]);
+				}
+				if (tabCases[x1][y1].getDispoMurs() != 2 && tabCases[x1][y1].getDispoMurs() != 3) {
+					System.out.println("15b");
+					tabCases[x1][y1 + 1].setCaseNextGauche(tabCases[x1][y1]);
+				}
+			} else if (y1 != 0 && tabCases[x1][y1 - 1].estOccupe() && tabCases[x1][y1 - 1].getDispoMurs() != 2
+					&& tabCases[x1][y1 - 1].getDispoMurs() != 3) {
 				System.out.println("16");
-				tabCases[x1][y1 - 1].setCaseNextDroite(tabCases[x1][y1]);
+				if (tabCases[x1][y1].getDispoMurs() != 1 && tabCases[x1][y1].getDispoMurs() != 4) {
+					System.out.println("16bis");
+					tabCases[x1][y1 - 1].setCaseNextDroite(tabCases[x1][y1]);
+				}
 			} else if (y1 != taille - 1 && tabCases[x1][y1 + 1].estOccupe() && tabCases[x1][y1 + 1].getDispoMurs() != 4
 					&& tabCases[x1][y1 + 1].getDispoMurs() != 1) {
 				System.out.println("17");
-				tabCases[x1][y1 + 1].setCaseNextGauche(tabCases[x1][y1]);
+				if (tabCases[x1][y1].getDispoMurs() != 2 && tabCases[x1][y1].getDispoMurs() != 3) {
+					System.out.println("17bis");
+					tabCases[x1][y1 + 1].setCaseNextGauche(tabCases[x1][y1]);
+				}
 			}
 
 		}
@@ -437,10 +611,12 @@ public class Plateau {
 				tabCases[x1 + 1][y1].setCaseNextHaut(tabCases[x1][y1]);
 				tabCases[x1 - 1][y1].setCaseNextBas(tabCases[x1][y1]);
 			}
-			if (x1 != taille - 1 && tabCases[x1 + 1][y1].estOccupe() && tabCases[x1 + 1][y1].getDispoMurs() != 1 && tabCases[x1 + 1][y1].getDispoMurs() != 2) {
+			if (x1 != taille - 1 && tabCases[x1 + 1][y1].estOccupe() && tabCases[x1 + 1][y1].getDispoMurs() != 1
+					&& tabCases[x1 + 1][y1].getDispoMurs() != 2) {
 				System.out.println("33");
 				tabCases[x1 + 1][y1].setCaseNextHaut(tabCases[x1][y1]);
-			} else if (x1 != 0 && tabCases[x1 - 1][y1].estOccupe() && tabCases[x1 - 1][y1].getDispoMurs() != 3 && tabCases[x1 - 1][y1].getDispoMurs() != 4) {
+			} else if (x1 != 0 && tabCases[x1 - 1][y1].estOccupe() && tabCases[x1 - 1][y1].getDispoMurs() != 3
+					&& tabCases[x1 - 1][y1].getDispoMurs() != 4) {
 				System.out.println("34");
 				tabCases[x1 - 1][y1].setCaseNextBas(tabCases[x1][y1]);
 			}
