@@ -8,13 +8,13 @@ import javax.swing.JButton;
 
 /**
  * Une Partie de Ricochet-Robots.<br>
- * Le jeu se deroule sur un plateau d�un nombre n*n de cases et de murs. Sur les
- * cases sont places des pions appeles �robots� et des objectifs. <br>
+ * Le jeu se deroule sur un plateau d’un nombre n*n de cases et de murs. Sur les
+ * cases sont places des pions appeles “robots” et des objectifs. <br>
  * Le jeu se deroule en tours. Au debut du tour, on indique un objectif. Le but
- * est de deplacer le robot de la couleur de l�objectif sur celui-ci en un
+ * est de deplacer le robot de la couleur de l’objectif sur celui-ci en un
  * minimum de mouvements (Deplacer les autres robots compte egalement pour 1
  * coup). <br>
- * Un robot ne peut se deplacer que tout droit jusqu�a atteindre un obstacle (un
+ * Un robot ne peut se deplacer que tout droit jusqu’a atteindre un obstacle (un
  * bord du plateau, un mur ou un autre robot). <br>
  * Le joueur ayant trouve le plus rapidement la solution annonce son nombre de
  * mouvements et retourne le sablier. Si les autres joueurs ne trouvent pas de
@@ -257,8 +257,8 @@ public abstract class Partie extends FlecheClavierListener {
 
 	/**
 	 * Prend la solution sous forme de LinkedList et la retourne sous forme de
-	 * tableau. ATTENTION : La m�thode est non destructrice de la liste en parametre
-	 * mais pourra �tre lourde pour les longues solutions.
+	 * tableau. ATTENTION : La méthode est non destructrice de la liste en parametre
+	 * mais pourra être lourde pour les longues solutions.
 	 * 
 	 * @return La solution sous forme de tableau
 	 */
@@ -326,7 +326,7 @@ public abstract class Partie extends FlecheClavierListener {
 	}
 
 	/**
-	 * Les coups retourn�s sont des entiers sous la forme : 0 = gauche, 1 = haut, 2
+	 * Les coups retournés sont des entiers sous la forme : 0 = gauche, 1 = haut, 2
 	 * = droite et 3 = bas Si la liste est vide, l'objectif n'est pas atteignable
 	 * 
 	 * @return La liste des coups
@@ -344,24 +344,22 @@ public abstract class Partie extends FlecheClavierListener {
 
 		boolean found = false;
 
-		while (!found && !marked.isEmpty()) {
-			Case current = marked.getFirst();
-			
-			if (current.estVide()) {}
-			
-			else if (current.equals(objectif)) {
-				found = true;
-				finalPath.addAll(path.peek());
-			} 
-			
-			else {
-				for (int i = 0; i < 4; i++) {
+
+		while(!found && !marked.isEmpty()) { //Tant qu'on a pas trouvé l'objectif et qu'il y a des cases marquées
+			Case current = marked.getFirst(); // On s'intéresse à la première case de la FIFO marquée
+			if (current.equals(objectif)){ //Si c'est l'objectif
+				found = true; //On l'a trouvé
+				finalPath.addAll(path.peek()); //On récupère le chemin jusqu'à lui
+			}
+			else { //Si c'est pas l'objectif et qu'elle est pas vide
+				for (int i=0; i<4; i++) { //Pour chacune de ses voisines
 					Case nextI = current.getCaseNext(i);
-					if (!checked.contains(nextI) && !marked.contains(nextI)) {
-						marked.add(nextI);
-						LinkedList<Integer> nextPath = new LinkedList<Integer>(path.peek());
-						nextPath.add(i);
-						path.add(nextPath);
+					if(!nextI.estVide()&&!checked.contains(nextI)&&!marked.contains(nextI)) {
+						marked.add(nextI); //On la marque
+						LinkedList<Integer> nextPath = new LinkedList<Integer>(path.peek()); //On initialise le chemin jusqu'à cette case suivante en utilisant le chemin jusqu'à courant
+						nextPath.add(i); // On ajoute à ce chemin le coup pour passer de courant à cette case suivante 
+						path.add(nextPath); // On place ce chemin à la fin de la liste des chemins
+
 					}
 				}
 			}
