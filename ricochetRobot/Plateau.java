@@ -709,6 +709,7 @@ public class Plateau {
 		Random r = new Random();
 		int i = r.nextInt(taille);
 		int j = r.nextInt(taille);
+		this.tabRobots[num] = new Robot(num);
 		this.tabRobots[num].setCaseActuelle(tabCases[i][j]);
 		this.tabCases[i][j].affecterRobot(tabRobots[num]);
 		int[] tab = { i, j };

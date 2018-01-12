@@ -203,7 +203,15 @@ public class CaseGrille extends JButton implements MouseListener {
 			g.setColor(Color.blue);
 			g.fillOval(this.getWidth() / 4, this.getHeight() / 4, this.getWidth() / 2, this.getHeight() / 2);
 		}
-		if (hasRobot != 0 && hasRobot != 1) {
+		else if (hasRobot == 2) {
+			g.setColor(Color.red);
+			g.fillOval(this.getWidth() / 4, this.getHeight() / 4, this.getWidth() / 2, this.getHeight() / 2);
+		}
+		else if (hasRobot == 3) {
+			g.setColor(Color.yellow);
+			g.fillOval(this.getWidth() / 4, this.getHeight() / 4, this.getWidth() / 2, this.getHeight() / 2);
+		}
+		else if (hasRobot == 4) {
 			g.setColor(Color.green);
 			g.fillOval(this.getWidth() / 4, this.getHeight() / 4, this.getWidth() / 2, this.getHeight() / 2);
 		}
