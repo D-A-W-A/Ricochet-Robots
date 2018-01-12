@@ -20,18 +20,39 @@ package ricochetRobot;
 public class Robot {
 
 	/////////// ATTRIBUTS ///////////
-	private char couleur = 'R';
+	private char couleur = 'B';
+
 	private boolean selectione;
 	private Case caseActuelle;
 
 	/////////// CONSTRUCTEURS /////////////
 	public Robot() {
 		selectione = false;
+
 	}
 
-	public Robot(Case c) {
+	public Robot(Case c, char couleur) {
 		selectione = false;
 		caseActuelle = c;
+		this.couleur = couleur;
+
+	}
+
+	public Robot(int couleur) {
+		if (couleur == 0)
+			this.couleur = 'B';
+		
+		else if (couleur == 1)
+			this.couleur = 'R';
+		
+		else if (couleur == 2)
+			this.couleur = 'J';
+		
+		else if (couleur == 3)
+			this.couleur = 'V';
+		
+		selectione = false;
+
 	}
 
 	////////// GETTERS AND SETTERS ////////
@@ -60,21 +81,22 @@ public class Robot {
 	}
 
 	////////// METHODES ////////////
-	
+
 	public boolean estSurUneCase() {
 		return caseActuelle != null;
 	}
-	
+
 	public String toString() {
 		if (this.estSurUneCase())
 			return Character.toString(couleur);
-		else 
+		else
 			return "";
 	}
 
 	/**
 	 * 
-	 * Deplace le robot vers le haut<br> Ne fait rien si le robot se deplace vers un mur
+	 * Deplace le robot vers le haut<br>
+	 * Ne fait rien si le robot se deplace vers un mur
 	 * 
 	 * @return 1 si le robot s'est deplace
 	 */
@@ -85,13 +107,13 @@ public class Robot {
 			aux.affecterRobot(this);
 			this.setCaseActuelle(aux);
 			return 1;
-		}
-		else
+		} else
 			return 0;
 	}
 
 	/**
-	 * Deplace le robot vers le bas<br> Ne fait rien si le robot se deplace vers un mur
+	 * Deplace le robot vers le bas<br>
+	 * Ne fait rien si le robot se deplace vers un mur
 	 * 
 	 * @return 1 si le robot s'est deplace
 	 */
@@ -102,14 +124,13 @@ public class Robot {
 			aux.affecterRobot(this);
 			this.setCaseActuelle(aux);
 			return 1;
-		}
-		else 
+		} else
 			return 0;
 	}
 
 	/**
-	 * Deplace le robot vers la gauche <br>Ne fait rien si le robot se deplace vers un
-	 * mur
+	 * Deplace le robot vers la gauche <br>
+	 * Ne fait rien si le robot se deplace vers un mur
 	 * 
 	 * @return 1 si le robot s'est deplace
 	 */
@@ -120,14 +141,13 @@ public class Robot {
 			aux.affecterRobot(this);
 			this.setCaseActuelle(aux);
 			return 1;
-		}
-		else 
+		} else
 			return 0;
 	}
 
 	/**
-	 * Deplace le robot vers la droite <br>Ne fait rien si le robot se deplace vers un
-	 * mur
+	 * Deplace le robot vers la droite <br>
+	 * Ne fait rien si le robot se deplace vers un mur
 	 * 
 	 * @return 1 si le robot s'est deplace
 	 */
@@ -138,8 +158,7 @@ public class Robot {
 			aux.affecterRobot(this);
 			this.setCaseActuelle(aux);
 			return 1;
-		}
-		else 
+		} else
 			return 0;
 	}
 

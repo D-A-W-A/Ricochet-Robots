@@ -8,13 +8,13 @@ import javax.swing.JButton;
 
 /**
  * Une Partie de Ricochet-Robots.<br>
- * Le jeu se deroule sur un plateau díun nombre n*n de cases et de murs. Sur les
- * cases sont places des pions appeles ìrobotsî et des objectifs. <br>
+ * Le jeu se deroule sur un plateau d‚Äôun nombre n*n de cases et de murs. Sur les
+ * cases sont places des pions appeles ‚Äúrobots‚Äù et des objectifs. <br>
  * Le jeu se deroule en tours. Au debut du tour, on indique un objectif. Le but
- * est de deplacer le robot de la couleur de líobjectif sur celui-ci en un
+ * est de deplacer le robot de la couleur de l‚Äôobjectif sur celui-ci en un
  * minimum de mouvements (Deplacer les autres robots compte egalement pour 1
  * coup). <br>
- * Un robot ne peut se deplacer que tout droit jusquía atteindre un obstacle (un
+ * Un robot ne peut se deplacer que tout droit jusqu‚Äôa atteindre un obstacle (un
  * bord du plateau, un mur ou un autre robot). <br>
  * Le joueur ayant trouve le plus rapidement la solution annonce son nombre de
  * mouvements et retourne le sablier. Si les autres joueurs ne trouvent pas de
@@ -108,12 +108,9 @@ public abstract class Partie extends FlecheClavierListener {
 
 	////////// METHODES /////////
 
-
 	public String toString() {
 		return plateau.toString();
 	}
-
-
 
 	///////// GESTION DE LA PARTIE ////////
 	/**
@@ -172,8 +169,8 @@ public abstract class Partie extends FlecheClavierListener {
 	 * == Si le joueur appuie sur R, une nouvelle manche est lancee<br>
 	 * <br>
 	 * Lorsque la partie est arrettee :<br>
-	 * == Si le joueur appuie sur O, une nouvelle manche est lancee == Si le
-	 * joueur appuie sur N, La partie se termine et se ferme.
+	 * == Si le joueur appuie sur O, une nouvelle manche est lancee == Si le joueur
+	 * appuie sur N, La partie se termine et se ferme.
 	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -217,7 +214,7 @@ public abstract class Partie extends FlecheClavierListener {
 		}
 
 	}
-	
+
 	/**
 	 * Gestion des boutons du menu de gauche
 	 */
@@ -227,18 +224,13 @@ public abstract class Partie extends FlecheClavierListener {
 		System.out.println("Clic de : " + b.getText());
 	}
 
-
 	//////////// CREATION ET MAJ DE LA PARTIE ///////////
 
 	/**
 	 * Cree une partie en generant un plateau, met le compteur de coups et l'etat de
-	 * la partie a 0
-	 * Place les robots;
-	 * Place un objectif;
-	 * Appelle lancerPartie();
+	 * la partie a 0 Place les robots; Place un objectif; Appelle lancerPartie();
 	 */
 	public abstract void creerPartie();
-
 
 	/**
 	 * Met a jour l'interface graphique / terminal pour montrer la nouvelle
@@ -249,25 +241,25 @@ public abstract class Partie extends FlecheClavierListener {
 	/**
 	 * 
 	 * Permet de lancer une partie avec toute les fonctionnalites necessaires:
-	 * Appelle creerPartie();
-	 * Appelle lancerPartie();
+	 * Appelle creerPartie(); Appelle lancerPartie();
 	 *
 	 */
 	protected abstract void mainPartieAux();
 
 	/**
-	 * Fonction appelee dans le main(String[] args)
-	 * Instancie une nouvelle partie puis appelle mainPartieAux():
+	 * Fonction appelee dans le main(String[] args) Instancie une nouvelle partie
+	 * puis appelle mainPartieAux():
 	 */
 	public static void mainPartie() {
 	}
 
-
 	/////// RESOLUTION DU JEU ///////
 
 	/**
-	 * Prend la solution sous forme de LinkedList et la retourne sous forme de tableau.
-	 * ATTENTION : La mÈthode est non destructrice de la liste en parametre mais pourra Ítre lourde pour les longues solutions. 
+	 * Prend la solution sous forme de LinkedList et la retourne sous forme de
+	 * tableau. ATTENTION : La m√©thode est non destructrice de la liste en parametre
+	 * mais pourra √™tre lourde pour les longues solutions.
+	 * 
 	 * @return La solution sous forme de tableau
 	 */
 	protected int[] solveToTab(LinkedList<Integer> solution) {
@@ -275,83 +267,106 @@ public abstract class Partie extends FlecheClavierListener {
 			return new int[0];
 		} else {
 			int[] pathArray = new int[solution.size()];
-			for(int i=0; i<solution.size(); i++) {
-				pathArray[i] = solution.get(i); 
+			for (int i = 0; i < solution.size(); i++) {
+				pathArray[i] = solution.get(i);
 			}
 			return pathArray;
 		}
 	}
 
-	
 	/**
-	 * Appelle solve et affiche la solution textuellement.
+	 * Affiche la solution textuellement.
 	 */
 	protected void displaySolution() {
-			System.out.println(toStringSolution());
+		System.out.println(toStringSolution());
 
 	}
-	
+
+	/**
+	 * Appelle solve et affiche renvoie une chaine de caractere de la solution
+	 */
 	public String toStringSolution() {
 		int[] solution = solveToTab(solve1());
-		if (solution.length==0) {
-			return("L'objectif n'est pas atteignable");
-		}else {
+		if (solution.length == 0) {
+			return ("L'objectif n'est pas atteignable");
+		} else {
 			StringBuilder s = new StringBuilder("La solution est : ");
-			for (int i=0; i< solution.length-1; i++) {
+			for (int i = 0; i < solution.length - 1; i++) {
 				switch (solution[i]) {
-				case 0 : s.append("gauche, "); break;
-				case 1 : s.append("haut, "); break;
-				case 2 : s.append("droite, "); break;
-				case 3 : s.append("bas, "); break;
+				case 0:
+					s.append("gauche, ");
+					break;
+				case 1:
+					s.append("haut, ");
+					break;
+				case 2:
+					s.append("droite, ");
+					break;
+				case 3:
+					s.append("bas, ");
+					break;
 				}
 			}
-			switch (solution[solution.length-1]) { //Pour le dernier coup, on finit la phrase par un point.
-			case 0 : s.append("gauche. "); break;
-			case 1 : s.append("haut. "); break;
-			case 2 : s.append("droite. "); break;
-			case 3 : s.append("bas. "); break;
+			switch (solution[solution.length - 1]) { // Pour le dernier coup, on finit la phrase par un point.
+			case 0:
+				s.append("gauche. ");
+				break;
+			case 1:
+				s.append("haut. ");
+				break;
+			case 2:
+				s.append("droite. ");
+				break;
+			case 3:
+				s.append("bas. ");
+				break;
 			}
 			return s.toString();
 		}
 	}
 
 	/**
-	 * Les coups retournÈs sont des entiers sous la forme : 0 = gauche, 1 = haut, 2 = droite et 3 = bas
-	 * Si la liste est vide, l'objectif n'est pas atteignable
+	 * Les coups retourn√©s sont des entiers sous la forme : 0 = gauche, 1 = haut, 2
+	 * = droite et 3 = bas Si la liste est vide, l'objectif n'est pas atteignable
+	 * 
 	 * @return La liste des coups
 	 */
 	protected LinkedList<Integer> solve1() {
-		LinkedList<Case> marked = new LinkedList<Case>(); // CrÈation de la liste des cases "marquÈes en vert"
-		LinkedList<Case> checked = new LinkedList<Case>(); // CrÈation de la liste des cases "marquÈes en rouge"
-		LinkedList<LinkedList<Integer>> path = new LinkedList<LinkedList<Integer>>(); // Contient les coups pour atteindre les cases de marked.
-		// Les coups sont des entiers : 0 = gauche, 1 = haut, 2 = droite et 3 = bas
-		// marked et path sont "liÈes" par l'index, c'est ‡ dire qu'il faut rÈaliser les coups de
-		// path[i] pour atteindre marked[i] depuis la case d'origine du robot
-		marked.add(plateau.getTabRobots()[0].getCaseActuelle()); // La 1ere case marquÈe est celle o˘ se trouve le robot
-		path.add(new LinkedList<Integer>());//Le premier chemin de la liste est celui de la seule case marquÈe. Ce chemin est vide !
+		LinkedList<Case> marked = new LinkedList<Case>();
+		LinkedList<Case> checked = new LinkedList<Case>();
+		LinkedList<LinkedList<Integer>> path = new LinkedList<LinkedList<Integer>>();
+
+		marked.add(plateau.getTabRobots()[0].getCaseActuelle());
+		path.add(new LinkedList<Integer>());
+
 		Case objectif = plateau.getObjectif();
-		LinkedList<Integer> finalPath = new LinkedList<Integer>(); //On stockera le chemin vers l'objectif l‡ dedans s'il y en a un
+		LinkedList<Integer> finalPath = new LinkedList<Integer>();
+
 		boolean found = false;
-		while(!found && !marked.isEmpty()) { //Tant qu'on a pas trouvÈ l'objectif et qu'il y a des cases marquÈes
-			Case current = marked.getFirst(); // On s'intÈresse ‡ la premiËre case de la FIFO marquÈe
+
+
+		while(!found && !marked.isEmpty()) { //Tant qu'on a pas trouv√© l'objectif et qu'il y a des cases marqu√©es
+			Case current = marked.getFirst(); // On s'int√©resse √† la premi√®re case de la FIFO marqu√©e
 			if (current.equals(objectif)){ //Si c'est l'objectif
-				found = true; //On l'a trouvÈ
-				finalPath.addAll(path.peek()); //On rÈcupËre le chemin jusqu'‡ lui
+				found = true; //On l'a trouv√©
+				finalPath.addAll(path.peek()); //On r√©cup√®re le chemin jusqu'√† lui
 			}
 			else { //Si c'est pas l'objectif et qu'elle est pas vide
 				for (int i=0; i<4; i++) { //Pour chacune de ses voisines
 					Case nextI = current.getCaseNext(i);
 					if(!nextI.estVide()&&!checked.contains(nextI)&&!marked.contains(nextI)) {
 						marked.add(nextI); //On la marque
-						LinkedList<Integer> nextPath = new LinkedList<Integer>(path.peek()); //On initialise le chemin jusqu'‡ cette case suivante en utilisant le chemin jusqu'‡ courant
-						nextPath.add(i); // On ajoute ‡ ce chemin le coup pour passer de courant ‡ cette case suivante 
-						path.add(nextPath); // On place ce chemin ‡ la fin de la liste des chemins
+						LinkedList<Integer> nextPath = new LinkedList<Integer>(path.peek()); //On initialise le chemin jusqu'√† cette case suivante en utilisant le chemin jusqu'√† courant
+						nextPath.add(i); // On ajoute √† ce chemin le coup pour passer de courant √† cette case suivante 
+						path.add(nextPath); // On place ce chemin √† la fin de la liste des chemins
+
 					}
 				}
 			}
-			checked.add(current); //Une fois tou Áa fait, on "marque en rouge" la case courante
-			marked.remove(); //On la retire des "cases en vert"
-			path.remove(); //On n'a plus besoin du chemin jusqu'‡ la case courrante
+			
+			checked.add(current);
+			marked.remove();
+			path.remove();
 		}
 		return finalPath;
 	}

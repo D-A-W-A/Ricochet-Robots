@@ -11,7 +11,7 @@ public class CaseObjectif extends Case {
 
 	public CaseObjectif() {
 		super();
-		robotRequis = 'R';
+		robotRequis = 'B';
 
 	}
 

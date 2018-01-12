@@ -31,8 +31,9 @@ public class CaseGrille extends JButton implements MouseListener {
 	 * La case s'affichera differement si elle possede un robot ou si c'est
 	 * l'objectif
 	 */
-	private boolean hasRobot = false;
+	private int hasRobot = 0;
 	private boolean isObjective = false;
+	private boolean selected = false;
 
 	/**
 	 * - 1 : Un angle Gauche-Haut<br>
@@ -104,12 +105,20 @@ public class CaseGrille extends JButton implements MouseListener {
 		this.isNext = isNext;
 	}
 
-	public boolean HasRobot() {
+	public int getHasRobot() {
 		return hasRobot;
 	}
 
-	public void setHasRobot(boolean hasRobot) {
+	public void setHasRobot(int hasRobot) {
 		this.hasRobot = hasRobot;
+	}
+
+	public boolean isSelected() {
+		return selected;
+	}
+
+	public void setSelected(boolean selected) {
+		this.selected = selected;
 	}
 
 	/**
@@ -121,6 +130,7 @@ public class CaseGrille extends JButton implements MouseListener {
 
 		// Applique la couleur du hover
 		hoverCase(g);
+		backgroundSelected(g);
 
 		// Dessine les bords de la case
 		bordCase(g);
@@ -146,6 +156,22 @@ public class CaseGrille extends JButton implements MouseListener {
 	}
 
 	/**
+	 * Met la case selectionnee en evidence
+	 * 
+	 * @param g
+	 */
+	private void backgroundSelected(Graphics g) {
+		if (selected) {
+			//g.setColor(Color.decode("#6495ED"));
+			g.setColor(Color.red);
+			g.fillRect(10, this.getHeight() - 5, this.getWidth()-20, 5);
+			g.fillRect(10, 0, this.getWidth()-20, 5);
+			g.fillRect(getWidth()-5, 10, 5, getHeight()-20);
+			g.fillRect(0, 10, 5, getHeight()-20);
+		}
+	}
+
+	/**
 	 * Si la souris est au dessus, la case est coloriee<br>
 	 * - En rouge si elle est next <br>
 	 * - En gris sinon
@@ -153,7 +179,10 @@ public class CaseGrille extends JButton implements MouseListener {
 	 * @param g
 	 */
 	private void hoverCase(Graphics g) {
-		if (hover == 1 && isNext != 0) {
+		if (hover == 1 && hasRobot != 0) {
+			g.setColor(Color.decode("#6495ED"));
+			g.fillRect(0, 0, this.getWidth(), this.getHeight());
+		} else if (hover == 1 && isNext != 0) {
 			g.setColor(Color.decode("#4d0000"));
 			g.fillRect(0, 0, this.getWidth(), this.getHeight());
 
@@ -161,6 +190,7 @@ public class CaseGrille extends JButton implements MouseListener {
 			g.setColor(Color.LIGHT_GRAY);
 			g.fillRect(0, 0, this.getWidth(), this.getHeight());
 		}
+
 	}
 
 	/**
@@ -169,8 +199,20 @@ public class CaseGrille extends JButton implements MouseListener {
 	 * @param g
 	 */
 	private void dessineRobot(Graphics g) {
-		if (this.hasRobot) {
+		if (this.hasRobot == 1) {
 			g.setColor(Color.blue);
+			g.fillOval(this.getWidth() / 4, this.getHeight() / 4, this.getWidth() / 2, this.getHeight() / 2);
+		}
+		else if (hasRobot == 2) {
+			g.setColor(Color.red);
+			g.fillOval(this.getWidth() / 4, this.getHeight() / 4, this.getWidth() / 2, this.getHeight() / 2);
+		}
+		else if (hasRobot == 3) {
+			g.setColor(Color.yellow);
+			g.fillOval(this.getWidth() / 4, this.getHeight() / 4, this.getWidth() / 2, this.getHeight() / 2);
+		}
+		else if (hasRobot == 4) {
+			g.setColor(Color.green);
 			g.fillOval(this.getWidth() / 4, this.getHeight() / 4, this.getWidth() / 2, this.getHeight() / 2);
 		}
 	}
@@ -181,7 +223,7 @@ public class CaseGrille extends JButton implements MouseListener {
 	 * @param g
 	 */
 	private void dessineObjectif(Graphics g) {
-		if (this.isObjective && !hasRobot) {
+		if (this.isObjective && hasRobot == 0) {
 			g.setColor(Color.red);
 			g.fillOval(this.getWidth() / 4, this.getHeight() / 4, this.getWidth() / 2, this.getHeight() / 2);
 			g.setColor(Color.white);
@@ -214,7 +256,7 @@ public class CaseGrille extends JButton implements MouseListener {
 			g.fillRect(0, 0, 5, this.getHeight());
 		}
 	}
-	
+
 	/**
 	 * Dessine les bords de la case
 	 * 

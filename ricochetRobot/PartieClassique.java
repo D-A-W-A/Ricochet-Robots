@@ -176,11 +176,10 @@ public class PartieClassique extends Partie {
 		this.posYObjectifs = posYObjectifs;
 	}
 
-
 	@Override
 	public void creerPartie() {
 
-		// Creer un plateau : met les murs, un objectif aleatoire parmi 
+		// Creer un plateau : met les murs, un objectif aleatoire parmi
 		// possibles, et place un robot
 		Random r = new Random();
 		int obj = r.nextInt(posXObjectifs.length);
@@ -219,17 +218,22 @@ public class PartieClassique extends Partie {
 		System.exit(0);
 		stop();
 	}
-	
+
 	/**
-	 * Place aleatoirement les Robots en prenant compte des cases impossible d'acces  
+	 * Place aleatoirement les Robots en prenant compte des cases impossible d'acces
+	 * 
 	 * @param p
 	 */
 	public void placerRobotPartie(Plateau p) {
-		int posRobot[] = p.placerRobotRandom(0);
-		while ((posRobot[0] == 7 && posRobot[1] == 7) || (posRobot[0] == 7 && posRobot[1] == 8)
-				|| (posRobot[0] == 8 && posRobot[1] == 7) || (posRobot[0] == 8 && posRobot[1] == 8)) {
-			p.supprimerRobot(0);
-			posRobot = p.placerRobotRandom(0);
+		for (int i = 0; i < 4; i++) {
+			int posRobot[] = p.placerRobotRandom(i);
+			while ((posRobot[0] == 7 && posRobot[1] == 7) || (posRobot[0] == 7 && posRobot[1] == 8)
+					|| (posRobot[0] == 8 && posRobot[1] == 7) || (posRobot[0] == 8 && posRobot[1] == 8)) {
+				p.supprimerRobot(i);
+				posRobot = p.placerRobotRandom(i);
+			}
+			p.supprimerMursRobot (posRobot[0], posRobot[1]);
+			p.ajouterMursRobot (posRobot[0], posRobot[1]);
 		}
 	}
 
@@ -241,8 +245,6 @@ public class PartieClassique extends Partie {
 		this.displaySolution();
 
 	}
-	
-	
 
 	@Override
 	protected void mainPartieAux() {
