@@ -211,6 +211,15 @@ public class Plateau {
 		ajouterMursRobot(x2, y2);
 	}
 
+	/**
+	 * Supprime les murs autours d'un robot (ancienne position du robot) en
+	 * redefinnissant les casesNext
+	 * 
+	 * @param x1
+	 *            L'ancienne posX du robot
+	 * @param y1
+	 *            L'ancienne PosY du robot
+	 */
 	public void supprimerMursRobot(int x, int y) {
 		int k;
 		// ------ LIGNE -------
@@ -351,15 +360,7 @@ public class Plateau {
 		}
 	}
 
-	/**
-	 * Supprime les murs autours d'un robot (ancienne position du robot) en
-	 * redefinnissant les casesNext
-	 * 
-	 * @param x1
-	 *            L'ancienne posX du robot
-	 * @param y1
-	 *            L'ancienne PosY du robot
-	 */
+
 	public void supprimerMursRobotb(int x1, int y1) {
 		System.out.println("\n ------------------------- \n");
 		int k;
