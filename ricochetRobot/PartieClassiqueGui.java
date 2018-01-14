@@ -200,7 +200,7 @@ public class PartieClassiqueGui extends PartieClassique {
 	public void mouseClicked(MouseEvent e) {
 		JButton b = (JButton) (e.getSource());
 		if (b.getText().equals("Solution"))
-			changerTexte(toStringSolution());
+			changerTexte(toStringSolution2());
 		else if (b.getText().equals("Recommencer"))
 			actionRecommencer();
 	}
