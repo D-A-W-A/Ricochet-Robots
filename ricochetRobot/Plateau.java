@@ -215,9 +215,9 @@ public class Plateau {
 	 * Supprime les murs autours d'un robot (ancienne position du robot) en
 	 * redefinnissant les casesNext
 	 * 
-	 * @param x1
+	 * @param x
 	 *            L'ancienne posX du robot
-	 * @param y1
+	 * @param y
 	 *            L'ancienne PosY du robot
 	 */
 	public void supprimerMursRobot(int x, int y) {

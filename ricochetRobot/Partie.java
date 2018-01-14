@@ -8,13 +8,13 @@ import javax.swing.JButton;
 
 /**
  * Une Partie de Ricochet-Robots.<br>
- * Le jeu se deroule sur un plateau d’un nombre n*n de cases et de murs. Sur les
- * cases sont places des pions appeles “robots” et des objectifs. <br>
+ * Le jeu se deroule sur un plateau dun nombre n*n de cases et de murs. Sur les
+ * cases sont places des pions appeles robots et des objectifs. <br>
  * Le jeu se deroule en tours. Au debut du tour, on indique un objectif. Le but
  * est de deplacer le robot de la couleur de l’objectif sur celui-ci en un
  * minimum de mouvements (Deplacer les autres robots compte egalement pour 1
  * coup). <br>
- * Un robot ne peut se deplacer que tout droit jusqu’a atteindre un obstacle (un
+ * Un robot ne peut se deplacer que tout droit jusqu a atteindre un obstacle (un
  * bord du plateau, un mur ou un autre robot). <br>
  * Le joueur ayant trouve le plus rapidement la solution annonce son nombre de
  * mouvements et retourne le sablier. Si les autres joueurs ne trouvent pas de
