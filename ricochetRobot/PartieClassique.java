@@ -225,15 +225,14 @@ public class PartieClassique extends Partie {
 	 * @param p
 	 */
 	public void placerRobotPartie(Plateau p) {
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 1; i++) {
 			int posRobot[] = p.placerRobotRandom(i);
 			while ((posRobot[0] == 7 && posRobot[1] == 7) || (posRobot[0] == 7 && posRobot[1] == 8)
 					|| (posRobot[0] == 8 && posRobot[1] == 7) || (posRobot[0] == 8 && posRobot[1] == 8)) {
 				p.supprimerRobot(i);
 				posRobot = p.placerRobotRandom(i);
 			}
-			p.supprimerMursRobot (posRobot[0], posRobot[1]);
-			p.ajouterMursRobot (posRobot[0], posRobot[1]);
+
 		}
 	}
 
