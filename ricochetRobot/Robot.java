@@ -39,16 +39,16 @@ public class Robot {
 	}
 
 	public Robot(int couleur) {
-		if (couleur == 0)
+		if (couleur%4 == 0)
 			this.couleur = 'B';
 		
-		else if (couleur == 1)
+		else if (couleur%4 == 1)
 			this.couleur = 'R';
 		
-		else if (couleur == 2)
+		else if (couleur%4 == 2)
 			this.couleur = 'J';
 		
-		else if (couleur == 3)
+		else if (couleur%4 == 3)
 			this.couleur = 'V';
 		
 		selectione = false;

@@ -65,7 +65,9 @@ public class PartiePetiteGui extends PartieClassiqueGui {
 	}
 
 	public void placerRobotPartie(Plateau p) {
-		for (int i = 0; i < 4; i++) {
+		Robot []t = new Robot[2];
+		p.setTabRobots(t);
+		for (int i = 0; i < 2; i++) {
 			int posRobot[] = p.placerRobotRandom(i);
 			while ((posRobot[0] == 0 && posRobot[1] == 0) || (posRobot[0] == 7 && posRobot[1] == 7)) {
 				p.supprimerRobot(0);
