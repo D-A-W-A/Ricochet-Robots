@@ -459,9 +459,7 @@ public abstract class Partie extends FlecheClavierListener {
 												// l'algorithme.
 		Robot robot1 = this.plateau.getTabRobots()[0];
 		Robot robot2 = this.plateau.getTabRobots()[1];
-
 		Case objectif = plateau.getObjectif();
-//		int minCoups = solve1().size();
 
 		boolean found = false;
 
@@ -469,6 +467,11 @@ public abstract class Partie extends FlecheClavierListener {
 		LinkedList<Case[]> checked = new LinkedList<Case[]>();
 		LinkedList<LinkedList<Integer>> path = new LinkedList<LinkedList<Integer>>();
 		LinkedList<Integer> finalPath = new LinkedList<Integer>();
+		//Marquage du premier element
+		Case[] casesOrigine = {robot1.getCaseActuelle(), robot2.getCaseActuelle()};
+		path.add(new LinkedList<Integer>());
+		
+		marked.add(casesOrigine);
 
 		while (!found && !marked.isEmpty()) {
 			this.restaureCases(sauvegarde);
@@ -515,64 +518,64 @@ public abstract class Partie extends FlecheClavierListener {
 	/**
 	 * 
 	 */
-	protected LinkedList<LinkedList<Integer>> solveFalse() {
-		Plateau sauvegarde = this.sauvCases(); // C'est la sauvegarde des cases avant de commencer à utiliser
-												// l'algorithme.
-		Robot robot2 = this.plateau.getTabRobots()[1];
-
-		LinkedList<Integer> coupsRobot2 = new LinkedList<Integer>(); // Correspond aux déplacements du robot 2 pour
-																		// résoudre la partie en minCoups coups
-		LinkedList<Integer> coupsRobot1 = new LinkedList<Integer>(solve1()); // Correspond aux déplacements du robot 1
-																				// pour résoudre la partie en minCoups
-																				// coups
-		int minCoups = coupsRobot1.size();
-
-		LinkedList<Case> marked = new LinkedList<Case>();
-		LinkedList<Case> checked = new LinkedList<Case>();
-		LinkedList<LinkedList<Integer>> path = new LinkedList<LinkedList<Integer>>();
-
-		marked.add(robot2.getCaseActuelle());
-		path.add(new LinkedList<Integer>());
-
-		while (!marked.isEmpty()) {
-			Case current = marked.getFirst();
-			this.restaureCases(sauvegarde);
-
-			LinkedList<Integer> deplacements = new LinkedList<Integer>(path.getFirst());
-			while (deplacements.size() > 0) {
-				robot2.deplacerRobot(deplacements.pop());
-			}
-
-			LinkedList<Integer> sol1 = new LinkedList<Integer>(solve1());
-			if (sol1.size() == 0) {
-			} else if (sol1.size() + path.getFirst().size() < minCoups) {
-				coupsRobot1.clear();
-				coupsRobot2.clear();
-				coupsRobot1.addAll(sol1);
-				coupsRobot2.addAll(path.getFirst());
-				minCoups = coupsRobot1.size() + coupsRobot2.size();
-			}
-
-			for (int i = 0; i < 4; i++) {
-				Case nextI = current.getCaseNext(i);
-				if (!nextI.estVide() && !checked.contains(nextI) && !marked.contains(nextI)) {
-					marked.add(nextI);
-					LinkedList<Integer> nextPath = new LinkedList<Integer>(path.peek());
-					nextPath.add(i);
-					path.add(nextPath);
-				}
-			}
-
-			checked.add(current);
-			marked.remove();
-			path.remove();
-		}
-
-		this.restaureCases(sauvegarde);
-		LinkedList<LinkedList<Integer>> finalPath = new LinkedList<LinkedList<Integer>>();
-		finalPath.add(coupsRobot1);
-		finalPath.add(coupsRobot2);
-		return finalPath;
-	}
+//	protected LinkedList<LinkedList<Integer>> solveFalse() {
+//		Plateau sauvegarde = this.sauvCases(); // C'est la sauvegarde des cases avant de commencer à utiliser
+//												// l'algorithme.
+//		Robot robot2 = this.plateau.getTabRobots()[1];
+//
+//		LinkedList<Integer> coupsRobot2 = new LinkedList<Integer>(); // Correspond aux déplacements du robot 2 pour
+//																		// résoudre la partie en minCoups coups
+//		LinkedList<Integer> coupsRobot1 = new LinkedList<Integer>(solve1()); // Correspond aux déplacements du robot 1
+//																				// pour résoudre la partie en minCoups
+//																				// coups
+//		int minCoups = coupsRobot1.size();
+//
+//		LinkedList<Case> marked = new LinkedList<Case>();
+//		LinkedList<Case> checked = new LinkedList<Case>();
+//		LinkedList<LinkedList<Integer>> path = new LinkedList<LinkedList<Integer>>();
+//
+//		marked.add(robot2.getCaseActuelle());
+//		path.add(new LinkedList<Integer>());
+//
+//		while (!marked.isEmpty()) {
+//			Case current = marked.getFirst();
+//			this.restaureCases(sauvegarde);
+//
+//			LinkedList<Integer> deplacements = new LinkedList<Integer>(path.getFirst());
+//			while (deplacements.size() > 0) {
+//				robot2.deplacerRobot(deplacements.pop());
+//			}
+//
+//			LinkedList<Integer> sol1 = new LinkedList<Integer>(solve1());
+//			if (sol1.size() == 0) {
+//			} else if (sol1.size() + path.getFirst().size() < minCoups) {
+//				coupsRobot1.clear();
+//				coupsRobot2.clear();
+//				coupsRobot1.addAll(sol1);
+//				coupsRobot2.addAll(path.getFirst());
+//				minCoups = coupsRobot1.size() + coupsRobot2.size();
+//			}
+//
+//			for (int i = 0; i < 4; i++) {
+//				Case nextI = current.getCaseNext(i);
+//				if (!nextI.estVide() && !checked.contains(nextI) && !marked.contains(nextI)) {
+//					marked.add(nextI);
+//					LinkedList<Integer> nextPath = new LinkedList<Integer>(path.peek());
+//					nextPath.add(i);
+//					path.add(nextPath);
+//				}
+//			}
+//
+//			checked.add(current);
+//			marked.remove();
+//			path.remove();
+//		}
+//
+//		this.restaureCases(sauvegarde);
+//		LinkedList<LinkedList<Integer>> finalPath = new LinkedList<LinkedList<Integer>>();
+//		finalPath.add(coupsRobot1);
+//		finalPath.add(coupsRobot2);
+//		return finalPath;
+//	}
 
 }

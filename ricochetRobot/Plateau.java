@@ -78,6 +78,8 @@ public class Plateau {
 			this.tabRobots[i] = p.tabRobots[i]; 
 		}
 		this.tabRobots[0].setCouleur('B');
+		this.objectifPos[0] = p.getObjectif().getPosX();
+		this.objectifPos[1] = p.getObjectif().getPosY();
 	}
 
 	// ///// GETTERS AND SETTERS ////////
