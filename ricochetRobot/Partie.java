@@ -313,16 +313,16 @@ public abstract class Partie extends FlecheClavierListener {
 		String s = "";
 		switch (i) {
 		case 0:
-			s = " gauche";
+			s = "Bleu gauche";
 			break;
 		case 1:
-			s = " haut";
+			s = "Bleu haut";
 			break;
 		case 2:
-			s = " droite";
+			s = "Bleu droite";
 			break;
 		case 3:
-			s = " bas";
+			s = "Bleu bas";
 			break;
 		case 4:
 			s = " gauche";
@@ -443,6 +443,17 @@ public abstract class Partie extends FlecheClavierListener {
 		return finalPath;
 	}
 
+	protected void deplacements(LinkedList<Integer> liste, Robot robot1, Robot robot2) {
+		while (!liste.isEmpty()) {
+			if(liste.getFirst()<4) {
+				robot1.deplacerRobot(liste.removeFirst());
+			}
+			else {
+				robot2.deplacerRobot(liste.removeFirst()-4);
+			}
+		}
+	}
+	
 	protected LinkedList<Integer> solve2() {
 		Plateau sauvegarde = this.sauvCases(); // C'est la sauvegarde des cases avant de commencer à utiliser
 												// l'algorithme.
@@ -450,7 +461,7 @@ public abstract class Partie extends FlecheClavierListener {
 		Robot robot2 = this.plateau.getTabRobots()[1];
 
 		Case objectif = plateau.getObjectif();
-		int minCoups = solve1().size();
+//		int minCoups = solve1().size();
 
 		boolean found = false;
 
@@ -460,6 +471,8 @@ public abstract class Partie extends FlecheClavierListener {
 		LinkedList<Integer> finalPath = new LinkedList<Integer>();
 
 		while (!found && !marked.isEmpty()) {
+			this.restaureCases(sauvegarde);
+			this.deplacements(path.getFirst(), robot1, robot2);
 			Case[] current = { robot1.getCaseActuelle(), robot2.getCaseActuelle() };
 			if (current[0].equals(objectif)) {
 				found = true;
@@ -491,8 +504,10 @@ public abstract class Partie extends FlecheClavierListener {
 					}
 				}
 			}
+			checked.add(current);
+			marked.remove();
+			path.remove();
 		}
-
 		this.restaureCases(sauvegarde);
 		return finalPath;
 	}
