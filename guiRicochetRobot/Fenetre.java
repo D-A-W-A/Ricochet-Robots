@@ -76,11 +76,14 @@ public class Fenetre extends JFrame implements Observateur, MouseListener {
 
 		JButton recommencer = new JButton("Recommencer");
 		recommencer.addMouseListener(this);
+		recommencer.setFont(policeGauche);
 
 		JButton solution = new JButton("Solution");
 		solution.addMouseListener(this);
+		solution.setFont(policeGauche);
 		
 		JButton pause = new JButton("Pause");
+		pause.setFont(policeGauche);
 		pause.addMouseListener(this);
 
 		// Creation des JLabels de gauche
