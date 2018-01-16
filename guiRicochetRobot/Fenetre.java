@@ -79,6 +79,9 @@ public class Fenetre extends JFrame implements Observateur, MouseListener {
 
 		JButton solution = new JButton("Solution");
 		solution.addMouseListener(this);
+		
+		JButton pause = new JButton("Pause");
+		pause.addMouseListener(this);
 
 		// Creation des JLabels de gauche
 		JLabel sNbCoups = new JLabel("Coups : 0  ");
@@ -101,9 +104,10 @@ public class Fenetre extends JFrame implements Observateur, MouseListener {
 		menuGauche.add(new JPanel());
 		menuGauche.add(recommencer);
 		menuGauche.add(solution);
-		for (int i = 5; i < 8; i++) {
+		for (int i = 5; i < 7; i++) {
 			menuGauche.add(new JPanel());
 		}
+		menuGauche.add(pause);
 		menuGauche.add(chrono);
 
 		GridLayout menulayout = new GridLayout(9, 1);
@@ -216,6 +220,11 @@ public class Fenetre extends JFrame implements Observateur, MouseListener {
 	public void changerChrono (String s) {
 		JLabel l = (JLabel) ((JPanel) getContentPane().getComponents()[1]).getComponent(8);
 		l.setText(s);
+	}
+	
+	public void changerPlay(String s) {
+		JButton b = (JButton)((JPanel) getContentPane().getComponents()[1]).getComponent(7);
+		b.setText(s);
 	}
 
 }

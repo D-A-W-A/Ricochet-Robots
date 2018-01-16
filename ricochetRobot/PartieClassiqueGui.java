@@ -71,52 +71,57 @@ public class PartieClassiqueGui extends PartieClassique implements ActionListene
 	public void update(String ob) {
 		// On reccupere la case cliquee
 		if (getEtatPartie() == 1) {
-			CaseGrille c = this.getGrille().getGrille()[getGrille().getCoordCaseClic()[0]][getGrille()
-					.getCoordCaseClic()[1]];
-			// On reccupere la case actuelle
-			int[] coordCaseActuelle = { getPlateau().getTabRobots()[getRobotSelectionne()].getCaseActuelle().getPosX(),
-					getPlateau().getTabRobots()[getRobotSelectionne()].getCaseActuelle().getPosY() };
+			if (ob.equals("Chrono")) {
+				changerChrono(getChrono().getDureeTxt());
+			} else {
+				CaseGrille c = this.getGrille().getGrille()[getGrille().getCoordCaseClic()[0]][getGrille()
+						.getCoordCaseClic()[1]];
+				// On reccupere la case actuelle
+				int[] coordCaseActuelle = {
+						getPlateau().getTabRobots()[getRobotSelectionne()].getCaseActuelle().getPosX(),
+						getPlateau().getTabRobots()[getRobotSelectionne()].getCaseActuelle().getPosY() };
 
-			int hasRobot = c.getHasRobot();
-			int next = c.isNext();
+				int hasRobot = c.getHasRobot();
+				int next = c.isNext();
 
-			// On modifie la selection du robot
-			if (hasRobot != 0) {
-				// On reset cette case
-				supprimerNext();
-				getGrille().getGrille()[coordCaseActuelle[0]][coordCaseActuelle[1]].setSelected(false);
-				;
+				// On modifie la selection du robot
+				if (hasRobot != 0) {
+					// On reset cette case
+					supprimerNext();
+					getGrille().getGrille()[coordCaseActuelle[0]][coordCaseActuelle[1]].setSelected(false);
+					;
 
-				// On init la nouvelle case
-				c.setSelected(true);
-				setRobotSelectionne(hasRobot - 1);
+					// On init la nouvelle case
+					c.setSelected(true);
+					setRobotSelectionne(hasRobot - 1);
 
-				definirNext();
+					definirNext();
 
-			}
-			// On deplace le robot s'il s'agit d'une caseNext
-			if (next != 0) {
-
-				supprimerNext();
-				supprimerRobot(this.getRobotSelectionne());
-				int deplacement = 0;
-				if (next == 1) {
-					deplacement = getPlateau().getTabRobots()[getRobotSelectionne()].deplacerRobotGauche();
-				} else if (next == 2) {
-					deplacement = getPlateau().getTabRobots()[getRobotSelectionne()].deplacerRobotHaut();
-				} else if (next == 3) {
-					deplacement = getPlateau().getTabRobots()[getRobotSelectionne()].deplacerRobotDroite();
-				} else if (next == 4) {
-					deplacement = getPlateau().getTabRobots()[getRobotSelectionne()].deplacerRobotBas();
 				}
-				getPlateau().supprimerMursRobot(coordCaseActuelle[0], coordCaseActuelle[1]);
-				getPlateau().ajouterMursRobot(getGrille().getCoordCaseClic()[0], getGrille().getCoordCaseClic()[1]);
-				definirNext();
-				placerRobot(this.getRobotSelectionne());
+				// On deplace le robot s'il s'agit d'une caseNext
+				if (next != 0) {
 
-				if (deplacement == 1) {
-					setNbCoups(getNbCoups() + 1);
-					changerNbCoups(getNbCoups());
+					supprimerNext();
+					supprimerRobot(this.getRobotSelectionne());
+					int deplacement = 0;
+					if (next == 1) {
+						deplacement = getPlateau().getTabRobots()[getRobotSelectionne()].deplacerRobotGauche();
+					} else if (next == 2) {
+						deplacement = getPlateau().getTabRobots()[getRobotSelectionne()].deplacerRobotHaut();
+					} else if (next == 3) {
+						deplacement = getPlateau().getTabRobots()[getRobotSelectionne()].deplacerRobotDroite();
+					} else if (next == 4) {
+						deplacement = getPlateau().getTabRobots()[getRobotSelectionne()].deplacerRobotBas();
+					}
+					getPlateau().supprimerMursRobot(coordCaseActuelle[0], coordCaseActuelle[1]);
+					getPlateau().ajouterMursRobot(getGrille().getCoordCaseClic()[0], getGrille().getCoordCaseClic()[1]);
+					definirNext();
+					placerRobot(this.getRobotSelectionne());
+
+					if (deplacement == 1) {
+						setNbCoups(getNbCoups() + 1);
+						changerNbCoups(getNbCoups());
+					}
 				}
 			}
 
@@ -127,10 +132,6 @@ public class PartieClassiqueGui extends PartieClassique implements ActionListene
 		}
 
 		// On redessine tout pour eviter les bugs visuels
-		
-		if (ob.equals("Chrono")){
-			changerChrono(getChrono().getDureeTxt());
-		}
 		getGrille().repaint();
 		this.repaint();
 	}
@@ -221,6 +222,22 @@ public class PartieClassiqueGui extends PartieClassique implements ActionListene
 			changerTexte(toStringSolution());
 		else if (b.getText().equals("Recommencer"))
 			actionRecommencer();
+		else if (b.getText().equals("Pause"))
+			actionPause();
+		else if (b.getText().equals("Play"))
+			actionPlay();
+	}
+
+	public void actionPause() {
+		getChrono().pause();
+		setEtatPartie(0);
+		changerPlay("Play");
+	}
+
+	public void actionPlay() {
+		getChrono().resume();
+		setEtatPartie(1);
+		changerPlay("Pause");
 	}
 
 	public void actionRecommencer() {
@@ -249,7 +266,7 @@ public class PartieClassiqueGui extends PartieClassique implements ActionListene
 			p.ajouterMursRobot(posRobot[0], posRobot[1]);
 		}
 	}
-	
+
 	public void lancerMajChrono() {
 		Timer t = new Timer(1000, this);
 		t.start();
@@ -283,6 +300,6 @@ public class PartieClassiqueGui extends PartieClassique implements ActionListene
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		this.update("Chrono");
-		
+
 	}
 }
