@@ -59,6 +59,26 @@ public class Plateau {
 		}
 		tabRobots[0].setCouleur('B');
 	}
+	
+	/**
+	 * Cree un plateau par copie d'un autre tableau
+	 * 
+	 * @param Plateau p
+	 */
+	public Plateau(Plateau p) {
+		this.taille = p.taille;
+		this.tabCases = new Case[this.taille][this.taille];
+		this.tabRobots = new Robot[p.tabRobots.length];
+		for (int i=0; i<this.taille; i++) {
+			for (int j=0; j<this.taille; j++) {
+				this.tabCases[i][j] = p.tabCases[i][j];
+			}
+		}
+		for (int i=0; i<p.tabRobots.length; i++) {
+			this.tabRobots[i] = p.tabRobots[i]; 
+		}
+		this.tabRobots[0].setCouleur('B');
+	}
 
 	// ///// GETTERS AND SETTERS ////////
 

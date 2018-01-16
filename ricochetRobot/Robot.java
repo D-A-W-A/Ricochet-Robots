@@ -92,7 +92,26 @@ public class Robot {
 		else
 			return "";
 	}
-
+	
+	public int deplacerRobot(int n) {
+		int retourne = 0;
+		switch (n){
+		case 0:
+			retourne = this.deplacerRobotGauche();
+			break;
+		case 1:
+			retourne = this.deplacerRobotHaut();
+			break;
+		case 2:
+			retourne = this.deplacerRobotDroite();
+			break;
+		case 3:
+			retourne = this.deplacerRobotBas();
+			break;
+		}
+		return retourne;
+	}
+	
 	/**
 	 * 
 	 * Deplace le robot vers le haut<br>

@@ -228,7 +228,7 @@ public class PartieClassiqueGui extends PartieClassique implements ActionListene
 	public void mouseClicked(MouseEvent e) {
 		JButton b = (JButton) (e.getSource());
 		if (b.getText().equals("Solution"))
-			changerTexte(toStringSolution());
+			changerTexte(toStringSolution2());
 		else if (b.getText().equals("Recommencer"))
 			actionRecommencer();
 		else if (b.getText().equals("Pause"))

@@ -11,7 +11,7 @@ import javax.swing.JButton;
  * Le jeu se deroule sur un plateau dun nombre n*n de cases et de murs. Sur les
  * cases sont places des pions appeles robots et des objectifs. <br>
  * Le jeu se deroule en tours. Au debut du tour, on indique un objectif. Le but
- * est de deplacer le robot de la couleur de l’objectif sur celui-ci en un
+ * est de deplacer le robot de la couleur de l'objectif sur celui-ci en un
  * minimum de mouvements (Deplacer les autres robots compte egalement pour 1
  * coup). <br>
  * Un robot ne peut se deplacer que tout droit jusqu a atteindre un obstacle (un
@@ -113,6 +113,20 @@ public abstract class Partie extends FlecheClavierListener {
 	}
 
 	///////// GESTION DE LA PARTIE ////////
+	/**
+	 * Sauvegarde les cases du plateau de la partie.
+	 */
+	public Plateau sauvCases() {
+		return new Plateau(this.plateau);
+	}
+	
+	/**
+	 * Restaure les cases du plateau passé en paramètre
+	 */
+	public void restaureCases(Plateau p) {
+		this.plateau.setTabCases(p.getTabCases());
+	}
+	
 	/**
 	 * Lance la partie
 	 */
@@ -257,12 +271,12 @@ public abstract class Partie extends FlecheClavierListener {
 
 	/**
 	 * Prend la solution sous forme de LinkedList et la retourne sous forme de
-	 * tableau. ATTENTION : La méthode est non destructrice de la liste en parametre
-	 * mais pourra être lourde pour les longues solutions.
+	 * tableau. ATTENTION : La methode est non destructrice de la liste en parametre
+	 * mais pourra etre lourde pour les longues solutions.
 	 * 
 	 * @return La solution sous forme de tableau
 	 */
-	protected int[] solveToTab(LinkedList<Integer> solution) {
+	protected int[] linkedListToTab(LinkedList<Integer> solution) {
 		if (solution.isEmpty()) {
 			return new int[0];
 		} else {
@@ -278,19 +292,46 @@ public abstract class Partie extends FlecheClavierListener {
 	 * Affiche la solution textuellement.
 	 */
 	protected void displaySolution() {
-		System.out.println(toStringSolution());
-
+		System.out.println(toStringSolution1());
 	}
 
 	/**
-	 * Appelle solve et affiche renvoie une chaine de caractere de la solution
+	 * Appelle solve1 et affiche renvoie une chaine de caractere de la solution
 	 */
-	public String toStringSolution() {
-		int[] solution = solveToTab(solve1());
-		if (solution.length == 0) {
+	public String toStringSolution1() {
+		LinkedList<Integer> solution = new LinkedList<>(solve1());
+		if (solution.size() == 0) {
 			return ("L'objectif n'est pas atteignable");
 		} else {
 			StringBuilder s = new StringBuilder("La solution est : ");
+			s.append(toStringChemin(solution));
+			return s.toString();
+		}
+	}
+	
+	public String toStringSolution2() {
+		LinkedList<LinkedList<Integer>> solution = new LinkedList<LinkedList<Integer>>(solve2());
+		if (solution.getFirst().size()==0) {
+			return ("L'objectif n'est pas atteignable");
+		}
+		else {
+			StringBuilder s = new StringBuilder("La solution est :");
+			if (!solution.get(1).isEmpty()) {
+				s.append(" Robot 2 : ");
+				s.append(toStringChemin(solution.get(1)));
+			}
+			s.append(" Robot 1 : ");
+			s.append(toStringChemin(solution.get(0)));
+			return s.toString();
+		}
+	}
+	
+	public String toStringChemin(LinkedList<Integer> list) {
+		int[] solution = linkedListToTab(list);
+		if (solution.length == 0) {
+			return ("");
+		} else {
+			StringBuilder s = new StringBuilder();
 			for (int i = 0; i < solution.length - 1; i++) {
 				switch (solution[i]) {
 				case 0:
@@ -326,7 +367,7 @@ public abstract class Partie extends FlecheClavierListener {
 	}
 
 	/**
-	 * Les coups retournés sont des entiers sous la forme : 0 = gauche, 1 = haut, 2
+	 * Les coups retournes sont des entiers sous la forme : 0 = gauche, 1 = haut, 2
 	 * = droite et 3 = bas Si la liste est vide, l'objectif n'est pas atteignable
 	 * 
 	 * @return La liste des coups
@@ -344,21 +385,20 @@ public abstract class Partie extends FlecheClavierListener {
 
 		boolean found = false;
 
-
-		while(!found && !marked.isEmpty()) { //Tant qu'on a pas trouvé l'objectif et qu'il y a des cases marquées
-			Case current = marked.getFirst(); // On s'intéresse à la première case de la FIFO marquée
+		while(!found && !marked.isEmpty()) { //Tant qu'on a pas trouve l'objectif et qu'il y a des cases marquees
+			Case current = marked.getFirst(); // On s'interesse a la premiere case de la FIFO marquee
 			if (current.equals(objectif)){ //Si c'est l'objectif
-				found = true; //On l'a trouvé
-				finalPath.addAll(path.peek()); //On récupère le chemin jusqu'à lui
+				found = true; //On l'a trouvÃ©
+				finalPath.addAll(path.peek()); //On recupere le chemin jusqu'a  lui
 			}
 			else { //Si c'est pas l'objectif et qu'elle est pas vide
 				for (int i=0; i<4; i++) { //Pour chacune de ses voisines
 					Case nextI = current.getCaseNext(i);
 					if(!nextI.estVide()&&!checked.contains(nextI)&&!marked.contains(nextI)) {
 						marked.add(nextI); //On la marque
-						LinkedList<Integer> nextPath = new LinkedList<Integer>(path.peek()); //On initialise le chemin jusqu'à cette case suivante en utilisant le chemin jusqu'à courant
-						nextPath.add(i); // On ajoute à ce chemin le coup pour passer de courant à cette case suivante 
-						path.add(nextPath); // On place ce chemin à la fin de la liste des chemins
+						LinkedList<Integer> nextPath = new LinkedList<Integer>(path.peek()); //On initialise le chemin jusqu'a cette case suivante en utilisant le chemin jusqu'a courant
+						nextPath.add(i); // On ajoute a ce chemin le coup pour passer de courant a cette case suivante 
+						path.add(nextPath); // On place ce chemin a la fin de la liste des chemins
 
 					}
 				}
@@ -370,4 +410,65 @@ public abstract class Partie extends FlecheClavierListener {
 		}
 		return finalPath;
 	}
+	
+	
+	/**
+	 * 
+	 */
+	protected LinkedList<LinkedList<Integer>> solve2() {
+		Plateau sauvegarde = this.sauvCases(); //C'est la sauvegarde des cases avant de commencer à utiliser l'algorithme.
+		Robot robot2 = this.plateau.getTabRobots()[1];
+		
+		LinkedList<Integer> coupsRobot2 = new LinkedList<Integer>(); //Correspond aux déplacements du robot 2 pour résoudre la partie en minCoups coups
+		LinkedList<Integer> coupsRobot1 = new LinkedList<Integer>(solve1()); //Correspond aux déplacements du robot 1 pour résoudre la partie en minCoups coups
+		int minCoups = coupsRobot1.size();
+		
+		LinkedList<Case> marked = new LinkedList<Case>();
+		LinkedList<Case> checked = new LinkedList<Case>();
+		LinkedList<LinkedList<Integer>> path = new LinkedList<LinkedList<Integer>>();
+		
+		marked.add(robot2.getCaseActuelle());
+		path.add(new LinkedList<Integer>());
+		
+		while (!marked.isEmpty()) {
+			Case current = marked.getFirst();
+			this.restaureCases(sauvegarde);
+			
+			LinkedList<Integer> deplacements = new LinkedList<Integer>(path.getFirst());
+			while (deplacements.size()>0) {
+				robot2.deplacerRobot(deplacements.pop());
+			}
+			
+			LinkedList<Integer> sol1 = new LinkedList<Integer>(solve1());
+			if (sol1.size()==0) {}
+			else if (sol1.size() + path.getFirst().size() < minCoups) {
+				coupsRobot1.clear();
+				coupsRobot2.clear();
+				coupsRobot1.addAll(sol1);
+				coupsRobot2.addAll(path.getFirst());
+				minCoups = coupsRobot1.size() + coupsRobot2.size();				
+			}
+			
+			for (int i=0; i<4; i++) {
+				Case nextI = current.getCaseNext(i);
+				if(!nextI.estVide()&&!checked.contains(nextI)&&!marked.contains(nextI)) {
+					marked.add(nextI);
+					LinkedList<Integer> nextPath = new LinkedList<Integer>(path.peek());
+					nextPath.add(i);
+					path.add(nextPath);
+				}
+			}
+			
+			checked.add(current);
+			marked.remove();
+			path.remove();
+		}
+		
+		this.restaureCases(sauvegarde);
+		LinkedList<LinkedList<Integer>> finalPath = new LinkedList<LinkedList<Integer>>();
+		finalPath.add(coupsRobot1);
+		finalPath.add(coupsRobot2);
+		return finalPath;
+	}
+	
 }
