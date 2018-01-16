@@ -201,6 +201,16 @@ public class Fenetre extends JFrame implements Observateur, MouseListener {
 		JLabel l = (JLabel) this.getContentPane().getComponents()[2];
 		l.setText(s);
 	}
+	public void changerBackgroundRec() {
+		JButton b1 = (JButton)((JPanel) getContentPane().getComponents()[1]).getComponent(4);
+		b1.setVisible(false);
+		JButton b2 = (JButton)((JPanel) getContentPane().getComponents()[1]).getComponent(7);
+		b2.setVisible(false);
+		JLabel l = (JLabel) this.getContentPane().getComponents()[2];
+		l.setFont(new Font("Tahoma", Font.BOLD, 42));
+		getContentPane().remove(0);
+		getContentPane().add(getContentPane().getComponent(1), BorderLayout.CENTER);
+	}
 
 	/**
 	 * Change le texte du nombre de coups

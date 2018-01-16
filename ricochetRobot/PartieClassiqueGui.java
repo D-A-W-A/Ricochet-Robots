@@ -83,8 +83,7 @@ public class PartieClassiqueGui extends PartieClassique implements ActionListene
 				System.out.println(
 						"Droite : " + c1.getCaseNextDroite().getPosX() + " " + c1.getCaseNextDroite().getPosY());
 				System.out.println("Bas : " + c1.getCaseNextBas().getPosX() + " " + c1.getCaseNextBas().getPosY());
-				System.out
-						.println("Haut : " + c1.getCaseNextHaut().getPosX() + " " + c1.getCaseNextHaut().getPosY());
+				System.out.println("Haut : " + c1.getCaseNextHaut().getPosX() + " " + c1.getCaseNextHaut().getPosY());
 				// On reccupere la case actuelle
 				int[] coordCaseActuelle = {
 						getPlateau().getTabRobots()[getRobotSelectionne()].getCaseActuelle().getPosX(),
@@ -151,8 +150,9 @@ public class PartieClassiqueGui extends PartieClassique implements ActionListene
 	public void victoire() {
 		this.changerTexte("VICTOIRE");
 		setNbVictoire(getNbVictoire() + 1);
-		setEtatPartie(0);
-
+		setEtatPartie(2);
+		changerPlay("Play");
+		changerBackgroundRec();
 	}
 
 	/**
@@ -227,9 +227,11 @@ public class PartieClassiqueGui extends PartieClassique implements ActionListene
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		JButton b = (JButton) (e.getSource());
-		if (b.getText().equals("Solution"))
-			changerTexte(toStringSolution());
-		else if (b.getText().equals("Recommencer"))
+		if (b.getText().equals("Solution")) {
+			if (getEtatPartie() != 2) {
+				changerTexte(toStringSolution());
+			}
+		} else if (b.getText().equals("Recommencer"))
 			actionRecommencer();
 		else if (b.getText().equals("Pause"))
 			actionPause();
@@ -238,15 +240,19 @@ public class PartieClassiqueGui extends PartieClassique implements ActionListene
 	}
 
 	public void actionPause() {
-		getChrono().pause();
-		setEtatPartie(0);
-		changerPlay("Play");
+		if (getEtatPartie() == 1) {
+			getChrono().pause();
+			setEtatPartie(0);
+			changerPlay("Play");
+		}
 	}
 
 	public void actionPlay() {
-		getChrono().resume();
-		setEtatPartie(1);
-		changerPlay("Pause");
+		if (getEtatPartie() == 0) {
+			getChrono().resume();
+			setEtatPartie(1);
+			changerPlay("Pause");
+		}
 	}
 
 	public void actionRecommencer() {
