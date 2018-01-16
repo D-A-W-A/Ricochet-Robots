@@ -151,6 +151,8 @@ public class PartieClassique extends Partie {
 		posYObjectifs[16] = 3;
 
 	}
+	
+	
 
 	public int[][] getDispositionMursPlateau() {
 		return dispositionMursPlateau;

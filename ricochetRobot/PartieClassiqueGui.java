@@ -30,6 +30,17 @@ import guiRicochetRobot.Grille;
  */
 public class PartieClassiqueGui extends PartieClassique implements ActionListener {
 
+	private int nbRobots = 4;
+	
+	
+	public int getNbRobots() {
+		return nbRobots;
+	}
+
+	public void setNbRobots(int nbRobots) {
+		this.nbRobots = nbRobots;
+	}
+
 	public PartieClassiqueGui() {
 		super();
 	}
@@ -76,14 +87,14 @@ public class PartieClassiqueGui extends PartieClassique implements ActionListene
 			} else {
 				CaseGrille c = this.getGrille().getGrille()[getGrille().getCoordCaseClic()[0]][getGrille()
 						.getCoordCaseClic()[1]];
-				Case c1 = getPlateau().getTabCases()[getGrille().getCoordCaseClic()[0]][getGrille()
-						.getCoordCaseClic()[1]];
-				System.out.println("\nC1 : " + c1.getPosX() + " " + c1.getPosY() + "\nGauche : "
-						+ c1.getCaseNextGauche().getPosX() + " " + c1.getCaseNextGauche().getPosY());
-				System.out.println(
-						"Droite : " + c1.getCaseNextDroite().getPosX() + " " + c1.getCaseNextDroite().getPosY());
-				System.out.println("Bas : " + c1.getCaseNextBas().getPosX() + " " + c1.getCaseNextBas().getPosY());
-				System.out.println("Haut : " + c1.getCaseNextHaut().getPosX() + " " + c1.getCaseNextHaut().getPosY());
+//				Case c1 = getPlateau().getTabCases()[getGrille().getCoordCaseClic()[0]][getGrille()
+//						.getCoordCaseClic()[1]];
+//				System.out.println("\nC1 : " + c1.getPosX() + " " + c1.getPosY() + "\nGauche : "
+//						+ c1.getCaseNextGauche().getPosX() + " " + c1.getCaseNextGauche().getPosY());
+//				System.out.println(
+//						"Droite : " + c1.getCaseNextDroite().getPosX() + " " + c1.getCaseNextDroite().getPosY());
+//				System.out.println("Bas : " + c1.getCaseNextBas().getPosX() + " " + c1.getCaseNextBas().getPosY());
+//				System.out.println("Haut : " + c1.getCaseNextHaut().getPosX() + " " + c1.getCaseNextHaut().getPosY());
 				// On reccupere la case actuelle
 				int[] coordCaseActuelle = {
 						getPlateau().getTabRobots()[getRobotSelectionne()].getCaseActuelle().getPosX(),
@@ -270,7 +281,9 @@ public class PartieClassiqueGui extends PartieClassique implements ActionListene
 	}
 
 	public void placerRobotPartie(Plateau p) {
-		for (int i = 0; i < 4; i++) {
+		Robot []t = new Robot[nbRobots];
+		p.setTabRobots(t);
+		for (int i = 0; i < nbRobots; i++) {
 			int posRobot[] = p.placerRobotRandom(i);
 			while ((posRobot[0] == 7 && posRobot[1] == 7) || (posRobot[0] == 7 && posRobot[1] == 8)
 					|| (posRobot[0] == 8 && posRobot[1] == 7) || (posRobot[0] == 8 && posRobot[1] == 8)) {
