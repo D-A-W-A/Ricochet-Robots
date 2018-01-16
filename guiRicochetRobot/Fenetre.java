@@ -62,6 +62,7 @@ public class Fenetre extends JFrame implements Observateur, MouseListener {
 		int screenWidth = screenSize.width;
 		this.setSize(screenWidth / 2, screenHeight / 2 + screenHeight / 3);
 		Font police = new Font("Tahoma", Font.BOLD, 24);
+		Font policeGauche = new Font("Tahoma", Font.LAYOUT_LEFT_TO_RIGHT, 18);
 
 		// Definis le titre et les parametres de la fenetre
 		this.setTitle("Ricochet-Robots");
@@ -81,19 +82,18 @@ public class Fenetre extends JFrame implements Observateur, MouseListener {
 
 		// Creation des JLabels de gauche
 		JLabel sNbCoups = new JLabel("Coups : 0  ");
-		sNbCoups.setFont(police);
+		sNbCoups.setFont(policeGauche);
 		sNbCoups.setHorizontalAlignment(JLabel.CENTER);
 
-		// JLabel compteurNbCoups = new JLabel ("0");
-		// compteurNbCoups.setFont(police);
-		// compteurNbCoups.setHorizontalAlignment(JLabel.CENTER);
+		JLabel nbVictoire = new JLabel ("Victoires : 0");
+		nbVictoire.setFont(policeGauche);
+		nbVictoire.setHorizontalAlignment(JLabel.CENTER);
 
 		// Creation du menu de gauche (Compose de JLabel des boutons crees precedemment)
 		JPanel menuGauche = new JPanel();
 
 		menuGauche.add(sNbCoups);
-		// menuGauche.add(compteurNbCoups);
-		menuGauche.add(new JPanel());
+		menuGauche.add(nbVictoire);
 		menuGauche.add(new JPanel());
 		menuGauche.add(recommencer);
 		menuGauche.add(solution);
@@ -196,7 +196,12 @@ public class Fenetre extends JFrame implements Observateur, MouseListener {
 	 */
 	public void changerNbCoups(int s) {
 		JLabel l = (JLabel) ((JPanel) getContentPane().getComponents()[1]).getComponent(0);
-			l.setText("Coups : " + s);
+		l.setText("Coups : " + s);
+	}
+	
+	public void changerNbVictoire (int s) {
+		JLabel l = (JLabel) ((JPanel) getContentPane().getComponents()[1]).getComponent(1);
+		l.setText("Victoires : " + s);
 	}
 
 	/**

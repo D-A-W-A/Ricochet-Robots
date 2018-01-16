@@ -247,6 +247,7 @@ public class PartieClassiqueGui extends PartieClassique {
 		g.addObservateur(this);
 		definirNext();
 		lancerFenetre();
+		changerNbVictoire(getNbVictoire());
 		lancerPartie();
 	}
 
