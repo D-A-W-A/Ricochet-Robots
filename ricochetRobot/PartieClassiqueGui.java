@@ -76,6 +76,15 @@ public class PartieClassiqueGui extends PartieClassique implements ActionListene
 			} else {
 				CaseGrille c = this.getGrille().getGrille()[getGrille().getCoordCaseClic()[0]][getGrille()
 						.getCoordCaseClic()[1]];
+				Case c1 = getPlateau().getTabCases()[getGrille().getCoordCaseClic()[0]][getGrille()
+						.getCoordCaseClic()[1]];
+				System.out.println("\nC1 : " + c1.getPosX() + " " + c1.getPosY() + "\nGauche : "
+						+ c1.getCaseNextGauche().getPosX() + " " + c1.getCaseNextGauche().getPosY());
+				System.out.println(
+						"Droite : " + c1.getCaseNextDroite().getPosX() + " " + c1.getCaseNextDroite().getPosY());
+				System.out.println("Bas : " + c1.getCaseNextBas().getPosX() + " " + c1.getCaseNextBas().getPosY());
+				System.out
+						.println("Haut : " + c1.getCaseNextHaut().getPosX() + " " + c1.getCaseNextHaut().getPosY());
 				// On reccupere la case actuelle
 				int[] coordCaseActuelle = {
 						getPlateau().getTabRobots()[getRobotSelectionne()].getCaseActuelle().getPosX(),

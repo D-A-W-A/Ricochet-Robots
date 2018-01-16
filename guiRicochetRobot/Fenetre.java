@@ -1,15 +1,13 @@
 package guiRicochetRobot;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.Arrays;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -223,11 +221,21 @@ public class Fenetre extends JFrame implements Observateur, MouseListener {
 	public void changerChrono (String s) {
 		JLabel l = (JLabel) ((JPanel) getContentPane().getComponents()[1]).getComponent(8);
 		l.setText(s);
+		
 	}
 	
 	public void changerPlay(String s) {
 		JButton b = (JButton)((JPanel) getContentPane().getComponents()[1]).getComponent(7);
 		b.setText(s);
+		if (s.equals ("Pause")) {
+			getContentPane().getComponents()[0].setVisible(true);
+		}
+		else if (s.equals("Play")) {
+			getContentPane().getComponents()[0].setVisible(false);
+		}
+		
+		this.repaint();
+			
 	}
 
 }
