@@ -210,7 +210,7 @@ public class Plateau {
 		supprimerMursRobot(x1, y1);
 		ajouterMursRobot(x2, y2);
 	}
-	
+
 	/**
 	 * Ajoute les murs autours d'un robot
 	 * 
@@ -221,27 +221,42 @@ public class Plateau {
 	 */
 	public void ajouterMursRobot(int x, int y) {
 		int k;
-		
-		for (int j=0; j<taille; j++) {
-			if (y>0 && tabCases[x][j].getCaseNextDroite().equals(tabCases[x][y])) {
-				tabCases[x][j].setCaseNextDroite(tabCases[x][y-1]);
+
+		for (int j = 0; j < taille; j++) {
+			if (j != taille - 1 && j != y && j + 1 == y) {
+				tabCases[x][j].setCaseNextDroite(new Case());
+			} else if (y > 0 && tabCases[x][j].getCaseNextDroite().equals(tabCases[x][y])) {
+				tabCases[x][j].setCaseNextDroite(tabCases[x][y - 1]);
+			} else if (y > 0 && j < y && tabCases[x][j].getCaseNextDroite().getPosY() > y) {
+				tabCases[x][j].setCaseNextDroite(tabCases[x][y - 1]);
 			}
 		}
-		
-		for (int j=taille-1; j>0; j--) {
-			if (y<taille-1 && tabCases[x][j].getCaseNextGauche().equals(tabCases[x][y])) {
-				tabCases[x][j].setCaseNextGauche(tabCases[x][y+1]);
+		for (int j = taille - 1; j > 0; j--) {
+			if (j != 0 && j != y && j - 1 == y) {
+				tabCases[x][j].setCaseNextGauche(new Case());
+			} else if (y < taille - 1 && tabCases[x][j].getCaseNextGauche().equals(tabCases[x][y])) {
+				tabCases[x][j].setCaseNextGauche(tabCases[x][y + 1]);
+			} else if (y < taille - 1 && j >y && tabCases[x][j].getCaseNextGauche().getPosY() < y) {
+				tabCases[x][j].setCaseNextGauche(tabCases[x][y + 1]);
 			}
 		}
-		
+
 		for (int i = 0; i < taille; i++) {
-			if (x>0 && tabCases[i][y].getCaseNextBas().equals(tabCases[x][y])) {
-				tabCases[i][y].setCaseNextBas(tabCases[x-1][y]);
+			if (i != taille - 1 && i != y && i + 1 == y) {
+				tabCases[i][y].setCaseNextBas(new Case());
+			} else if (x > 0 && tabCases[i][y].getCaseNextBas().equals(tabCases[x][y])) {
+				tabCases[i][y].setCaseNextBas(tabCases[x - 1][y]);
+			} else if (x > 0 && x < i && tabCases[i][y].getCaseNextBas().getPosX() > x) {
+				tabCases[i][y].setCaseNextBas(tabCases[x - 1][y]);
 			}
 		}
 		for (int i = taille - 1; i > 0; i--) {
-			if (x<taille-1 && tabCases[i][y].getCaseNextHaut().equals(tabCases[x][y])){
-				tabCases[i][y].setCaseNextHaut(tabCases[x+1][y]);
+			if (i != 0 && i != y && i - 1 == y) {
+				tabCases[i][y].setCaseNextHaut(new Case());
+			} else if (x < taille - 1 && tabCases[i][y].getCaseNextHaut().equals(tabCases[x][y])) {
+				tabCases[i][y].setCaseNextHaut(tabCases[x + 1][y]);
+			} else if (x < taille - 1 && x > i && tabCases[i][y].getCaseNextHaut().getPosX() < x) {
+				tabCases[i][y].setCaseNextHaut(tabCases[x + 1][y]);
 			}
 		}
 	}
@@ -269,6 +284,9 @@ public class Plateau {
 			if (k != j) {
 				tabCases[x][j].setCaseNextDroite(tabCases[x][k]);
 			}
+			else {
+				tabCases[x][j].setCaseNextDroite(new Case());
+			}
 		}
 
 		// Attribution des CaseNextGauche
@@ -281,6 +299,9 @@ public class Plateau {
 			}
 			if (k != j) {
 				tabCases[x][j].setCaseNextGauche(tabCases[x][k]);
+			}
+			else {
+				tabCases[x][j].setCaseNextGauche(new Case());
 			}
 		}
 
@@ -297,6 +318,9 @@ public class Plateau {
 			if (k != i) {
 				tabCases[i][y].setCaseNextBas(tabCases[k][y]);
 			}
+			else {
+				tabCases[i][y].setCaseNextBas(new Case());
+			}
 		}
 
 		// Attribution des CaseNextHaut
@@ -309,6 +333,9 @@ public class Plateau {
 			}
 			if (k != i) {
 				tabCases[i][y].setCaseNextHaut(tabCases[k][y]);
+			}
+			else {
+				tabCases[i][y].setCaseNextHaut(new Case());
 			}
 		}
 
