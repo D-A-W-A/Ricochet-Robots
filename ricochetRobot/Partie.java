@@ -36,7 +36,7 @@ public abstract class Partie extends FlecheClavierListener {
 
 	private int idPartie;
 	private Plateau plateau;
-	private Chrono chrono;
+	private Chrono chrono = new Chrono();
 	private int nbCoups;
 	private static int nbVictoire = 0;
 	private int robotSelectionne = 0;
@@ -104,7 +104,7 @@ public abstract class Partie extends FlecheClavierListener {
 
 	public void setRobotSelectionne(int robotSelectionne) {
 		this.robotSelectionne = robotSelectionne;
-	}
+	}	
 
 	////////// METHODES /////////
 

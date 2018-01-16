@@ -85,9 +85,13 @@ public class Fenetre extends JFrame implements Observateur, MouseListener {
 		sNbCoups.setFont(policeGauche);
 		sNbCoups.setHorizontalAlignment(JLabel.CENTER);
 
-		JLabel nbVictoire = new JLabel ("Victoires : 0");
+		JLabel nbVictoire = new JLabel("Victoires : 0");
 		nbVictoire.setFont(policeGauche);
 		nbVictoire.setHorizontalAlignment(JLabel.CENTER);
+
+		JLabel chrono = new JLabel("00 : 00");
+		chrono.setFont(police);
+		chrono.setHorizontalAlignment(JLabel.CENTER);
 
 		// Creation du menu de gauche (Compose de JLabel des boutons crees precedemment)
 		JPanel menuGauche = new JPanel();
@@ -97,6 +101,11 @@ public class Fenetre extends JFrame implements Observateur, MouseListener {
 		menuGauche.add(new JPanel());
 		menuGauche.add(recommencer);
 		menuGauche.add(solution);
+		for (int i = 5; i < 8; i++) {
+			menuGauche.add(new JPanel());
+		}
+		menuGauche.add(chrono);
+
 		GridLayout menulayout = new GridLayout(9, 1);
 		menuGauche.setLayout(menulayout);
 
@@ -198,17 +207,15 @@ public class Fenetre extends JFrame implements Observateur, MouseListener {
 		JLabel l = (JLabel) ((JPanel) getContentPane().getComponents()[1]).getComponent(0);
 		l.setText("Coups : " + s);
 	}
-	
-	public void changerNbVictoire (int s) {
+
+	public void changerNbVictoire(int s) {
 		JLabel l = (JLabel) ((JPanel) getContentPane().getComponents()[1]).getComponent(1);
 		l.setText("Victoires : " + s);
 	}
-
-	/**
-	 * Action effectuee lorsque le bouton recommencer est clique
-	 */
-	public void actionRecommencer() {
-
+	
+	public void changerChrono (String s) {
+		JLabel l = (JLabel) ((JPanel) getContentPane().getComponents()[1]).getComponent(8);
+		l.setText(s);
 	}
 
 }

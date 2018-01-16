@@ -1,6 +1,10 @@
 package ricochetRobot;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+
+import javax.swing.Timer;
 
 import javax.swing.JButton;
 
@@ -24,7 +28,7 @@ import guiRicochetRobot.Grille;
  * @author Dorian
  *
  */
-public class PartieClassiqueGui extends PartieClassique {
+public class PartieClassiqueGui extends PartieClassique implements ActionListener {
 
 	public PartieClassiqueGui() {
 		super();
@@ -55,9 +59,13 @@ public class PartieClassiqueGui extends PartieClassique {
 	/**
 	 * Cette fonction est appelee lorsque l'utilisateur clique sur n'importe quelle
 	 * case <br>
-	 * <br> Si le joueur clique sur un case comprenant un robot, alors cette case est selectionnee, ce qui signifie qu'il devra deplacer ce robot-la<br><br>
+	 * <br>
+	 * Si le joueur clique sur un case comprenant un robot, alors cette case est
+	 * selectionnee, ce qui signifie qu'il devra deplacer ce robot-la<br>
+	 * <br>
 	 * Si il a clique sur une CaseNext, alors le robot se deplace, sinon, il ne se
-	 * passe rien. <br><br>
+	 * passe rien. <br>
+	 * <br>
 	 * Lorsque le robot atteint la case objectif, alors c'est la victoire.
 	 */
 	public void update(String ob) {
@@ -68,7 +76,7 @@ public class PartieClassiqueGui extends PartieClassique {
 			// On reccupere la case actuelle
 			int[] coordCaseActuelle = { getPlateau().getTabRobots()[getRobotSelectionne()].getCaseActuelle().getPosX(),
 					getPlateau().getTabRobots()[getRobotSelectionne()].getCaseActuelle().getPosY() };
-			
+
 			int hasRobot = c.getHasRobot();
 			int next = c.isNext();
 
@@ -76,18 +84,19 @@ public class PartieClassiqueGui extends PartieClassique {
 			if (hasRobot != 0) {
 				// On reset cette case
 				supprimerNext();
-				getGrille().getGrille()[coordCaseActuelle[0]][coordCaseActuelle[1]].setSelected(false);;
-				
+				getGrille().getGrille()[coordCaseActuelle[0]][coordCaseActuelle[1]].setSelected(false);
+				;
+
 				// On init la nouvelle case
 				c.setSelected(true);
-				setRobotSelectionne(hasRobot-1);
+				setRobotSelectionne(hasRobot - 1);
 
 				definirNext();
 
 			}
 			// On deplace le robot s'il s'agit d'une caseNext
 			if (next != 0) {
-				
+
 				supprimerNext();
 				supprimerRobot(this.getRobotSelectionne());
 				int deplacement = 0;
@@ -104,9 +113,9 @@ public class PartieClassiqueGui extends PartieClassique {
 				getPlateau().ajouterMursRobot(getGrille().getCoordCaseClic()[0], getGrille().getCoordCaseClic()[1]);
 				definirNext();
 				placerRobot(this.getRobotSelectionne());
-				
+
 				if (deplacement == 1) {
-					setNbCoups(getNbCoups()+1);
+					setNbCoups(getNbCoups() + 1);
 					changerNbCoups(getNbCoups());
 				}
 			}
@@ -118,6 +127,10 @@ public class PartieClassiqueGui extends PartieClassique {
 		}
 
 		// On redessine tout pour eviter les bugs visuels
+		
+		if (ob.equals("Chrono")){
+			changerChrono(getChrono().getDureeTxt());
+		}
 		getGrille().repaint();
 		this.repaint();
 	}
@@ -232,11 +245,17 @@ public class PartieClassiqueGui extends PartieClassique {
 				p.supprimerRobot(i);
 				posRobot = p.placerRobotRandom(i);
 			}
-			p.supprimerMursRobot (posRobot[0], posRobot[1]);
-			p.ajouterMursRobot (posRobot[0], posRobot[1]);
+			p.supprimerMursRobot(posRobot[0], posRobot[1]);
+			p.ajouterMursRobot(posRobot[0], posRobot[1]);
 		}
 	}
 	
+	public void lancerMajChrono() {
+		Timer t = new Timer(1000, this);
+		t.start();
+		getChrono().start();
+	}
+
 	@Override
 	protected void mainPartieAux() {
 		creerPartie();
@@ -248,6 +267,7 @@ public class PartieClassiqueGui extends PartieClassique {
 		definirNext();
 		lancerFenetre();
 		changerNbVictoire(getNbVictoire());
+		lancerMajChrono();
 		lancerPartie();
 	}
 
@@ -258,5 +278,11 @@ public class PartieClassiqueGui extends PartieClassique {
 
 	public static void main(String[] args) {
 		PartieClassiqueGui.mainPartie();
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		this.update("Chrono");
+		
 	}
 }
