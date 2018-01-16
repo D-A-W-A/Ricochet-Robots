@@ -18,33 +18,34 @@ import javax.swing.JPanel;
 
 import observer.Observateur;
 
-
 /**
  * 
  * La fenetre du jeu <br>
- *Elle contient tous les autres elements de l'interface graphique : <br>
- *<ul><li>Une Grille</li>
- *<li>Des Boutons</li>
- *<li>Un titre et nombre de coups (Plus tard)</li>
- *<li>Le chrono plus tard</li></ul><br>
- *La classe partie heritera de cette classe
+ * Elle contient tous les autres elements de l'interface graphique : <br>
+ * <ul>
+ * <li>Une Grille</li>
+ * <li>Des Boutons</li>
+ * <li>Un titre et nombre de coups (Plus tard)</li>
+ * <li>Le chrono plus tard</li>
+ * </ul>
+ * <br>
+ * La classe partie heritera de cette classe
  *
  * @author Dorian
  *
- *	
+ * 
  */
-public class Fenetre extends JFrame implements Observateur, MouseListener{	
+public class Fenetre extends JFrame implements Observateur, MouseListener {
 
 	Grille grille;
 	int tailleGrille = 10;
-	
 
 	public Fenetre() {
 		grille = new Grille(tailleGrille);
 		grille.addObservateur(this);
 	}
-	
-	public Fenetre(int taille, int [][] murs, int [] posRobot, int [] posObjectif) {
+
+	public Fenetre(int taille, int[][] murs, int[] posRobot, int[] posObjectif) {
 		tailleGrille = taille;
 		grille = new Grille(taille);
 		grille.addObservateur(this);
@@ -60,6 +61,7 @@ public class Fenetre extends JFrame implements Observateur, MouseListener{
 		int screenHeight = screenSize.height;
 		int screenWidth = screenSize.width;
 		this.setSize(screenWidth / 2, screenHeight / 2 + screenHeight / 3);
+		Font police = new Font("Tahoma", Font.BOLD, 24);
 
 		// Definis le titre et les parametres de la fenetre
 		this.setTitle("Ricochet-Robots");
@@ -70,17 +72,29 @@ public class Fenetre extends JFrame implements Observateur, MouseListener{
 		this.getContentPane().add(grille, BorderLayout.CENTER);
 
 		// Creation des boutons
-		
+
 		JButton recommencer = new JButton("Recommencer");
 		recommencer.addMouseListener(this);
-		
-		JButton solution = new JButton ("Solution");
+
+		JButton solution = new JButton("Solution");
 		solution.addMouseListener(this);
 
-		// Creation du menu de gauche (Compose des boutons crees precedemment)
+		// Creation des JLabels de gauche
+		JLabel sNbCoups = new JLabel("Coups : 0  ");
+		sNbCoups.setFont(police);
+		sNbCoups.setHorizontalAlignment(JLabel.CENTER);
+
+		// JLabel compteurNbCoups = new JLabel ("0");
+		// compteurNbCoups.setFont(police);
+		// compteurNbCoups.setHorizontalAlignment(JLabel.CENTER);
+
+		// Creation du menu de gauche (Compose de JLabel des boutons crees precedemment)
 		JPanel menuGauche = new JPanel();
-		for (int i = 0; i < 3; i++)
-			menuGauche.add(new JPanel());
+
+		menuGauche.add(sNbCoups);
+		// menuGauche.add(compteurNbCoups);
+		menuGauche.add(new JPanel());
+		menuGauche.add(new JPanel());
 		menuGauche.add(recommencer);
 		menuGauche.add(solution);
 		GridLayout menulayout = new GridLayout(9, 1);
@@ -90,11 +104,9 @@ public class Fenetre extends JFrame implements Observateur, MouseListener{
 		this.getContentPane().add(menuGauche, BorderLayout.WEST);
 
 		// Creation du Titre
-		JLabel titreLabel = new JLabel ("Ricochet-Robot");
-		Font police = new Font("Tahoma", Font.BOLD, 24);
+		JLabel titreLabel = new JLabel("Ricochet-Robot");
 		titreLabel.setFont(police);
 		titreLabel.setHorizontalAlignment(JLabel.CENTER);
-
 
 		this.getContentPane().add(titreLabel, BorderLayout.NORTH);
 
@@ -109,7 +121,6 @@ public class Fenetre extends JFrame implements Observateur, MouseListener{
 	public void setGrille(Grille grille) {
 		this.grille = grille;
 	}
-
 
 	public int getTailleGrille() {
 		return tailleGrille;
@@ -129,58 +140,70 @@ public class Fenetre extends JFrame implements Observateur, MouseListener{
 	 */
 	@Override
 	public void update(String ob) {
-		System.out.println("Clic de la souris aux coordonnées : " + grille.getCoordCaseClic()[0] + " " + grille.getCoordCaseClic()[1]);
-	
-		
+		System.out.println("Clic de la souris aux coordonnées : " + grille.getCoordCaseClic()[0] + " "
+				+ grille.getCoordCaseClic()[1]);
+
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		JButton b = (JButton) (e.getSource());
-		System.out.println("Clic de : " + b.getText());		
+		System.out.println("Clic de : " + b.getText());
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	// ------- Changement des elements graphiques ------
-	
+
 	/**
 	 * Change le texte en haut de la fenetre
-	 * @param s la chaine de caractere qui remplacera
+	 * 
+	 * @param s
+	 *            la chaine de caractere qui remplacera
 	 */
-	public void changerTexte (String s) {
+	public void changerTexte(String s) {
 		JLabel l = (JLabel) this.getContentPane().getComponents()[2];
 		l.setText(s);
 	}
-	
+
+	/**
+	 * Change le texte du nombre de coups
+	 * 
+	 * @param s
+	 *            l'entier qui remplacera l'ancienne valeur
+	 */
+	public void changerNbCoups(int s) {
+		JLabel l = (JLabel) ((JPanel) getContentPane().getComponents()[1]).getComponent(0);
+			l.setText("Coups : " + s);
+	}
+
 	/**
 	 * Action effectuee lorsque le bouton recommencer est clique
 	 */
 	public void actionRecommencer() {
-		
-	}
 
+	}
 
 }

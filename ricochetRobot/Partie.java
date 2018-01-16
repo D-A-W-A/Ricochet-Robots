@@ -38,7 +38,7 @@ public abstract class Partie extends FlecheClavierListener {
 	private Plateau plateau;
 	private Chrono chrono;
 	private int nbCoups;
-	private int nbVictoire = 0;
+	private static int nbVictoire = 0;
 	private int robotSelectionne = 0;
 
 	/**

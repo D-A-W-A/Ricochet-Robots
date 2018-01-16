@@ -90,7 +90,7 @@ public class PartieClassiqueGui extends PartieClassique {
 				
 				supprimerNext();
 				supprimerRobot(this.getRobotSelectionne());
-				int deplacement;
+				int deplacement = 0;
 				if (next == 1) {
 					deplacement = getPlateau().getTabRobots()[getRobotSelectionne()].deplacerRobotGauche();
 				} else if (next == 2) {
@@ -104,6 +104,11 @@ public class PartieClassiqueGui extends PartieClassique {
 				getPlateau().ajouterMursRobot(getGrille().getCoordCaseClic()[0], getGrille().getCoordCaseClic()[1]);
 				definirNext();
 				placerRobot(this.getRobotSelectionne());
+				
+				if (deplacement == 1) {
+					setNbCoups(getNbCoups()+1);
+					changerNbCoups(getNbCoups());
+				}
 			}
 
 			// En cas de victoire
