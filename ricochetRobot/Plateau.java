@@ -152,7 +152,7 @@ public class Plateau {
 				 .setCaseActuelle(this.tabCases[p.tabRobots[i].getCaseActuelle().getPosX()][p.tabRobots[i]
 				 .getCaseActuelle().getPosY()]);
 				this.tabCases[p.tabRobots[i].getCaseActuelle().getPosX()][p.tabRobots[i].getCaseActuelle().getPosY()]
-						.setRobot(this.tabRobots[i]);
+						.affecterRobot(this.tabRobots[i]);
 			}
 		}
 
