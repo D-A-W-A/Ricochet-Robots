@@ -222,7 +222,7 @@ public class Plateau {
 	public void ajouterMursRobot(int x, int y) {
 		int k;
 		for (int j = 0; j < taille; j++) {
-			if (j != 0 && j != y && j + 1 == y) {
+			if (j != y && j + 1 == y) {
 				tabCases[x][j].setCaseNextDroite(new Case());
 			}
 			if (y > 0 && tabCases[x][j].getCaseNextDroite().equals(tabCases[x][y])) {
@@ -236,7 +236,7 @@ public class Plateau {
 		}
 
 		for (int j = taille - 1; j > 0; j--) {
-			if (j != taille-1 && j != y && j - 1 == y) {
+			if (j != y && j - 1 == y) {
 				tabCases[x][j].setCaseNextGauche(new Case());
 			}
 			if (y < taille - 1 && tabCases[x][j].getCaseNextGauche().equals(tabCases[x][y])) {
@@ -250,7 +250,7 @@ public class Plateau {
 		}
 
 		for (int i = 0; i < taille; i++) {
-			if (i != taille-1 && i != x && i - 1 == x) {
+			if (i != x && i - 1 == x) {
 				tabCases[i][y].setCaseNextHaut(new Case());
 			}
 			if (x <taille-1 && tabCases[i][y].getCaseNextHaut().equals(tabCases[x][y])) {
