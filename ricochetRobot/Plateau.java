@@ -158,6 +158,7 @@ public class Plateau {
 
 		this.objectifPos[0] = p.getObjectifPos()[0];
 		this.objectifPos[1] = p.getObjectifPos()[1];
+		ajouterObjectif(this.objectifPos[0], this.objectifPos[1]);
 
 	}
 

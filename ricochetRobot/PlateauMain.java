@@ -65,6 +65,7 @@ public class PlateauMain {
 					t[i][j] = 4;
 			}
 		}
+		t[12][12] = 4;
 		p.genererPlateau(t, 12, 12);
 		Robot[] tr = new Robot[1];
 		tr[0] = new Robot();
@@ -83,6 +84,10 @@ public class PlateauMain {
 		System.out.println(p2.getTabCases()[0][0].getCaseNextDroite().hashCode() + "   "
 				+ p2.getTabCases()[1][2].getCaseNextDroite().getPosX() + "   "
 				+ p2.getTabCases()[1][2].getCaseNextDroite().getPosY());
+		
+		System.out.println(p2.getTabCases()[0][0].getCaseNextHaut().estVide());
+		System.out.println(p2.getTabCases()[12][12].getCaseNextBas().estVide());
+		System.out.println(p2.getTabCases()[12][12].getCaseNextHaut().estVide());
 
 	}
 }
