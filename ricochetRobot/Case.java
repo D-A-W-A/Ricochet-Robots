@@ -45,6 +45,9 @@ public class Case {
 			for (int i = 0; i < 4; i++)
 				this.caseNext[i] = null;
 		} else {
+			posX = c.posX;
+			posY = c.posY;
+			dispoMurs = c.dispoMurs;
 			caseNext[0] = new Case(c.getCaseNextGauche());
 			caseNext[1] = new Case(c.getCaseNextHaut());
 			caseNext[2] = new Case(c.getCaseNextDroite());
@@ -141,6 +144,7 @@ public class Case {
 			this.caseNext[i] = caseNext[i];
 		}
 	}
+	
 
 	/**
 	 * Setter de toutes les caseNext
@@ -214,6 +218,7 @@ public class Case {
 	public void setRobot(Robot robot) {
 		this.robot = robot;
 	}
+	
 
 
 	public int getPosX() {

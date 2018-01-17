@@ -22,7 +22,7 @@ public class Robot {
 	/////////// ATTRIBUTS ///////////
 	private char couleur = 'B';
 
-	private boolean selectione;
+	private boolean selectione = false;
 	private Case caseActuelle;
 
 	/////////// CONSTRUCTEURS /////////////
@@ -54,6 +54,7 @@ public class Robot {
 		selectione = false;
 
 	}
+	
 
 	////////// GETTERS AND SETTERS ////////
 	public boolean isSelectione() {

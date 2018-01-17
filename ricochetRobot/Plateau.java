@@ -38,11 +38,17 @@ public class Plateau {
 	public Plateau() {
 		taille = 16;
 		tabCases = new Case[16][16];
+		for (int i = 0; i < this.taille; i++) {
+			for (int j = 0; j < this.taille; j++) {
+				tabCases[i][j] = new Case();
+			}
+		}
 		tabRobots = new Robot[4];
 		for (int i = 0; i < 4; i++) {
 			tabRobots[i] = new Robot();
 		}
 		tabRobots[0].setCouleur('B');
+		insererCoordonees();
 	}
 
 	/**
@@ -54,32 +60,105 @@ public class Plateau {
 		taille = n;
 		tabCases = new Case[n][n];
 		tabRobots = new Robot[4];
+		for (int i = 0; i < this.taille; i++) {
+			for (int j = 0; j < this.taille; j++) {
+				tabCases[i][j] = new Case();
+			}
+		}
 		for (int i = 0; i < 4; i++) {
 			tabRobots[i] = new Robot();
 		}
 		tabRobots[0].setCouleur('B');
+		insererCoordonees();
 	}
-	
-	/**
-	 * Cree un plateau par copie d'un autre tableau
-	 * 
-	 * @param Plateau p
-	 */
+
+	// /**
+	// * Cree un plateau par copie d'un autre tableau
+	// *
+	// * @param Plateau p
+	// */
+	// public Plateau(Plateau p) {
+	// this.taille = p.taille;
+	// this.tabCases = new Case[this.taille][this.taille];
+	// this.tabRobots = new Robot[p.tabRobots.length];
+	// for (int i=0; i<this.taille; i++) {
+	// for (int j=0; j<this.taille; j++) {
+	// this.tabCases[i][j].getCas;
+	// }
+	// }
+	// for (int i=0; i<p.tabRobots.length; i++) {
+	// this.tabRobots[i] = p.tabRobots[i];
+	// }
+	// this.tabRobots[0].setCouleur('B');
+	// this.objectifPos[0] = p.getObjectif().getPosX();
+	// this.objectifPos[1] = p.getObjectif().getPosY();
+	// }
+
 	public Plateau(Plateau p) {
-		this.taille = p.taille;
+		// Recopie de la taille
+		taille = p.taille;
 		this.tabCases = new Case[this.taille][this.taille];
 		this.tabRobots = new Robot[p.tabRobots.length];
-		for (int i=0; i<this.taille; i++) {
-			for (int j=0; j<this.taille; j++) {
-				this.tabCases[i][j] = p.tabCases[i][j];
+
+		// Creation de chaque cases
+		for (int i = 0; i < this.taille; i++) {
+			for (int j = 0; j < this.taille; j++) {
+				this.tabCases[i][j] = new Case();
 			}
 		}
-		for (int i=0; i<p.tabRobots.length; i++) {
-			this.tabRobots[i] = p.tabRobots[i]; 
+
+		// Remplissage des Cases
+		for (int i = 0; i < this.taille; i++) {
+			for (int j = 0; j < this.taille; j++) {
+				this.tabCases[i][j].setPos(i, j);
+				this.tabCases[i][j].setDispoMurs(p.tabCases[i][j].getDispoMurs());
+
+				if (p.tabCases[i][j].getCaseNextGauche().estVide())
+					this.tabCases[i][j].setCaseNextGauche(new Case());
+				else
+					this.tabCases[i][j]
+							.setCaseNextGauche(tabCases[p.tabCases[i][j].getCaseNextGauche().getPosX()][p.tabCases[i][j]
+									.getCaseNextGauche().getPosY()]);
+
+				if (p.tabCases[i][j].getCaseNextDroite().estVide())
+					this.tabCases[i][j].setCaseNextDroite(new Case());
+				else
+					this.tabCases[i][j]
+							.setCaseNextDroite(tabCases[p.tabCases[i][j].getCaseNextDroite().getPosX()][p.tabCases[i][j]
+									.getCaseNextDroite().getPosY()]);
+
+				if (p.tabCases[i][j].getCaseNextBas().estVide())
+					this.tabCases[i][j].setCaseNextBas(new Case());
+				else
+					this.tabCases[i][j]
+							.setCaseNextBas(tabCases[p.tabCases[i][j].getCaseNextBas().getPosX()][p.tabCases[i][j]
+									.getCaseNextBas().getPosY()]);
+
+				if (p.tabCases[i][j].getCaseNextHaut().estVide())
+					this.tabCases[i][j].setCaseNextHaut(new Case());
+				else
+					this.tabCases[i][j]
+							.setCaseNextHaut(tabCases[p.tabCases[i][j].getCaseNextHaut().getPosX()][p.tabCases[i][j]
+									.getCaseNextHaut().getPosY()]);
+			}
 		}
-		this.tabRobots[0].setCouleur('B');
-		this.objectifPos[0] = p.getObjectif().getPosX();
-		this.objectifPos[1] = p.getObjectif().getPosY();
+
+		// Creation et attribution des robots
+		for (int i = 0; i < p.tabRobots.length; i++) {
+			this.tabRobots[i] = new Robot();
+			this.tabRobots[i].setCouleur(p.tabRobots[i].getCouleur());
+			if (p.tabRobots[i] != null) {
+				 this.tabRobots[i]
+				 .setCaseActuelle(this.tabCases[p.tabRobots[i].getCaseActuelle().getPosX()][p.tabRobots[i]
+				 .getCaseActuelle().getPosY()]);
+				this.tabCases[p.tabRobots[i].getCaseActuelle().getPosX()][p.tabRobots[i].getCaseActuelle().getPosY()]
+						.setRobot(this.tabRobots[i]);
+			}
+		}
+
+		this.objectifPos[0] = p.getObjectifPos()[0];
+		this.objectifPos[1] = p.getObjectifPos()[1];
+
 	}
 
 	// ///// GETTERS AND SETTERS ////////
@@ -249,7 +328,8 @@ public class Plateau {
 			}
 			if (y > 0 && tabCases[x][j].getCaseNextDroite().equals(tabCases[x][y])) {
 				tabCases[x][j].setCaseNextDroite(tabCases[x][y - 1]);
-			} else if (y > 0 && j < y && !tabCases[x][j].getCaseNextDroite().estVide() && tabCases[x][j].getCaseNextDroite().getPosY() > y) {
+			} else if (y > 0 && j < y && !tabCases[x][j].getCaseNextDroite().estVide()
+					&& tabCases[x][j].getCaseNextDroite().getPosY() > y) {
 				tabCases[x][j].setCaseNextDroite(tabCases[x][y - 1]);
 			}
 			if (tabCases[x][j].getCaseNextDroite().equals(tabCases[x][j])) {
@@ -263,7 +343,8 @@ public class Plateau {
 			}
 			if (y < taille - 1 && tabCases[x][j].getCaseNextGauche().equals(tabCases[x][y])) {
 				tabCases[x][j].setCaseNextGauche(tabCases[x][y + 1]);
-			} else if (y < taille - 1 && j > y && !tabCases[x][j].getCaseNextGauche().estVide() &&  tabCases[x][j].getCaseNextGauche().getPosY() < y) {
+			} else if (y < taille - 1 && j > y && !tabCases[x][j].getCaseNextGauche().estVide()
+					&& tabCases[x][j].getCaseNextGauche().getPosY() < y) {
 				tabCases[x][j].setCaseNextGauche(tabCases[x][y + 1]);
 			}
 			if (tabCases[x][j].getCaseNextGauche().equals(tabCases[x][j])) {
@@ -277,7 +358,8 @@ public class Plateau {
 			}
 			if (x > 0 && tabCases[i][y].getCaseNextHaut().equals(tabCases[x][y])) {
 				tabCases[i][y].setCaseNextHaut(tabCases[x - 1][y]);
-			} else if (x > 0 && x < i && !tabCases[i][y].getCaseNextHaut().estVide() && tabCases[i][y].getCaseNextHaut().getPosX() > x) {
+			} else if (x > 0 && x < i && !tabCases[i][y].getCaseNextHaut().estVide()
+					&& tabCases[i][y].getCaseNextHaut().getPosX() > x) {
 				tabCases[i][y].setCaseNextHaut(tabCases[x - 1][y]);
 			}
 			if (tabCases[i][y].getCaseNextHaut().equals(tabCases[i][y])) {
@@ -292,7 +374,8 @@ public class Plateau {
 			}
 			if (x < taille - 1 && tabCases[i][y].getCaseNextBas().equals(tabCases[x][y])) {
 				tabCases[i][y].setCaseNextBas(tabCases[x + 1][y]);
-			} else if (x < taille - 1 && x > i && !tabCases[i][y].getCaseNextBas().estVide() && tabCases[i][y].getCaseNextBas().getPosX() < x) {
+			} else if (x < taille - 1 && x > i && !tabCases[i][y].getCaseNextBas().estVide()
+					&& tabCases[i][y].getCaseNextBas().getPosX() < x) {
 				tabCases[i][y].setCaseNextBas(tabCases[x + 1][y]);
 			}
 			if (tabCases[i][y].getCaseNextBas().equals(tabCases[i][y])) {
@@ -1141,6 +1224,7 @@ public class Plateau {
 					ajouterCoinBG(i, j);
 			}
 		}
+		insererCoordonees();
 	}
 
 	/**
