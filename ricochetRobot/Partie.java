@@ -449,6 +449,10 @@ public abstract class Partie extends FlecheClavierListener {
 	}
 
 	protected void deplacements(LinkedList<Integer> liste, Robot robot1, Robot robot2) {
+		/**
+		 * NOTES DE DODO :
+		 * Je sais pas comment marche cette fonction, mais ça doit être la que ca fait tout bugger
+		 */
 		while (!liste.isEmpty()) {
 			if(liste.getFirst()<4) {
 				robot1.deplacerRobot(liste.removeFirst());
@@ -463,6 +467,7 @@ public abstract class Partie extends FlecheClavierListener {
 		Plateau sauvegarde = this.sauvCases(); // C'est la sauvegarde des cases avant de commencer Ã  utiliser
 												// l'algorithme.
 		Robot robot1 = this.plateau.getTabRobots()[0];
+		
 		Robot robot2 = this.plateau.getTabRobots()[1];
 		Case objectif = plateau.getObjectif();
 

@@ -89,5 +89,6 @@ public class PlateauMain {
 		System.out.println(p2.getTabCases()[12][12].getCaseNextBas().estVide());
 		System.out.println(p2.getTabCases()[12][12].getCaseNextHaut().estVide());
 
+		System.out.println(p.getTabRobots()[0].getCaseActuelle());
 	}
 }
