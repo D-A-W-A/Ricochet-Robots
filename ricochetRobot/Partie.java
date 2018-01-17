@@ -125,6 +125,11 @@ public abstract class Partie extends FlecheClavierListener {
 	 */
 	public void restaureCases(Plateau p) {
 		this.plateau.setTabCases(p.getTabCases());
+		this.plateau.setObjectifPos(p.getObjectifPos());
+		this.plateau.setTabRobots(p.getTabRobots());
+//		for(int i=0; i<4; i++) {
+//			this.plateau.getTabRobots()[i]
+//		}
 	}
 
 	/**
@@ -475,12 +480,14 @@ public abstract class Partie extends FlecheClavierListener {
 
 		while (!found && !marked.isEmpty()) {
 			this.restaureCases(sauvegarde);
-			this.deplacements(path.getFirst(), robot1, robot2);
-			Case[] current = { robot1.getCaseActuelle(), robot2.getCaseActuelle() };
+			//Case[] current = { robot1.getCaseActuelle(), robot2.getCaseActuelle() };
+			Case[] current = marked.getFirst();
 			if (current[0].equals(objectif)) {
 				found = true;
 				finalPath.addAll(path.peek());
 			} else {
+				LinkedList<Integer> copy = new LinkedList<Integer>(path.getFirst());
+				this.deplacements(copy, robot1, robot2);
 				for (int i = 0; i < 8; i++) {
 					Case nextI;
 					Case[] nextCoupleCases = new Case[2];
