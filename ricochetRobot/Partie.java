@@ -451,7 +451,8 @@ public abstract class Partie extends FlecheClavierListener {
 	protected void deplacements(LinkedList<Integer> liste, Robot robot1, Robot robot2) {
 		/**
 		 * NOTES DE DODO :
-		 * Je sais pas comment marche cette fonction, mais ça doit être la que ca fait tout bugger
+		 * Je sais pas comment marche cette fonction, mais ca doit etre la que ca fait tout bugger
+		 * Elle s'execute plusieurs fois avant de faire planter le programme
 		 */
 		while (!liste.isEmpty()) {
 			if(liste.getFirst()<4) {
